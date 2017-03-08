@@ -70,4 +70,5 @@ The GPL license of Exopite Multifilter grants you the right to use, study, share
 DISCLAMER
 ---------
 
-NO WARRANTY OF ANY KIND! USE THIS SOFTWARES AND INFORMATIONS AT YOUR OWN RISK! READ DISCLAMER, License: GNU General Public License v2
+NO WARRANTY OF ANY KIND! USE THIS SOFTWARES AND INFORMATIONS AT YOUR OWN RISK! READ DISCLAMER.TXT!
+License: GNU General Public License v3
