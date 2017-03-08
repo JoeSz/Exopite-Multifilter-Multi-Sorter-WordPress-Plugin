@@ -1,11 +1,25 @@
 # EXOPITE-MULTIFILTER WORDPRESS PLUGIN
-Sort/filter any post types by multiple taxonomies and/or terms (like post by categories and/or tags).
 
 DESCRIPTION
 -----------
 
 Sort/filter any post types by multiple taxonomies and/or terms (like post by categories and/or tags).
 Plugin working with a basic Bootstrap 4 Flex grid. Only enqueued if 'bootstrap' or 'bootstrap-4' style not already enqueued.
+
+* Working with any Themes and any post types
+* Single or multiple filter based on taxonomies and terms
+* Search in pre-selected taxonomies and terms
+* Wordking via shortcode, can be used multiple times on a post or page
+* AJAX pagination
+* AJAX infinite loading
+* AJAX read more loading
+* Update browser URL with infintie or read more loading based on page and scroll position
+* Store session (page number, selected filters and search) Useful if visitor is hit back or click on back button (if any) on the sinlge page/post.
+* Bootstrap 4 Flex grid
+* Multiple hover effects
+https://tympanus.net/Development/HoverEffectIdeas/index.html
+https://tympanus.net/Development/HoverEffectIdeas/index2.html
+
 
 USAGE
 -----
@@ -36,7 +50,7 @@ Available options
 https://tympanus.net/Development/HoverEffectIdeas/index.html
 https://tympanus.net/Development/HoverEffectIdeas/index2.html
 * 'search'                    => ['search'] if set, filter will be disabled
-* 'store_session'             => ['true' or 'false'] Store current session (page, filters and search). Useful if visitor is hit back or click on back button.
+* 'store_session'             => ['true' or 'false'] Store current session (page number, selected filters and search). Useful if visitor is hit back or click on back button.
 
 INSTALLATION
 ------------
