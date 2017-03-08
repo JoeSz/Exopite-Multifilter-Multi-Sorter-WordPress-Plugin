@@ -122,8 +122,8 @@ class Exopite_Multifilter {
         /**
          * widget class
          */
-        require_once plugin_dir_path( dirname( __FILE__ ) ) . 'widgets/class-exopite-multifilter-widget.php';
-        require_once plugin_dir_path( dirname( __FILE__ ) ) . 'widgets/widget.class.php';
+        // require_once plugin_dir_path( dirname( __FILE__ ) ) . 'widgets/class-exopite-multifilter-widget.php';
+        // require_once plugin_dir_path( dirname( __FILE__ ) ) . 'widgets/widget.class.php';
 
 		$this->loader = new Exopite_Multifilter_Loader();
 
@@ -157,7 +157,7 @@ class Exopite_Multifilter {
 
 		$plugin_admin = new Exopite_Multifilter_Admin( $this->get_plugin_name(), $this->get_version() );
 
-        $this->loader->add_action( 'widgets_init', $plugin_admin, 'register_widgets' );
+        //$this->loader->add_action( 'widgets_init', $plugin_admin, 'register_widgets' );
 
 	}
 
