@@ -7,7 +7,7 @@ Sort/filter any post types by multiple taxonomies and/or terms (like post by cat
 Plugin working with a basic Bootstrap 4 Flex grid. Only enqueued if 'bootstrap' or 'bootstrap-4' style not already enqueued.
 
 * Working with any Themes and any post types
-* Single or multiple filter based on taxonomies and terms
+* Single or multiple filter based on taxonomies and terms. Multi selectable.
 * Search in pre-selected taxonomies and terms
 * Wordking via shortcode, can be used multiple times on a post or page
 * AJAX pagination
