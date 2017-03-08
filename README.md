@@ -49,6 +49,16 @@ OR
 2. Activate the plugin through the 'Plugins' menu in WordPress
 3. Place [exopite-multifilter] shortcode to your content
 
+PLANNED
+-------
+
+* On mobile 6 page number is too much -> how should be displayed?
+* Add widget (normal + VC)
+* Display post meta
+* Working with comments too
+* AJAX nounce
+* Random posts
+
 CHANGELOG
 ---------
 
