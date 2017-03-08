@@ -16,6 +16,8 @@ Plugin working with a basic Bootstrap 4 Flex grid. Only enqueued if 'bootstrap' 
 * Update browser URL with infintie or read more loading based on page and scroll position
 * Store session (page number, selected filters and search) Useful if visitor is hit back or click on back button (if any) on the sinlge page/post.
 * Bootstrap 4 Flex grid
+* JavaScript Hooks
+https://github.com/carldanley/WP-JS-Hooks
 * Multiple hover effects
 https://tympanus.net/Development/HoverEffectIdeas/index.html
 https://tympanus.net/Development/HoverEffectIdeas/index2.html
