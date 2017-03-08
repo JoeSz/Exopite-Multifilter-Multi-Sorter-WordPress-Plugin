@@ -1,9 +1,14 @@
 # exopite-multifilter
 Sort/filter any post types by multiple taxonomies and/or terms (like post by categories and/or tags).
 
-== Description ==
+DESCRIPTION
+-----------
 
 Sort/filter any post types by multiple taxonomies and/or terms (like post by categories and/or tags).
+
+USAGE
+-----
+
 The plugin working via shortcodes, do not display any admin options.
 You can use multiple shortcodes on the same page/post.
 
@@ -32,7 +37,8 @@ https://tympanus.net/Development/HoverEffectIdeas/index2.html
 * 'search'                    => ['search'] if set, filter will be disabled
 * 'store_session'             => ['true' or 'false'] Store current session (page, filters and search). Useful if visitor is hit back or click on back button.
 
-== Installation ==
+INSTALLATION
+------------
 
 1. Upload `exopite-multifilter.php` to the `/wp-content/plugins/` directory
 
@@ -42,3 +48,21 @@ OR
 
 2. Activate the plugin through the 'Plugins' menu in WordPress
 3. Place [exopite-multifilter] shortcode to your content
+
+CHANGELOG
+---------
+
+= 1.0.2 - 2017-03-05 =
+* Improvement: Automatic script and style versioning for local css and js files based on file time.
+https://www.doitwithwp.com/enqueue-scripts-styles-automatic-versioning/
+
+= 1.0.1 - 2017-03-04 =
+* Add: restore previous session (localstorage)
+* Add: more filters
+
+= 1.0 =
+* Initial release.
+
+LICENSE DETAILS
+---------------
+The GPL license of Sticky anything without cloning it grants you the right to use, study, share (copy), modify and (re)distribute the software, as long as these license terms are retained.
