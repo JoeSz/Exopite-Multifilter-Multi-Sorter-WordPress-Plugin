@@ -5,12 +5,13 @@ DESCRIPTION
 -----------
 
 Sort/filter any post types by multiple taxonomies and/or terms (like post by categories and/or tags).
+Plugin working with a basic Bootstrap 4 Flex grid. Only enqueued if 'bootstrap' or 'bootstrap-4' style not already enqueued.
 
 USAGE
 -----
 
-The plugin working via shortcodes, do not display any admin options.
-You can use multiple shortcodes on the same page/post.
+The plugin working via shortcodes, does not display any admin options.
+You can use multiple shortcodes on the same page/post. On posts with 'pretty' permalink, pagination not working well.
 
 Available options
 * 'post_type' ['post-type-slug'] as post type slug
@@ -44,7 +45,7 @@ INSTALLATION
 
 OR
 
-1. Install plugin from WordPress repository
+1. Install plugin from WordPress repository (not yet)
 
 2. Activate the plugin through the 'Plugins' menu in WordPress
 3. Place [exopite-multifilter] shortcode to your content
@@ -58,6 +59,7 @@ PLANNED
 * Working with comments too
 * AJAX nounce
 * Random posts
+* Add to WordPress repo.
 
 CHANGELOG
 ---------

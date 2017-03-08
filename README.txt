@@ -13,8 +13,10 @@ Sort/filter any post types by multiple taxonomies and/or terms (like post by cat
 == Description ==
 
 Sort/filter any post types by multiple taxonomies and/or terms (like post by categories and/or tags).
-The plugin working via shortcodes, do not display any admin options.
-You can use multiple shortcodes on the same page/post.
+Plugin working with a basic Bootstrap 4 Flex grid. Only enqueued if 'bootstrap' or 'bootstrap-4' style not already enqueued.
+
+The plugin working via shortcodes, does not display any admin options.
+You can use multiple shortcodes on the same page/post. On posts with 'pretty' permalink, pagination not working well.
 
 Available options
 * 'post_type' ['post-type-slug'] as post type slug
@@ -31,34 +33,31 @@ Available options
 * 'multi_selectable': ['true' or 'false'] single or multiselect: true or false
 * 'thumbnail-size-single-row' => ['thumbnail-size-slug'] thumbnail size for single post per row
 * 'thumbnail-size-multi-row'  => ['thumbnail-size-slug'] thumbnail size for multipe post per row
-* 'taxonomies_terms'          => ['category, category(slug|slug)']
+* 'taxonomies_terms'          => ['category1, category2(slug|slug), tag']
 * 'update_paged'              => ['true' or 'false'] Update page in browser URL bar on readmore and infinite loading based on viewport
 * 'display_page_number'       => ['true' or 'false'] Show page number between loads in infinite and readmore
 * 'paged'                     => ['number'], Set start page number if not already paged
 * 'effect'                    => ['apollo', 'duke', 'goliath', 'julia', 'lexi', 'ming' or 'steve']
 https://tympanus.net/Development/HoverEffectIdeas/index.html
 https://tympanus.net/Development/HoverEffectIdeas/index2.html
-* 'search'                    => ['search'] if set, filter will be disabled
+* 'search'                    => ['search'] search in previously definied post type. If set, filter will be disabled.
 * 'store_session'             => ['true' or 'false'] Store current session (page, filters and search). Useful if visitor is hit back or click on back button.
 
 == Installation ==
 
-1. Upload `exopite-multifilter.php` to the `/wp-content/plugins/` directory
+1. Upload `exopite-multifilter` files to the `/wp-content/plugins/exopite-multifilter` directory
 
 OR
 
-1. Install plugin from WordPress repository
+1. Install plugin from WordPress repository (not yet)
 
 2. Activate the plugin through the 'Plugins' menu in WordPress
 3. Place [exopite-multifilter] shortcode to your content
 
 == Screenshots ==
 
-1. This screen shot description corresponds to screenshot-1.(png|jpg|jpeg|gif). Note that the screenshot is taken from
-the /assets directory or the directory that contains the stable readme.txt (tags or trunk). Screenshots in the /assets
-directory take precedence. For example, `/assets/screenshot-1.png` would win over `/tags/4.3/screenshot-1.png`
-(or jpg, jpeg, gif).
-2. This is the second screen shot
+1. Multiple taxomonies as filter, pagination, thumbnail only and apollo hover effect.
+2. Multiple taxomonies as filter, read more loading, thumbnail with title and ming effect.
 
 == Changelog ==
 
