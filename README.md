@@ -65,4 +65,9 @@ https://www.doitwithwp.com/enqueue-scripts-styles-automatic-versioning/
 
 LICENSE DETAILS
 ---------------
-The GPL license of Sticky anything without cloning it grants you the right to use, study, share (copy), modify and (re)distribute the software, as long as these license terms are retained.
+The GPL license of Exopite Multifilter grants you the right to use, study, share (copy), modify and (re)distribute the software, as long as these license terms are retained.
+
+DISCLAMER
+---------
+
+NO WARRANTY OF ANY KIND! USE THIS SOFTWARES AND INFORMATIONS AT YOUR OWN RISK! READ DISCLAMER, License: GNU General Public License v2
