@@ -419,7 +419,7 @@ class Exopite_Multifilter_Public {
                     if ( $args['display_title'] ) {
                         $article_content .= '<header class="entry-header">';
                         $article_content .= '<h2 class="entry-title"><a href="' . get_the_permalink() . '">' . get_the_title() . '</a></h2>';
-                        $article_content .= '<div class="entry-meta">META1</div>';
+                        //$article_content .= '<div class="entry-meta">META1</div>';
                         $article_content .= '</header>';
                     }
                     if ( $args['except_lenght'] > 0 || $args['except_lenght'] === 'full' ) {
