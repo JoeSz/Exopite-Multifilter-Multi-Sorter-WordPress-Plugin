@@ -8,11 +8,11 @@ Stable tag: 4.7.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Sort/filter any post types by multiple taxonomies and/or terms (like post by categories and/or tags).
+AJAX sorter/filter any post types by multiple taxonomies and/or terms (like post by categories and/or tags).
 
 == Description ==
 
-Sort/filter any post types by multiple taxonomies and/or terms (like post by categories and/or tags).
+AJAX sorter/filter any post types by multiple taxonomies and/or terms (like post by categories and/or tags).
 Plugin working with a basic Bootstrap 4 Flex grid. Only enqueued if 'bootstrap' or 'bootstrap-4' style not already enqueued.
 
 The plugin working via shortcodes, does not display any admin options.

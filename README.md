@@ -3,7 +3,7 @@
 DESCRIPTION
 -----------
 
-Sort/filter any post types by multiple taxonomies and/or terms (like post by categories and/or tags).
+AJAX sorter/filter any post types by multiple taxonomies and/or terms (like post by categories and/or tags).
 Plugin working with a basic Bootstrap 4 Flex grid. Only enqueued if 'bootstrap' or 'bootstrap-4' style not already enqueued.
 
 * Working with any Themes and any post types
