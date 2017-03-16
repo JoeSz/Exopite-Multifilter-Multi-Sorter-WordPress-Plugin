@@ -265,7 +265,7 @@
 
             };
 
-            var _onScroll = throttle(function() {
+            var _onScroll = Exopite.throttle(function() {
 
                 if ( dataJSON.pagination == 'infinite' ) {
                     _checkBottom();
