@@ -3,7 +3,7 @@ Contributors: ujbeszel
 Donate link: http://joe.szalai.org
 Tags: multisort, sort, filter, miltiple filter, custom post type filter, AJAX infinite load, AJAX load more, AJAX pagination, AJAX search
 Requires at least: 4.7.0
-Tested up to: 4.7.0
+Tested up to: 4.7.3
 Stable tag: 4.7.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -58,8 +58,13 @@ OR
 
 1. Multiple taxomonies as filter, pagination, thumbnail only and apollo hover effect.
 2. Multiple taxomonies as filter, read more loading, thumbnail with title and ming effect.
+2. Multiple taxomonies as filter selected, thumbnail with title and ming effect.
 
 == Changelog ==
+
+= 1.0.3 - 2017-03-21 =
+* Automatic Update
+https://github.com/YahnisElsts/wp-update-server
 
 = 1.0.2 - 2017-03-05 =
 * Improvement: Automatic script and style versioning for local css and js files based on file time.
