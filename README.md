@@ -11,7 +11,7 @@
 DESCRIPTION
 -----------
 
-Multisort or filter any post types with single or multiple taxonimies (categories, tags, etc...).
+Multisort, multi sortable, multifilter, multiple filterable any page, post types with single or multiple taxonimies (categories, tags, etc...).
 
 AJAX sorter/filter for any post types by multiple taxonomies and/or terms (like post by categories and/or tags). <br />
 Plugin working with a basic Bootstrap 4 Flex grid. Only enqueued, if style with 'bootstrap' or 'bootstrap-4' slug not already enqueued.
