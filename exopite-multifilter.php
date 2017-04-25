@@ -30,7 +30,6 @@
  * - on mobile 6 page number is too much -> how should be displayed?
  * - add widget (normal + VC)
  * - display post meta
- * - working with comments
  * - AJAX nounce
  * - random
  *
