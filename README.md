@@ -1,10 +1,13 @@
 # Exopite Multifilter
 ## WordPress Plugin
 
-Author link: http://joe.szalai.org <br />
-Tags: email notifications, page, post, custom post type, comment <br />
-License: GPLv3 or later <br />
-License URI: http://www.gnu.org/licenses/gpl-3.0.html <br />
+- Author: Joe Szalai
+- Original idea and concept von Wily
+- Version: 1.0.2
+- Plugin URL: https://github.com/JoeSz/exopite-multifilter
+- Author URL: http://joe.szalai.org
+- License: GNU General Public License v3 or later
+- License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
 DESCRIPTION
 -----------
