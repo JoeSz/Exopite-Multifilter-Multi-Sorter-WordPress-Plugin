@@ -42,56 +42,35 @@ USAGE
 The plugin working via `[exopite-multifilter]` shortcodes, does not display any admin options. <br />
 You can use multiple shortcodes on the same page/post. On posts with 'pretty' permalink, pagination not working well.
 
+Eg.:
+* `[exopite-multifilter post_type="exopite-portfolio" thumbnail-size-single-row="blog-list-full" thumbnail-size-multi-row="blog-list-multiple" taxonomies_terms="exopite-portfolio-category, exopite-portfolio-tag"]`
+* `[exopite-multifilter thumbnail-size-single-row="blog-list-full" thumbnail-size-multi-row="blog-list-multiple"]`
+
 Available options
 
-| Tables                      | Are
-| --------------------------- | -------------
-| `post_type`                 | ['post-type-slug'] as post type slug
-| `posts_per_page`            | ['number'] how many post per page per shortcode
-| `posts_per_row`             | ['1' - '4'] how many posts per row per shortcode
-| `display_title`             | ['true' or 'false'] display post title
-| `display_pagination`        | ['true' or 'false'] display pagination
-| `display_filter`            | ['true' or 'false'] display filter
-| `blog_layout`               | ['top', 'left', 'right', 'zigzag' or 'none']
-| `no-gap`                    | ['true' or 'false'] hide gap between post
-| `except_lenght`             | ['number'] the lenght of the exceprt by words, '0' means no exceprt
-| `except_more`               | ['text'] excerpt more
-| `pagination`                | ['pagination', 'readmore' or 'infinite'] the type of the pagination
-| `multi_selectable`          | ['true' or 'false'] single or multiselect: true or false
-| `thumbnail-size-single-row` | ['thumbnail-size-slug'] thumbnail size for single post per row
-| `thumbnail-size-multi-row`  | ['thumbnail-size-slug'] thumbnail size for multipe post per row
-| `taxonomies_terms`          | ['category, category(slug|slug)' or 'tag' etc...] the filters
-| `update_paged`              | ['true' or 'false'] Update page in browser URL bar on readmore and infinite loading based on viewport
-| `display_page_number`       | ['true' or 'false'] Show page number between loads in infinite and readmore
-| `paged`                     | ['number'], Set start page number if not already paged
-| `effect`                    | ['apollo', 'duke', 'goliath', 'julia', 'lexi', 'ming' or 'steve']
-| `search`                    | ['search'] if set, filter will be disabled
-| `store_session`             | ['true' or 'false'] Store current session (page number, selected filters and search). Useful if visitor is hit back or click on back button
-
-
-* 'post_type' ['post-type-slug'] as post type slug
-* 'posts_per_page': ['number'] how many post per page per shortcode
-* 'posts_per_row': ['1' - '4'] how many posts per row per shortcode
-* 'display_title': ['true' or 'false'] display post title
-* 'display_pagination': ['true' or 'false'] display pagination
-* 'display_filter': ['true' or 'false'] display filter
-* 'blog_layout' ['top', 'left', 'right', 'zigzag' or 'none']
-* 'no-gap': ['true' or 'false'] hide gap between post
-* 'except_lenght' ['number'] the lenght of the exceprt by words, '0' means no exceprt
-* 'except_more' ['text'] excerpt more
-* 'pagination': ['pagination', 'readmore' or 'infinite'] the type of the pagination
-* 'multi_selectable': ['true' or 'false'] single or multiselect: true or false
-* 'thumbnail-size-single-row' => ['thumbnail-size-slug'] thumbnail size for single post per row
-* 'thumbnail-size-multi-row'  => ['thumbnail-size-slug'] thumbnail size for multipe post per row
-* 'taxonomies_terms'          => ['category, category(slug|slug)']
-* 'update_paged'              => ['true' or 'false'] Update page in browser URL bar on readmore and infinite loading based on viewport
-* 'display_page_number'       => ['true' or 'false'] Show page number between loads in infinite and readmore
-* 'paged'                     => ['number'], Set start page number if not already paged
-* 'effect'                    => ['apollo', 'duke', 'goliath', 'julia', 'lexi', 'ming' or 'steve']
-https://tympanus.net/Development/HoverEffectIdeas/index.html
-https://tympanus.net/Development/HoverEffectIdeas/index2.html
-* 'search'                    => ['search'] if set, filter will be disabled
-* 'store_session'             => ['true' or 'false'] Store current session (page number, selected filters and search). Useful if visitor is hit back or click on back button.
+| Options                            | Values                                                                       | Defaults
+| ---------------------------------- | ---------------------------------------------------------------------------- | --------
+| `post_type`                        | ['post-type-slug'] as post type slug                                         | post
+| `posts_per_page`                   | ['number'] how many post per page per shortcode                              | 4
+| `posts_per_row`                    | ['1' - '4'] how many posts per row per shortcode                             | 2
+| `display_title`                    | ['true' or 'false'] display post title                                       | false
+| `display_pagination`               | ['true' or 'false'] display pagination                                       | true
+| `display_filter`                   | ['true' or 'false'] display filter                                           | true
+| `blog_layout`                      | ['top', 'left', 'right', 'zigzag' or 'none']                                 | top
+| `no-gap`                           | ['true' or 'false'] hide gap between post                                    | false
+| `except_lenght`                    | ['number'] the lenght of the exceprt by words, '0' means no exceprt          | 0
+| `except_more`                      | ['text'] excerpt more                                                        |
+| `pagination`                       | ['pagination', 'readmore' or 'infinite'] the type of the pagination          | pagination
+| `multi_selectable`                 | ['true' or 'false'] single or multiselect: true or false                     | true
+| `thumbnail-size-single-row`        | ['thumbnail-size-slug'] thumbnail size for single post per row               | full
+| `thumbnail-size-multi-row`         | ['thumbnail-size-slug'] thumbnail size for multipe post per row              | large
+| `taxonomies_terms`                 | ['category, category(slug|slug)' or 'tag' etc...] the filters                | category
+| `update_paged`                     | ['true' or 'false'] Update page in browser URL bar on readmore and infinite loading based on viewport | false
+| `display_page_number`              | ['true' or 'false'] Show page number between loads in infinite and readmore  | false
+| `paged`                            | ['number'], Set start page number if not already paged                       | 1
+| `effect`                           | ['apollo', 'duke', 'goliath', 'julia', 'lexi', 'ming' or 'steve']            | apollo
+| `search`                           | ['search'] if set, filter will be disabled                                   |
+| `store_session`                    | ['true' or 'false'] Store current session (page number, selected filters and search). Useful if visitor is hit back or click on back button | false
 
 INSTALLATION
 ------------
