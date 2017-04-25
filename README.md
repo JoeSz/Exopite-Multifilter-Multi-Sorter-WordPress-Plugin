@@ -12,8 +12,10 @@ License URI: http://www.gnu.org/licenses/gpl-3.0.html <br />
 DESCRIPTION
 -----------
 
-AJAX sorter/filter any post types by multiple taxonomies and/or terms (like post by categories and/or tags). <br />
-Plugin working with a basic Bootstrap 4 Flex grid. Only enqueued if 'bootstrap' or 'bootstrap-4' style not already enqueued.
+Multisort or filter any post types with single or multiple taxonimies (categories, tags, etc...).
+
+AJAX sorter/filter for any post types by multiple taxonomies and/or terms (like post by categories and/or tags). <br />
+Plugin working with a basic Bootstrap 4 Flex grid. Only enqueued, if style with 'bootstrap' or 'bootstrap-4' slug not already enqueued.
 
 * Working with any Themes and any post types
 * Single or multiple filter based on taxonomies and terms. Multi selectable.
@@ -28,6 +30,7 @@ Useful if visitor is hit back or click on back button (if any) on the sinlge pag
 * Bootstrap 4 Flex grid
 * JavaScript Hooks <br />
 https://github.com/carldanley/WP-JS-Hooks
+* Translatable via po/mo files. Pot included.
 * Multiple hover effects <br />
 https://tympanus.net/Development/HoverEffectIdeas/index.html <br />
 https://tympanus.net/Development/HoverEffectIdeas/index2.html
@@ -42,7 +45,7 @@ USAGE
 The plugin working via `[exopite-multifilter]` shortcodes, does not display any admin options. <br />
 You can use multiple shortcodes on the same page/post. On posts with 'pretty' permalink, pagination not working well.
 
-Eg.:
+Examples:
 * `[exopite-multifilter post_type="exopite-portfolio" thumbnail-size-single-row="blog-list-full" thumbnail-size-multi-row="blog-list-multiple" taxonomies_terms="exopite-portfolio-category, exopite-portfolio-tag"]`
 * `[exopite-multifilter thumbnail-size-single-row="blog-list-full" thumbnail-size-multi-row="blog-list-multiple"]`
 
@@ -75,7 +78,7 @@ Available options
 INSTALLATION
 ------------
 
-1. [x] Upload `exopite-multifilter.php` to the `/wp-content/plugins/` directory
+1. [x] Upload `exopite-multifilter` to the `/wp-content/plugins/exopite-multifilter/` directory
 
 OR
 
