@@ -2,7 +2,6 @@
 ## WordPress Plugin
 
 - Author: Joe Szalai
-- Original idea and concept von Wily
 - Version: 1.0.2
 - Plugin URL: https://github.com/JoeSz/exopite-multifilter
 - Author URL: http://joe.szalai.org
