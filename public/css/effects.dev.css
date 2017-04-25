@@ -6,7 +6,6 @@
 .effect-multifilter.effect-apollo {
     overflow: hidden;
     position: relative;
-    float: left;
 }
 .effect-multifilter.effect-apollo img {
     -webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
@@ -107,7 +106,6 @@
 .effect-multifilter.effect-duke {
     background: -webkit-linear-gradient(-45deg, #000 0%,#222 100%);
     background: linear-gradient(-45deg, #000 0%,#222 100%);
-    float: left;
 }
 
 .effect-multifilter.effect-duke img,
@@ -177,7 +175,6 @@
 }
 .effect-multifilter.effect-goliath {
     background: rgb(52, 152, 219);
-    float: left;
 }
 
 .effect-multifilter.effect-goliath img,
@@ -230,7 +227,6 @@
 
 .effect-multifilter.effect-julia {
     background: #2f3238;
-    float: left;
 }
 
 .effect-multifilter.effect-julia img {
@@ -324,7 +320,6 @@
 .effect-multifilter.effect-lexi {
     background: -webkit-linear-gradient(-45deg, #000 0%,#fff 100%);
     background: linear-gradient(-45deg, #000 0%,#fff 100%);
-    float: left;
 }
 
 .effect-multifilter.effect-lexi img {
@@ -422,7 +417,6 @@ figure:hover .figure-caption {
 
 .effect-multifilter.effect-ming {
     background: #030c17;
-    float: left;
 }
 
 .effect-multifilter.effect-ming figcaption {
@@ -503,7 +497,6 @@ figure:hover .figure-caption {
     z-index: auto;
     overflow: visible !important;
     background: #000;
-    float: left;
 }
 
 .effect-multifilter.effect-steve:before,
