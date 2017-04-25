@@ -3,9 +3,6 @@
 
 Author link: http://joe.szalai.org <br />
 Tags: email notifications, page, post, custom post type, comment <br />
-Requires at least: 3.0.1 <br />
-Tested up to: 4.7.4 <br />
-Stable tag: 4.7.4 <br />
 License: GPLv3 or later <br />
 License URI: http://www.gnu.org/licenses/gpl-3.0.html <br />
 
@@ -85,6 +82,21 @@ OR
 1. [ ] ~~Install plugin from WordPress repository (not yet)~~
 
 2. [x] Activate the plugin through the 'Plugins' menu in WordPress
+
+REQUIREMENTS
+------------
+
+Server
+
+* WordPress 4.0+ (May work with earlier versions too)
+* PHP 5.3+ (Required)
+* jQuery 1.9.1+
+
+Browsers
+
+* Modern Browsers
+* Firefox, Chrome, Safari, Opera, IE 10+
+* Tested on Firefox, Chrome, Edge, IE 11
 
 PLANNED
 -------
