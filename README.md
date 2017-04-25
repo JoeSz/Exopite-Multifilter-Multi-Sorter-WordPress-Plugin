@@ -1,4 +1,13 @@
-# EXOPITE-MULTIFILTER WORDPRESS PLUGIN
+# Exopite Multifilter
+## WordPress Plugin
+
+Author link: http://joe.szalai.org <br />
+Tags: email notifications, page, post, custom post type, comment <br />
+Requires at least: 3.0.1 <br />
+Tested up to: 4.7.4 <br />
+Stable tag: 4.7.4 <br />
+License: GPLv3 or later <br />
+License URI: http://www.gnu.org/licenses/gpl-3.0.html <br />
 
 DESCRIPTION
 -----------
@@ -22,11 +31,14 @@ https://github.com/carldanley/WP-JS-Hooks
 https://tympanus.net/Development/HoverEffectIdeas/index.html
 https://tympanus.net/Development/HoverEffectIdeas/index2.html
 
+Paginated                  |  Title and readmore loading |  Multiple selection (tag and category)
+:-------------------------:|:---------------------------:|:-------------------------:
+![](screenshot-1.png)      |  ![](screenshot-2.png)      |  ![](screenshot-3.png)
 
 USAGE
 -----
 
-The plugin working via shortcodes, does not display any admin options.
+The plugin working via `[exopite-multifilter]` shortcodes, does not display any admin options. <br />
 You can use multiple shortcodes on the same page/post. On posts with 'pretty' permalink, pagination not working well.
 
 Available options
@@ -57,22 +69,20 @@ https://tympanus.net/Development/HoverEffectIdeas/index2.html
 INSTALLATION
 ------------
 
-1. Upload `exopite-multifilter.php` to the `/wp-content/plugins/` directory
+1. [x] Upload `exopite-multifilter.php` to the `/wp-content/plugins/` directory
 
 OR
 
-1. Install plugin from WordPress repository (not yet)
+1. [ ] ~~Install plugin from WordPress repository (not yet)~~
 
-2. Activate the plugin through the 'Plugins' menu in WordPress
-3. Place [exopite-multifilter] shortcode to your content
+2. [x] Activate the plugin through the 'Plugins' menu in WordPress
 
 PLANNED
 -------
 
 * On mobile 6 page number is too much -> how should be displayed?
-* Add widget (normal + VC)
+* Add widget (only if [CodeStar Framework](http://codestarframework.com/) as plugin installed)
 * Display post meta
-* Working with comments too
 * AJAX nounce
 * Random posts
 * Add to WordPress repo.
