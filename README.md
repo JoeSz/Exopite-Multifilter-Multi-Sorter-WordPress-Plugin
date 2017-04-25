@@ -12,26 +12,27 @@ License URI: http://www.gnu.org/licenses/gpl-3.0.html <br />
 DESCRIPTION
 -----------
 
-AJAX sorter/filter any post types by multiple taxonomies and/or terms (like post by categories and/or tags).
+AJAX sorter/filter any post types by multiple taxonomies and/or terms (like post by categories and/or tags). <br />
 Plugin working with a basic Bootstrap 4 Flex grid. Only enqueued if 'bootstrap' or 'bootstrap-4' style not already enqueued.
 
 * Working with any Themes and any post types
 * Single or multiple filter based on taxonomies and terms. Multi selectable.
 * Search in pre-selected taxonomies and terms
-* Wordking via shortcode, can be used multiple times on a post or page
+* Wordking via shortcode, can be used multiple times on a posts or pages (or custom post types)
 * AJAX pagination
 * AJAX infinite loading
 * AJAX read more loading
 * Update browser URL with infintie or read more loading based on page and scroll position
-* Store session (page number, selected filters and search) Useful if visitor is hit back or click on back button (if any) on the sinlge page/post.
+* Store session (page number, selected filters and search). <br />
+Useful if visitor is hit back or click on back button (if any) on the sinlge page/post.
 * Bootstrap 4 Flex grid
-* JavaScript Hooks
+* JavaScript Hooks <br />
 https://github.com/carldanley/WP-JS-Hooks
-* Multiple hover effects
-https://tympanus.net/Development/HoverEffectIdeas/index.html
+* Multiple hover effects <br />
+https://tympanus.net/Development/HoverEffectIdeas/index.html <br />
 https://tympanus.net/Development/HoverEffectIdeas/index2.html
 
-Paginated                  |  Title and readmore loading |  Multiple selection (tag and category)
+Paginated                  |  Title and readmore loading |  Multiple selection  <br />(tags and categories)
 :-------------------------:|:---------------------------:|:-------------------------:
 ![](screenshot-1.png)      |  ![](screenshot-2.png)      |  ![](screenshot-3.png)
 
