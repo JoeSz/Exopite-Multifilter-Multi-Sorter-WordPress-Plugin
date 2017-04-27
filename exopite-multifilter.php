@@ -124,6 +124,11 @@ if ( class_exists( 'Puc_v4_Factory' ) ) {
 // End Update
 
 /**
+ * CodeStar Widget
+ */
+require plugin_dir_path( __FILE__ ) . 'widgets/class-exopite-multifilter-cs-widget.php';
+
+/**
  * The core plugin class that is used to define internationalization,
  * admin-specific hooks, and public-facing site hooks.
  */
