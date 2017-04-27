@@ -36,7 +36,7 @@ https://tympanus.net/Development/HoverEffectIdeas/index2.html
 
 Paginated                  |  Title and readmore loading |  Multiple selection  <br />(tags and categories)
 :-------------------------:|:---------------------------:|:-------------------------:
-![](screenshot-1.png)      |  ![](screenshot-2.png)      |  ![](screenshot-3.png)
+![](assets/screenshot-1.png)      |  ![](assets/screenshot-2.png)      |  ![](assets/screenshot-3.png)
 
 USAGE
 -----
