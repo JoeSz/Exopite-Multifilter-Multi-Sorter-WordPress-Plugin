@@ -117,13 +117,7 @@ class Exopite_Multifilter {
 		 * The class responsible for defining all actions that occur in the public-facing
 		 * side of the site.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-exopite-multifilter-public.php';
-
-        /**
-         * widget class
-         */
-        // require_once plugin_dir_path( dirname( __FILE__ ) ) . 'widgets/class-exopite-multifilter-widget.php';
-        // require_once plugin_dir_path( dirname( __FILE__ ) ) . 'widgets/widget.class.php';
+        require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-exopite-multifilter-public.php';
 
 		$this->loader = new Exopite_Multifilter_Loader();
 
@@ -157,7 +151,16 @@ class Exopite_Multifilter {
 
 		$plugin_admin = new Exopite_Multifilter_Admin( $this->get_plugin_name(), $this->get_version() );
 
-        //$this->loader->add_action( 'widgets_init', $plugin_admin, 'register_widgets' );
+        /*
+         * Do or do not display widget on certain pages
+         *
+         * @link https://wordpress.stackexchange.com/questions/89138/hide-certain-widgets-from-specific-user-roles-in-admin
+         */
+        //global $pagenow;
+        // if ( $pagenow != 'widgets.php' ){
+        //     $this->loader->add_action( 'widgets_init', $plugin_admin, 'register_widgets', 2 );
+        // };
+        $this->loader->add_action( 'widgets_init', $plugin_admin, 'register_widgets', 2 );
 
 	}
 
