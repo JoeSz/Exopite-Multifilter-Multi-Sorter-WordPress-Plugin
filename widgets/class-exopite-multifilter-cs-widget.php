@@ -34,12 +34,12 @@ if( ! class_exists( 'exopite_multifilter_CS_Widget' ) ) {
 
         function __construct() {
 
-            $widget_ops     = array(
-                'classname'   => 'cs_widget_example',
+            $widget_args     = array(
+                'class'   => 'cs_widget_example',
                 'description' => 'Exopite Multifilter Widget.'
             );
 
-            parent::__construct( 'cs_widget', 'Exopite Multifilter Widget', $widget_ops );
+            parent::__construct( 'cs_widget', 'Exopite Multifilter Widget', $widget_args );
 
         }
 
