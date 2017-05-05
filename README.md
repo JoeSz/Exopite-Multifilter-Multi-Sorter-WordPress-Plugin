@@ -11,9 +11,10 @@
 DESCRIPTION
 -----------
 
-Multisort, multi sortable, multifilter, multiple filterable any page, post types with single or multiple taxonimies (categories, tags, etc...).
+Exopite multifilter, mutlisortable, multi selectable, multi filterable sortable Wordpress Plugin
 
-AJAX sorter/filter for any post types by multiple taxonomies and/or terms (like post by categories and/or tags). <br />
+AJAX sorter/filter for any page or post types by multiple taxonomies and/or terms. <br />
+(like post by categories/tags or any custom post type taxonomies like "portfolio-categories"). <br />
 Plugin working with a basic Bootstrap 4 Flex grid. Only enqueued, if style with 'bootstrap' or 'bootstrap-4' slug not already enqueued.
 
 * Working with any Themes and any post types
