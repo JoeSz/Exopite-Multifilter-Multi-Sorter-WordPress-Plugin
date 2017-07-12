@@ -269,6 +269,7 @@ class Exopite_Multifilter_Public {
                     'show_all'  => false,
                     'end_size'  => 1,
                     'mid_size'  => 2,
+                    'type'               => 'array',
                 );
 
                 if( isset($_GET['s']) ){
@@ -277,7 +278,7 @@ class Exopite_Multifilter_Public {
                     );
                 }
 
-                $ret .= paginate_links( $args );
+                $ret .= join( paginate_links( $args ) );
                 break;
         }
 
@@ -557,14 +558,7 @@ class Exopite_Multifilter_Public {
             $ret .= '<div class="exopite-multifilter-filter-wrapper">';
             $ret .= '<div class="exopite-multifilter-filter-reset-search text-right"><span class="exopite-multifilter-filter-reset">' . __( 'Reset all', 'exopite-multifilter' ) . '</span>';
 
-            if ( $args['search'] == '' ) $ret .= '<form role="search" method="get" class="exopite-multifilter-search" action="' . esc_url( home_url( '/' ) ) . '">
-    <div class="form-group">
-        <input type="text" class="form-group" placeholder="' . esc_attr__( 'Search…', 'exopite-multifilter' ) . '" name="s" id="" value="' . esc_attr( get_search_query() ) . '" />
-        <span class="form-group-btn">
-            <button class="btn btn-default" type="submit" id="" value="Search"><i class="fa fa-search" aria-hidden="true"></i></button>
-        </span>
-    </div><!-- /input-group -->
-</form>';
+            if ( $args['search'] == '' ) $ret .= '<form role="search" method="get" class="exopite-multifilter-search" action="' . esc_url( home_url( '/' ) ) . '"><div class="form-group"><input type="text" class="form-group" placeholder="' . esc_attr__( 'Search…', 'exopite-multifilter' ) . '" name="s" id="" value="' . esc_attr( get_search_query() ) . '" /><span class="form-group-btn"><button class="btn btn-default" type="submit" id="" value="Search"><i class="fa fa-search" aria-hidden="true"></i></button></span></div><!-- /input-group --></form>';
             $ret .= '</div>';
             $ret .= $this->get_filters( $args['post_type'], $args['taxonomies_terms'], true );
             $ret .= '</div>';
