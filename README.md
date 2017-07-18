@@ -121,10 +121,12 @@ CHANGELOG
 * Added: options to choose between additive and subtractive query.
 * Added: options to randomize query.
 * Added: options to display meta.
+* Added: AJAX nonce.
 
 = 1.0.3 - 2017-03-21 =
 * Added: update function (for private hosting). <br />
 This will be removed if plugin is submitted to WordPress repository.
+https://github.com/YahnisElsts/wp-update-server
 
 
 = 1.0.2 - 2017-03-05 =

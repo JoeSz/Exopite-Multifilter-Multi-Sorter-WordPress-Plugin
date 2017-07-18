@@ -29,7 +29,9 @@
  *
  * - on mobile 6 page number is too much -> how should be displayed?
  * - add widget (normal + VC)
- * - AJAX nounce
+ *
+ * - random maybe with pagination (im not sure, this make sesce here)
+ *   https://hugh.blog/2013/08/22/wordpress-random-post-order-with-correct-pagination/
  *
  * - Widget
  *   ( https://github.com/Codestar/codestar-framework/issues/51 ?
