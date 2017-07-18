@@ -583,27 +583,9 @@ class Exopite_Multifilter_Public {
 
         //check_ajax_referer( $AJAX['ajax_string'], $AJAX['ajax_nonce'] );
 
-        $args['post_type'] = $AJAX['post_type'];
-        $args['posts_per_page'] = $AJAX['posts_per_page'];
-        $args['posts_per_row'] = $AJAX['posts_per_row'];
-        $args['display_title'] = $AJAX['display_title'];
-        $args['display_pagination'] = $AJAX['display_pagination'];
-        $args['display_filter'] = $AJAX['display_filter'];
-        $args['blog_layout'] = $AJAX['blog_layout']; // top, left, links, zigzag, none
-        $args['no-gap'] = $AJAX['no-gap'];
-        $args['except_lenght'] = $AJAX['except_lenght'];
-        $args['except_more'] = $AJAX['except_more'];
-        $args['page_id'] = $AJAX['page_id'];
-        $args['pagination'] = $AJAX['pagination'];
-        $args['paged'] = $AJAX['paged'] ? $AJAX['paged'] : 1;
-        $args['taxonomies_terms'] = $AJAX['taxonomies_terms'];
-        $args['multi_selectable'] = $AJAX['multi_selectable'];
-        $args['thumbnail-size-single-row'] = $AJAX['thumbnail-size-single-row'] ;
-        $args['thumbnail-size-multi-row'] = $AJAX['thumbnail-size-multi-row'];
-        $args['search'] = $AJAX['search'];
-        $args['effect'] = $AJAX['effect'];
+        $AJAX['paged'] = $AJAX['paged'] ? $AJAX['paged'] : 1;
 
-        $ret .= $this->get_articles( $args );
+        $ret .= $this->get_articles( $AJAX );
 
         die( $ret );
 
