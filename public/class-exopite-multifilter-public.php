@@ -516,7 +516,7 @@ class Exopite_Multifilter_Public {
                 'search'                    => '',              // search
                 'store_session'             => false,           // store session
                 'in_all_taxnomies'          => true,            // positive or negative selection
-                'random'                    => false,            // randomize (pagiantion and search are off)
+                'random'                    => false,           // randomize (pagiantion and search are off)
             ),
             $atts
         );
