@@ -2,7 +2,7 @@
 ## WordPress Plugin
 
 - Author: Joe Szalai
-- Version: 1.0.2
+- Version: 1.0.4
 - Plugin URL: https://github.com/JoeSz/exopite-multifilter
 - Author URL: http://joe.szalai.org
 - License: GNU General Public License v3 or later
@@ -34,6 +34,9 @@ https://github.com/carldanley/WP-JS-Hooks
 * Multiple hover effects <br />
 https://tympanus.net/Development/HoverEffectIdeas/index.html <br />
 https://tympanus.net/Development/HoverEffectIdeas/index2.html
+
+### Live preview <br />
+http://joe.szalai.org/exopite/multifilter/
 
 Paginated                  |  Title and readmore loading |  Multiple selection  <br />(tags and categories)
 :-------------------------:|:---------------------------:|:-------------------------:
@@ -114,13 +117,22 @@ PLANNED
 CHANGELOG
 ---------
 
+= 1.0.4 - 2017-07-18 =
+* Add options to choose between additive and subtractive query.
+* Options to randomize query.
+
+= 1.0.3 - 2017-03-21 =
+* Add update function (for private hosting). <br />
+This will be removed if plugin is submitted to WordPress repository.
+
+
 = 1.0.2 - 2017-03-05 =
 * Improvement: Automatic script and style versioning for local css and js files based on file time.
 https://www.doitwithwp.com/enqueue-scripts-styles-automatic-versioning/
 
 = 1.0.1 - 2017-03-04 =
-* Add: restore previous session (localstorage)
-* Add: more filters
+* Add: restore previous session (localstorage).
+* Add: more filters.
 
 = 1.0 =
 * Initial release.
