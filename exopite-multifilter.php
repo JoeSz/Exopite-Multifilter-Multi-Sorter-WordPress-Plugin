@@ -29,9 +29,7 @@
  *
  * - on mobile 6 page number is too much -> how should be displayed?
  * - add widget (normal + VC)
- * - display post meta
  * - AJAX nounce
- * - random
  *
  * - Widget
  *   ( https://github.com/Codestar/codestar-framework/issues/51 ?

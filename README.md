@@ -118,11 +118,12 @@ CHANGELOG
 ---------
 
 = 1.0.4 - 2017-07-18 =
-* Add options to choose between additive and subtractive query.
-* Options to randomize query.
+* Added: options to choose between additive and subtractive query.
+* Added: options to randomize query.
+* Added: options to display meta.
 
 = 1.0.3 - 2017-03-21 =
-* Add update function (for private hosting). <br />
+* Added: update function (for private hosting). <br />
 This will be removed if plugin is submitted to WordPress repository.
 
 
@@ -131,8 +132,8 @@ This will be removed if plugin is submitted to WordPress repository.
 https://www.doitwithwp.com/enqueue-scripts-styles-automatic-versioning/
 
 = 1.0.1 - 2017-03-04 =
-* Add: restore previous session (localstorage).
-* Add: more filters.
+* Added: restore previous session (localstorage).
+* Added: more filters.
 
 = 1.0 =
 * Initial release.
