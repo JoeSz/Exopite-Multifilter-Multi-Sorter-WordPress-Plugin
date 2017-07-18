@@ -142,7 +142,7 @@ class Exopite_Multifilter_Public {
 
 	}
 
-    function get_thumbnail( $post_id, $blog_layout = 'top', $thumbnail_size = 'medium', $effect = 'apollo' ) {
+    function get_thumbnail( $post_id, $blog_layout = 'top', $thumbnail_size = 'medium', $args ) {
 
         $post_password_required = post_password_required();
 
@@ -155,7 +155,7 @@ class Exopite_Multifilter_Public {
            $class = ' image-' . $blog_layout;
         }
 
-        $effect = ( $effect != 'none' ) ? ' effect-' . $effect : '';
+        $effect = ( $args['effect'] != 'none' ) ? ' effect-' . $args['effect'] : '';
         $effect .= ( $post_password_required ) ? ' image-protected' : '';
 
         $ret = '';
@@ -166,7 +166,19 @@ class Exopite_Multifilter_Public {
         $ret .= '<figure class="effect-multifilter' . $effect . ' entry-thumbnail">'; //for animation
         $ret .= ( $post_password_required ) ? '' : '<img src="' . $url . '">';
         $ret .= '<figcaption>';
-        $ret .= '<div class="figure-caption animation">' . get_the_title( $post_id ) . '</div>';
+        $ret .= '<div class="figure-caption animation">';
+
+        $ret .= '<div class="figure-caption-title">';
+        $ret .= get_the_title( $post_id );
+        $ret .= '</div>';
+
+        if ( count( $args['display_metas'] ) > 0 ) {
+            $ret .= '<div class="figure-caption-meta">';
+            $ret .= $this->get_metas( $args, $post_id );
+            $ret .= '</div>';
+        }
+
+        $ret .= '</div>';
         $ret .= '</figcation>';
         $ret .= '</figure>';
         $ret .= '</a>';
@@ -284,6 +296,69 @@ class Exopite_Multifilter_Public {
 
         return '<div class="col-12">' . $ret . '</div>';
 
+    }
+
+    function get_metas( $args, $post_id ) {
+
+        $ret = '';
+        $metas = array();
+
+        if ( is_array( $args['display_metas'] ) && in_array( 'date', $args['display_metas'] ) ) {
+
+            $metas[] .= sprintf(
+                '<span class="exopite-multifilter-meta-date">%1$s</span>',
+                get_the_date()
+            );
+
+        }
+
+        if ( is_array( $args['display_metas'] ) && in_array( 'author', $args['display_metas'] ) ) {
+
+            $metas[] .= sprintf(
+                '<span class="exopite-multifilter-meta-author">%1$s</span>',
+                get_the_author()
+            );
+
+        }
+
+        if ( is_array( $args['display_metas'] ) && in_array( 'commentcount', $args['display_metas'] ) ) {
+
+            $comments_count = wp_count_comments( 2492 );
+
+            $metas[] .= sprintf(
+                '<span class="exopite-multifilter-meta-commentcount">%1$s</span>',
+                $comments_count->approved
+            );
+
+        }
+        if ( is_array( $args['display_metas'] ) && in_array( 'taxonomy', $args['display_metas'] ) ) {
+
+            if ( ! empty( $args['display_metas_taxonomies'] ) ) {
+                $taxonomies = '<span class="exopite-multifilter-meta-taxonomies">';
+
+                foreach ( $args['display_metas_taxonomies'] as $display_metas_taxonomy ) {
+
+                    $taxonomy[] = '<span class="exopite-multifilter-meta-taxonomy-' . $display_metas_taxonomy . '">' . strip_tags( get_the_term_list( $post_id, $display_metas_taxonomy, '', '/', '' ) ) . '</span>';
+
+                }
+
+                $taxonomies .= implode( ', ', $taxonomy );
+                $taxonomies .= '</span>';
+
+                $metas[] = $taxonomies;
+            }
+
+        }
+        if ( is_array( $args['display_metas'] ) && in_array( 'last-modified', $args['display_metas'] ) ) {
+
+            $metas[] .= sprintf(
+                '<span class="exopite-multifilter-meta-last-modified">%1$s</span>',
+                get_the_modified_time( get_option( 'date_format' ) )
+            );
+
+        }
+
+        return implode( ', ', $metas );
     }
 
     function get_articles( $args ) {
@@ -420,8 +495,9 @@ class Exopite_Multifilter_Public {
                 if ( $args['blog_layout'] != 'none' ) {
                     $classes .= ( $image_class == 'left' || $image_class == 'right' ) ? ' image-aside' : '';
                     $classes .= ( $args['blog_layout'] != 'none' ) ? ' has-post-thumbnail' : '';
-                    $article_thumbnail = $this->get_thumbnail( get_the_id(), $image_class, $thumbnail_size, $args['effect'] );
+                    $article_thumbnail = $this->get_thumbnail( get_the_id(), $image_class, $thumbnail_size, $args );
                 }
+
 
                 if ( ( $args['display_title'] || ( $args['except_lenght'] > 0 ) ) && ! $post_password_required ){
 
@@ -430,7 +506,11 @@ class Exopite_Multifilter_Public {
                         $article_content .= '<header class="entry-header">';
                         $article_content .= '<h2 class="entry-title"><a href="' . get_the_permalink() . '">' . get_the_title() . '</a></h2>';
                         //$article_content .= '<div class="entry-meta">META1</div>';
+
                         $article_content .= '</header>';
+                    }
+                    if ( count( $args['display_metas'] ) > 0 ) {
+                        $article_content .= $this->get_metas( $args, get_the_ID() );
                     }
                     if ( $args['except_lenght'] > 0 || $args['except_lenght'] === 'full' ) {
                         $article_content .= '<div class="entry-content">';
@@ -517,9 +597,16 @@ class Exopite_Multifilter_Public {
                 'store_session'             => false,           // store session
                 'in_all_taxnomies'          => true,            // positive or negative selection
                 'random'                    => false,           // randomize (pagination and search are off)
+                // [date, author, commentcount, taxonomy, last-modified] comma separated list
+                'display_metas'             => '',
+                // only if display_metas has 'taxonomy', taxonomy name to display
+                'display_metas_taxonomies'  => '',              // comma searated list
+
             ),
             $atts
         );
+
+        // ToDo: sanitize data
 
         // Add page id and paged.
         $args['page_id'] = get_the_ID();
@@ -535,6 +622,14 @@ class Exopite_Multifilter_Public {
 
         // create an array from taxonomies_terms, devided by comma.
         $args['taxonomies_terms'] = explode( ',', preg_replace( '/\s+/', '', $args['taxonomies_terms'] ) );
+
+        if ( ! empty( $args['display_metas'] ) ) {
+            $args['display_metas'] = explode( ',', preg_replace( '/\s+/', '', $args['display_metas'] ) );
+
+            if ( isset( $args['display_metas'] ) && in_array( 'taxonomy', $args['display_metas'] ) && ! empty( $args['display_metas_taxonomies'] ) ) {
+                $args['display_metas_taxonomies'] = explode( ',', preg_replace( '/\s+/', '', $args['display_metas_taxonomies'] ) );
+            }
+        }
 
         /*
          * Process terms for taxonomies (if exist)
