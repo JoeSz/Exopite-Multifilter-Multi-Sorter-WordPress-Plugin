@@ -610,8 +610,9 @@ class Exopite_Multifilter_Public {
 
         // Add page id and paged.
         $args['page_id'] = get_the_ID();
-        $args['ajax_string'] = bin2hex( mcrypt_create_iv( 10, MCRYPT_DEV_URANDOM ) );
-        $args['ajax_nonce'] = wp_create_nonce( $args['ajax_string'] );
+        // $args['ajax_string'] = bin2hex( mcrypt_create_iv( 10, MCRYPT_DEV_URANDOM ) );
+        $args['ajax_nonce'] = wp_create_nonce( 'exopite-multifilter-nonce' );
+        // $args['ajax_nonce'] = wp_create_nonce( $args['ajax_string'] );
 
         // Do not display filter if it is search
         if ( $args['search'] !== '' ) $args['display_filter'] = false;
@@ -688,13 +689,15 @@ class Exopite_Multifilter_Public {
         $AJAX = str_replace( '\"', '"', $_POST["json"] );
         $AJAX = json_decode( $AJAX, true );
 
-        //check_ajax_referer( $AJAX['ajax_string'], $AJAX['ajax_nonce'] );
+        if ( wp_verify_nonce( $AJAX['ajax_nonce'], 'exopite-multifilter-nonce' ) ) {
 
-        $AJAX['paged'] = $AJAX['paged'] ? $AJAX['paged'] : 1;
+            $AJAX['paged'] = $AJAX['paged'] ? $AJAX['paged'] : 1;
 
-        $ret .= $this->get_articles( $AJAX );
+            $ret .= $this->get_articles( $AJAX );
 
-        die( $ret );
+            die( $ret );
+        }
+
 
     }
 
