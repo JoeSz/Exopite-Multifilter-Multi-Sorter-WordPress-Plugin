@@ -303,7 +303,9 @@ class Exopite_Multifilter_Public {
             $args['query']['orderby'] = 'rand';
         }
 
-        $args['query']['tax_query']['relation'] = 'AND';
+        $args['query']['tax_query']['relation'] = ( $args['in_all_taxnomies'] ) ? 'AND' : 'OR';
+
+        // $args['query']['tax_query']['relation'] = 'AND';
 
         foreach ( $args['taxonomies_terms'] as $taxonomy => $terms ) {
 
@@ -513,6 +515,7 @@ class Exopite_Multifilter_Public {
                 'effect'                    => 'apollo',
                 'search'                    => '',              // search
                 'store_session'             => false,           // store session
+                'in_all_taxnomies'          => true,            // positive or negative selection
                 'random'                    => false,            // randomize (pagiantion and search are off)
             ),
             $atts
@@ -592,7 +595,7 @@ class Exopite_Multifilter_Public {
 
         //check_ajax_referer( $AJAX['ajax_string'], $AJAX['ajax_nonce'] );
 
-        $args['paged'] = $AJAX['paged'] ? $AJAX['paged'] : 1;
+        $AJAX['paged'] = $AJAX['paged'] ? $AJAX['paged'] : 1;
 
         $ret .= $this->get_articles( $AJAX );
 
