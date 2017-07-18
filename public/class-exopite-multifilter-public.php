@@ -298,6 +298,11 @@ class Exopite_Multifilter_Public {
 
         $ret = '';
 
+        if ( $args['random'] ) {
+            $args['display_pagination'] = false;
+            $args['query']['orderby'] = 'rand';
+        }
+
         $args['query']['tax_query']['relation'] = 'AND';
 
         foreach ( $args['taxonomies_terms'] as $taxonomy => $terms ) {
@@ -316,12 +321,14 @@ class Exopite_Multifilter_Public {
 
         }
 
-        if ( isset( $args['search'] ) ) {
+        if ( isset( $args['search'] ) && ! $args['random'] ) {
             $args['query']['s'] = $args['search'];
         }
 
         // Pagination
-        $args['query']['paged'] = $args['paged'];
+        if ( ! $args['random'] ) {
+            $args['query']['paged'] = $args['paged'];
+        }
         $args['query']['posts_per_page'] = $args['posts_per_page'];
         //$args['query']['fields'] = 'ids';
 
@@ -329,7 +336,7 @@ class Exopite_Multifilter_Public {
         $include_sticky = true;
         $args['query']['ignore_sticky_posts'] = 1;
 
-        if ( $include_sticky && $args['query']['post_type'] == 'post' ) {
+        if ( ! $args['random'] && $include_sticky && $args['query']['post_type'] == 'post' ) {
 
             // http://www.kriesi.at/support/topic/sticky-posts-in-b-og-grid/
             $sticky = get_option( 'sticky_posts' );
@@ -495,17 +502,18 @@ class Exopite_Multifilter_Public {
                 'no-gap'                    => false,
                 'except_lenght'             => 0,
                 'except_more'               => '',
-                'pagination'                => 'pagination', // pagination, readmore, infinite
+                'pagination'                => 'pagination',    // pagination, readmore, infinite
                 'multi_selectable'          => true,
                 'thumbnail-size-single-row' => 'full',
                 'thumbnail-size-multi-row'  => 'large',
-                'taxonomies_terms'          => 'category', // term1, term2, ...
-                'update_paged'              => false, // Do not update page in browser URL bar
-                'display_page_number'       => false, // Show page number between loads in infinite and readmore
-                'paged'                     => 1, // Set start page number if not already paged
+                'taxonomies_terms'          => 'category',      // term1, term2, ...
+                'update_paged'              => false,           // Do not update page in browser URL bar
+                'display_page_number'       => false,           // Show page number between loads in infinite and readmore
+                'paged'                     => 1,               // Set start page number if not already paged
                 'effect'                    => 'apollo',
-                'search'                    => '', // search
-                'store_session'             => false, // store session
+                'search'                    => '',              // search
+                'store_session'             => false,           // store session
+                'random'                    => false,            // randomize (pagiantion and search are off)
             ),
             $atts
         );
@@ -549,7 +557,7 @@ class Exopite_Multifilter_Public {
          */
         $ret = '<div class="exopite-multifilter-container" data-ajax=\'' . htmlentities( json_encode( $args ), ENT_QUOTES, 'UTF-8' ) . '\'>';
 
-        if ( $args['display_filter'] ) {
+        if ( $args['display_filter'] && ! $args['random'] ) {
             /**
              * Insert args array to data-ajax for javascript as JSON.
              *
@@ -559,6 +567,7 @@ class Exopite_Multifilter_Public {
             $ret .= '<div class="exopite-multifilter-filter-reset-search text-right"><span class="exopite-multifilter-filter-reset">' . __( 'Reset all', 'exopite-multifilter' ) . '</span>';
 
             if ( $args['search'] == '' ) $ret .= '<form role="search" method="get" class="exopite-multifilter-search" action="' . esc_url( home_url( '/' ) ) . '"><div class="form-group"><input type="text" class="form-group" placeholder="' . esc_attr__( 'Search…', 'exopite-multifilter' ) . '" name="s" id="" value="' . esc_attr( get_search_query() ) . '" /><span class="form-group-btn"><button class="btn btn-default" type="submit" id="" value="Search"><i class="fa fa-search" aria-hidden="true"></i></button></span></div><!-- /input-group --></form>';
+
             $ret .= '</div>';
             $ret .= $this->get_filters( $args['post_type'], $args['taxonomies_terms'], true );
             $ret .= '</div>';
@@ -583,7 +592,7 @@ class Exopite_Multifilter_Public {
 
         //check_ajax_referer( $AJAX['ajax_string'], $AJAX['ajax_nonce'] );
 
-        $AJAX['paged'] = $AJAX['paged'] ? $AJAX['paged'] : 1;
+        $args['paged'] = $AJAX['paged'] ? $AJAX['paged'] : 1;
 
         $ret .= $this->get_articles( $AJAX );
 
