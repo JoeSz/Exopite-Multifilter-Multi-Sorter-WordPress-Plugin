@@ -4,6 +4,7 @@
 - Author: Joe Szalai
 - Version: 1.0.4
 - Plugin URL: https://github.com/JoeSz/exopite-multifilter
+- Demo URL: https://github.com/JoeSz/exopite-multifilter
 - Author URL: https://joe.szalai.org
 - License: GNU General Public License v3 or later
 - License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -111,9 +112,6 @@ PLANNED
 
 * On mobile 6 page number is too much -> how should be displayed?
 * Add widget (only if [CodeStar Framework](http://codestarframework.com/) as plugin installed)
-* Display post meta
-* AJAX nounce
-* Random posts
 * Add to WordPress repo.
 
 CHANGELOG
@@ -149,7 +147,8 @@ The GPL license of Exopite Multifilter grants you the right to use, study, share
 DISCLAMER
 ---------
 
-NO WARRANTY OF ANY KIND! USE THIS SOFTWARES AND INFORMATIONS AT YOUR OWN RISK! READ DISCLAMER.TXT!
+NO WARRANTY OF ANY KIND! USE THIS SOFTWARES AND INFORMATIONS AT YOUR OWN RISK!
+[READ DISCLAMER.TXT!](https://joe.szalai.org/disclaimer/)
 License: GNU General Public License v3
 
 [![forthebadge](http://forthebadge.com/images/badges/built-by-developers.svg)](http://forthebadge.com) [![forthebadge](http://forthebadge.com/images/badges/for-you.svg)](http://forthebadge.com)
