@@ -4,7 +4,7 @@
 - Author: Joe Szalai
 - Version: 1.0.4
 - Plugin URL: https://github.com/JoeSz/exopite-multifilter
-- Author URL: http://joe.szalai.org
+- Author URL: https://joe.szalai.org
 - License: GNU General Public License v3 or later
 - License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -36,7 +36,9 @@ https://tympanus.net/Development/HoverEffectIdeas/index.html <br />
 https://tympanus.net/Development/HoverEffectIdeas/index2.html
 
 ### Live preview <br />
-http://joe.szalai.org/exopite/multifilter/
+<p align="center">
+    <a href="https://joe.szalai.org/exopite/multifilter/" rel="Theme URL and Live Demo"><img src="https://joe.szalai.org/wp-content/uploads/2017/07/plugin_live_demo.png" alt="Theme URL and Live Demo"></a>
+</p>
 
 Paginated                  |  Title and readmore loading |  Multiple selection  <br />(tags and categories)
 :-------------------------:|:---------------------------:|:-------------------------:
