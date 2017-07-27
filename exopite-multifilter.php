@@ -14,11 +14,11 @@
  *
  * @wordpress-plugin
  * Plugin Name:       Exopite multi-selectable AJAX sorter for any post types
- * Plugin URI:        http://joe.szalai.org/exopite/multifilter
+ * Plugin URI:        https://joe.szalai.org/exopite/multifilter
  * Description:       Multi-selectable AJAX sorter for any post types. Working with taxonomies and terms as filters (e.g.: for post: categories and tags).
  * Version:           1.0.4
  * Author:            Joe Szalai
- * Author URI:        http://joe.szalai.org
+ * Author URI:        https://joe.szalai.org
  * License:           GPL-2.0+
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
  * Text Domain:       exopite-multifilter
