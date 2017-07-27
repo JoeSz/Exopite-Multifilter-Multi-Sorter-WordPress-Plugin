@@ -4,7 +4,7 @@
 - Author: Joe Szalai
 - Version: 1.0.4
 - Plugin URL: https://github.com/JoeSz/exopite-multifilter
-- Demo URL: https://github.com/JoeSz/exopite-multifilter
+- Demo URL: https://joe.szalai.org/exopite/multifilter/
 - Author URL: https://joe.szalai.org
 - License: GNU General Public License v3 or later
 - License URI: http://www.gnu.org/licenses/gpl-3.0.html
