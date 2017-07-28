@@ -116,7 +116,7 @@ if ( ! class_exists( 'ExopiteSettings' ) ) {
  */
 if ( class_exists( 'Puc_v4_Factory' ) ) {
     $MyUpdateChecker = Puc_v4_Factory::buildUpdateChecker(
-        'http://joe.szalai.org/wp-update-server/?action=get_metadata&slug=exopite-multifilter', //Metadata URL.
+        'http://update.szalai.org/?action=get_metadata&slug=exopite-multifilter', //Metadata URL.
         __FILE__, //Full path to the main plugin file.
         'exopite-multifilter' //Plugin slug. Usually it's the same as the name of the directory.
     );
