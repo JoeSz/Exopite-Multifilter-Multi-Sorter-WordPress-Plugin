@@ -329,3 +329,6 @@
 .effect-multifilter img {
     width: 100%;
 }
+.exopite-multifilter-items {
+    height: auto !important;
+}
