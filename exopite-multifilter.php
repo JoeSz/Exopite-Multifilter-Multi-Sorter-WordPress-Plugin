@@ -27,8 +27,9 @@
 /**
  * ToDo:
  *
+ * - select category via links? http://www.site.ext/?multifilter=filtertoselect  ?
  * - on mobile 6 page number is too much -> how should be displayed?
- * - add widget (normal + VC)
+ * - add widget (normal + VC)?
  *
  * - random maybe with pagination (im not sure, this make sence here)
  *   https://hugh.blog/2013/08/22/wordpress-random-post-order-with-correct-pagination/
