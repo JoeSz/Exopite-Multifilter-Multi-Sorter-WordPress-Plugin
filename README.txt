@@ -62,6 +62,9 @@ OR
 
 == Changelog ==
 
+= 20170923 - 2017-09-23 =
+* Added: placeholder image if thumbnail does not exist
+
 = 1.0.4 - 2017-07-18 =
 * Added: options to choose between additive and subtractive query.
 * Added: options to randomize query.
