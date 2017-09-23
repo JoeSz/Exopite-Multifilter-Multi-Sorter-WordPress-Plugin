@@ -186,11 +186,13 @@ class Exopite_Multifilter_Public {
 
         $ret = '';
 
-
-        $image_sizes = $this->_get_all_image_sizes();
-
         if ( empty( $url ) ) {
+
+            $image_sizes = $this->_get_all_image_sizes();
+
             $url = apply_filters( 'exopite-multifilter-placeholder-image', 'https://dummyimage.com/' . $image_sizes[$thumbnail_size]['width'] . 'x' . $image_sizes[$thumbnail_size]['height'] . '/cccccc/fff.jpg' );
+
+            // $url = apply_filters( 'exopite-multifilter-placeholder-image', 'http://lorempixel.com/' . $image_sizes[$thumbnail_size]['width'] . '/' . $image_sizes[$thumbnail_size]['height'] . '/technics/' );
         }
 
         $ret .= '<div class="entry-thumbnail-container clearfix' . $class . '">';
