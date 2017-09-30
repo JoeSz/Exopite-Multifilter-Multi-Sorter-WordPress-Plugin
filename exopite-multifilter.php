@@ -9,7 +9,7 @@
  * that starts the plugin.
  *
  * @link              http://joe.szalai.org
- * @since             20170923
+ * @since             20170930
  * @package           Exopite_Multifilter
  *
  * @wordpress-plugin

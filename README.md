@@ -117,6 +117,9 @@ PLANNED
 CHANGELOG
 ---------
 
+= 20170930 - 2017-09-30 =
+* Fixed: some effects css didn't showed up property
+
 = 20170923 - 2017-09-23 =
 * Added: placeholder image if thumbnail does not exist
 
