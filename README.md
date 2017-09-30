@@ -119,6 +119,7 @@ CHANGELOG
 
 = 20170930 - 2017-09-30 =
 * Fixed: some effects css didn't showed up property
+* Improvement: "display_pagination" is moved to pagination: none
 
 = 20170923 - 2017-09-23 =
 * Added: placeholder image if thumbnail does not exist

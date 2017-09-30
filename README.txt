@@ -23,13 +23,12 @@ Available options
 * 'posts_per_page': ['number'] how many post per page per shortcode
 * 'posts_per_row': ['1' - '4'] how many posts per row per shortcode
 * 'display_title': ['true' or 'false'] display post title
-* 'display_pagination': ['true' or 'false'] display pagination
 * 'display_filter': ['true' or 'false'] display filter
 * 'blog_layout' ['top', 'left', 'right', 'zigzag' or 'none']
 * 'no-gap': ['true' or 'false'] hide gap between post
 * 'except_lenght' ['number'] the lenght of the exceprt by words, '0' means no exceprt
 * 'except_more' ['text'] excerpt more
-* 'pagination': ['pagination', 'readmore' or 'infinite'] the type of the pagination
+* 'pagination': ['pagination', 'readmore', 'infinite' or none] the type of the pagination
 * 'multi_selectable': ['true' or 'false'] single or multiselect: true or false
 * 'thumbnail-size-single-row' => ['thumbnail-size-slug'] thumbnail size for single post per row
 * 'thumbnail-size-multi-row'  => ['thumbnail-size-slug'] thumbnail size for multipe post per row
@@ -64,6 +63,7 @@ OR
 
 = 20170930 - 2017-09-30 =
 * Fixed: some effects css didn't showed up property
+* Improvement: "display_pagination" is moved to pagination: none
 
 = 20170923 - 2017-09-23 =
 * Added: placeholder image if thumbnail does not exist
