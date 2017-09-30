@@ -580,7 +580,7 @@ class Exopite_Multifilter_Public {
 
             $pagination_orientation = ( $args['pagination'] == 'pagination' ) ? 'text-right' : 'text-center';
 
-            if ( $args['display_pagination'] ) {
+            if ( $args['pagination'] != 'none' ) {
                 $ret .= '<div class="row exopite-multifilter-paginations ' . $pagination_orientation . '">';
 
                 $ret .= $this->get_pagination( $args['page_id'], $the_query->max_num_pages, $args['paged'], $args['pagination'] );
@@ -613,13 +613,12 @@ class Exopite_Multifilter_Public {
                 'posts_per_page'            => 4,
                 'posts_per_row'             => 2,
                 'display_title'             => false,
-                'display_pagination'        => true,
                 'display_filter'            => true,
                 'blog_layout'               => 'top',
                 'no-gap'                    => false,
                 'except_lenght'             => 0,
                 'except_more'               => '',
-                'pagination'                => 'pagination',    // pagination, readmore, infinite
+                'pagination'                => 'pagination',    // pagination, readmore, infinite, none
                 'multi_selectable'          => true,
                 'thumbnail-size-single-row' => 'full',
                 'thumbnail-size-multi-row'  => 'large',
@@ -691,7 +690,7 @@ class Exopite_Multifilter_Public {
          */
         $ret = '<div class="exopite-multifilter-container" data-ajax=\'' . htmlentities( json_encode( $args ), ENT_QUOTES, 'UTF-8' ) . '\'>';
 
-        if ( $args['display_filter'] && ! $args['random'] ) {
+        if ( $args['display_filter'] !== 'false' && ! $args['random'] ) {
             /**
              * Insert args array to data-ajax for javascript as JSON.
              *
