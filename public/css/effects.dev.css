@@ -140,7 +140,7 @@
     font-size: 90%;
     opacity: 0;
     color: #fff;
-    width: calc(100% - 40px);
+    /*width: calc(100% - 40px);*/
     -webkit-transform: scale3d(0.8,0.8,1);
     transform: scale3d(0.8,0.8,1);
     -webkit-transform-origin: 50% -100%;
@@ -407,7 +407,7 @@
     transition: all 0.3s ease-in-out;
     width: 140px;
 }
-figure:hover .figure-caption {
+figure.effect-lexi:hover .figure-caption.animation {
     opacity: 1;
 }
 /*--------------*/
