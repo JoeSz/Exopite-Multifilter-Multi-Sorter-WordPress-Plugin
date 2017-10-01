@@ -28,6 +28,9 @@
  * ToDo:
  *
  * - select category via links? http://www.site.ext/?multifilter=filtertoselect  ?
+ * - macy.js for masonry layout (https://github.com/bigbitecreative/macy.js/blob/master/src/macy.js)
+ * - equal height with read more in bottom (hr4you)
+ *
  * - on mobile 6 page number is too much -> how should be displayed?
  * - add widget (normal + VC)?
  *
