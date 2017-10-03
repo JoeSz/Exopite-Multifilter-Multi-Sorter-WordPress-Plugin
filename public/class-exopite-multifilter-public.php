@@ -629,6 +629,7 @@ class Exopite_Multifilter_Public {
                 'effect'                    => 'apollo',
                 'search'                    => '',              // search
                 'store_session'             => false,           // store session
+                'load_from_url'             => false,           // load from url
                 'in_all_taxnomies'          => true,            // positive or negative selection
                 'random'                    => false,           // randomize (pagination and search are off)
                 // [date, author, commentcount, taxonomy, last-modified] comma separated list
