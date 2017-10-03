@@ -35,6 +35,14 @@
             return ( matches ) ? matches[1] : 1;
         };
 
+        var _getUrlVars = function getUrlVars() {
+            var vars = {};
+            window.location.search.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
+                vars[key] = value;
+            });
+            return vars;
+        }
+
         var _animate = function animate( $what, when ) {
             switch( when ) {
                 case 'out':
@@ -364,19 +372,108 @@
 
             _init();
 
+            // https://stackoverflow.com/questions/7171099/how-to-replace-url-parameter-with-javascript-jquery/27791249#27791249
+            var _replaceUrlParam = function replaceUrlParam(url, paramName, paramValue){
+                var pattern = new RegExp('(\\?|\\&)('+paramName+'=).*?(&|$)')
+                var newUrl=url
+                if(url.search(pattern)>=0){
+                    newUrl = url.replace(pattern,'$1$2' + paramValue + '$3');
+                }
+                else{
+                    newUrl = newUrl + (newUrl.indexOf('?')>0 ? '&' : '?') + paramName + '=' + paramValue
+                }
+                return newUrl
+            };
+
             /**
-             * This function will restore previous state of the filters.
-             * Get previous state from local storage.
+             * This function will restore or load from URL the previous state of the filters, pagination or search.
+             * Get previous state from local storage or from URL.
              */
-            var _loadPrev = function loadPrev() {
+            var _loadOnStart = function loadOnStart() {
 
-                // Get stored JSON object.
-                var obj = JSON.parse( localStorage.getItem( _getSelector() + i ) );
+                /*
+                 * load from URL or localstorage
+                 *
+                 * - URL only with ID definied
+                 * - URL priority and override items in localstorage
+                 *
+                 */
 
-                // No run if do not need to.
+                var obj = null;
+
+                // Do not run if do not need to.
                 var _run = false;
+                var tryLocalStorage = true;
 
-                // If no previousy stored item(s), then return.
+                if ( dataJSON.load_from_url ) {
+
+                    // Get multifilter from URL
+                    var multifilterURL = _getUrlVars()["multifilter"];
+
+                    // if multifilter in URL definied
+                    if( multifilterURL && multifilterURL !== "null" && multifilterURL !== "undefined" ) {
+
+                        // Get this ID
+                        var thisID = $( base ).attr('id');
+
+                        // for load from URL, ID is required
+                        if( thisID && thisID !== "null" && thisID !== "undefined" ) {
+
+                            // Get object from JSON from URL
+                            var multifilterObj = JSON.parse( decodeURI( multifilterURL ) );
+
+                            // Get params for this instance
+                            var multifilterThis =  multifilterObj[ thisID ];
+
+                            // If params for this instance exist
+                            if( multifilterThis && multifilterThis !== "null" && multifilterThis !== "undefined" ) {
+
+                                // Do not load from local storage
+                                tryLocalStorage = false;
+                                obj = multifilterThis;
+
+                                /*
+                                 * URL housekeeping
+                                 * remove processed element from URL, so if user reload the page, do not override what already selected is.
+                                 * Test cases:
+
+                                ?multifilter={"test":{"taxonomies_terms":{"demo-category":["template"],"demo-tag":["template"]},"paged":1,"search":""}}
+
+                                ?multifilter={"test":{"taxonomies_terms":{"demo-category":["template"],"demo-tag":["template"]},"paged":1,"search":""}}&something=else
+
+                                ?multifilter={"test":{"taxonomies_terms":{"demo-category":["template"],"demo-tag":["template"]},"paged":1,"search":""},"testx":{"taxonomies_terms":{"demo-category":["template"],"demo-tag":["template"]},"paged":1,"search":""}}
+
+                                 */
+                                // remove this instance params from multifilter object
+                                delete multifilterObj[ thisID ];
+                                // create a string from object
+                                var URLparam = JSON.stringify( multifilterObj );
+                                // rempace multifilter with this string
+                                var newURL = _replaceUrlParam( window.location.href, 'multifilter', URLparam );
+                                // remove multifilter if empty
+                                newURL = newURL.replace(/multifilter={}(\&?)/i, '');
+                                // remove last "?" if no more URL parameter exist ("?"" is the last char)
+                                if ( newURL.charAt( newURL.length - 1) == '?') newURL = newURL.substr(0, newURL.length - 1);
+
+                                // Remove this insance from URL params
+                                window.history.replaceState(null, null, newURL );
+
+                            }
+
+                        }
+
+                    }
+
+                }
+
+                if ( dataJSON.store_session && tryLocalStorage ) {
+
+                    // Get JSON object stored is localstorage.
+                    obj = JSON.parse( localStorage.getItem( _getSelector() + i ) );
+
+                }
+
+                // If no previousy stored item(s) or in URL for this instance, then return.
                 if( ! obj || obj === "null" || obj === "undefined" ) return;
 
                 // Set paged
@@ -384,53 +481,57 @@
 
                 /*
                  * Set search
+                 * Search override selected filters
                  * http://stackoverflow.com/questions/6295665/checking-undefined-value-not-working/6302462#6302462
                  */
                 if( obj.search !== '' && obj.search !== "undefined" && obj.search !== undefined ) {
+
                     search = obj.search;
                     elements.searchField.val( search );
                     _run = true;
+
+                } else {
+
+                    // Loop through all taxonomy filer in "this" item.
+                    elements.taxonomies.each(function( index, taxnomy ) {
+
+                        // Check if this is the current taxonomy.
+                        var current_taxonomy = Object.keys( obj.taxonomies_terms )[index];
+                        if ( $( taxnomy ).data( 'taxonomy' ) == current_taxonomy ) {
+
+                            // If array is empty, return. This means, we do not have selected items.
+                            if ( obj.taxonomies_terms[current_taxonomy].length < 1 ) return true;
+
+                            // Loop trough terms in current taxonomy.
+                            $( taxnomy ).find( '.exopite-multifilter-filter-item' ).each(function( index, term ) {
+
+                                /*
+                                 * If this term is stored in our previously selected term,
+                                 * then mark active and active _run.
+                                 */
+                                if( $.inArray( $( term ).data( 'term' ) ,obj.taxonomies_terms[current_taxonomy] ) !== -1 ) {
+                                    $( term ).addClass( 'active' );
+                                    _run = true;
+                                }
+                            });
+
+                        }
+                    });
+
                 }
-
-                // Loop through all taxonomy filer in "this" item.
-                elements.taxonomies.each(function( index, taxnomy ) {
-
-                    // Check if this is the current taxonomy.
-                    var current_taxonomy = Object.keys( obj.taxonomies_terms )[index];
-                    if ( $( taxnomy ).data( 'taxonomy' ) == current_taxonomy ) {
-
-                        // If array is empty, return. This means, we do not have selected items.
-                        if ( obj.taxonomies_terms[current_taxonomy].length < 1 ) return true;
-
-                        // Loop trough terms in current taxonomy.
-                        $( taxnomy ).find( '.exopite-multifilter-filter-item' ).each(function( index, term ) {
-
-                            /*
-                             * If this term is stored in our previously selected term,
-                             * then mark active and active _run.
-                             */
-                            if( $.inArray( $( term ).data( 'term' ) ,obj.taxonomies_terms[current_taxonomy] ) !== -1 ) {
-                                $( term ).addClass( 'active' );
-                                _run = true;
-                            }
-                        });
-
-                    }
-                });
 
                 if ( typeof wp.hooks !== 'undefined' ) wp.hooks.doAction( 'ema-load-session', base );
 
                 // If this is not the first page, and/or any filter is seleted, this get items.
                 if ( paged > 1 || _run ) _getItems();
-            }
+            };
 
-            if ( dataJSON.store_session ) _loadPrev();
+            if ( dataJSON.store_session || dataJSON.load_from_url ) _loadOnStart();
 
 
         });
 
     };
-
 
     $(function() {
 
