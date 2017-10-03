@@ -635,6 +635,8 @@ class Exopite_Multifilter_Public {
                 'display_metas'             => '',
                 // only if display_metas has 'taxonomy', taxonomy name to display
                 'display_metas_taxonomies'  => '',              // comma searated list
+                'container_id'              => '',
+                'container_classes'         => '',              // comma searated list
 
             ),
             $atts
@@ -688,7 +690,41 @@ class Exopite_Multifilter_Public {
         /*
          * - WRAPPER
          */
-        $ret = '<div class="exopite-multifilter-container" data-ajax=\'' . htmlentities( json_encode( $args ), ENT_QUOTES, 'UTF-8' ) . '\'>';
+        $regex_css_identifiers_name = '/^[_A-Za-z][A-Za-z0-9_-]*$/';
+        $ret = '<div ';
+
+        // Check wrapper HTML (CSS) ID
+        // https://stackoverflow.com/questions/5523974/validate-a-id-name-tokens-in-html-using-php/5523988#5523988
+        if ( ! empty( $args['container_id'] ) && preg_match( $regex_css_identifiers_name, $args['container_id'] ) ) {
+
+            $ret .= 'id="' . $args['container_id'] . '" ';
+
+        }
+
+        $ret .= 'class="exopite-multifilter-container';
+
+        // Check wrapper HTML (CSS) Classes
+        if ( ! empty( $args['container_classes'] ) ) {
+
+            // Remove null, 0, '' or false from array.
+            // https://stackoverflow.com/questions/8328983/check-whether-an-array-is-empty/8329005#8329005
+            //$container_classes = array_filter( explode( ',', preg_replace( '/\s+/', '', $args['container_classes'] ) ) );
+
+            $container_classes = explode( ',', preg_replace( '/\s+/', '', $args['container_classes'] ) );
+
+            // Get only matched for CSS class names classes
+            // https://stackoverflow.com/questions/8627334/how-to-search-in-an-array-with-preg-match/8627354#8627354
+            $container_classes_array = preg_grep( $regex_css_identifiers_name, $container_classes );
+
+            if ( is_array( $container_classes_array ) && ! empty( $container_classes_array ) ) {
+                $ret .= ' ' . implode( ' ', $container_classes_array );
+            }
+
+        }
+
+        $ret .= '" ';
+
+        $ret .= 'data-ajax=\'' . htmlentities( json_encode( $args ), ENT_QUOTES, 'UTF-8' ) . '\'>';
 
         if ( $args['display_filter'] !== 'false' && ! $args['random'] ) {
             /**
