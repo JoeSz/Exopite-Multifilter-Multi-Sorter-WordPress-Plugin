@@ -41,9 +41,9 @@ https://tympanus.net/Development/HoverEffectIdeas/index2.html
     <a href="https://joe.szalai.org/exopite/multifilter/" rel="Theme URL and Live Demo"><img src="https://joe.szalai.org/wp-content/uploads/2017/07/plugin_live_demo.png" alt="Theme URL and Live Demo"></a>
 </p>
 
-Paginated                  |  Title and readmore loading |  Multiple selection  <br />(tags and categories)
+Read more                  |  Display without filer and gap |  With title and excerpt
 :-------------------------:|:---------------------------:|:-------------------------:
-![](assets/screenshot-1.png)      |  ![](assets/screenshot-2.png)      |  ![](assets/screenshot-3.png)
+![](assets/screenshot-1.jpg)      |  ![](assets/screenshot-2.jpg)      |  ![](assets/screenshot-3.jpg)
 
 USAGE
 -----
