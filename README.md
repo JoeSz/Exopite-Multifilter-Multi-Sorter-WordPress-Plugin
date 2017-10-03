@@ -2,7 +2,7 @@
 ## WordPress Plugin
 
 - Author: Joe Szalai
-- Version: 1.0.4
+- Version: 20171003
 - Plugin URL: https://github.com/JoeSz/exopite-multifilter
 - Demo URL: https://joe.szalai.org/exopite/multifilter/
 - Author URL: https://joe.szalai.org
@@ -78,8 +78,14 @@ Available options
 | `display_page_number`              | ['true' or 'false'] Show page number between loads in infinite and readmore  | false
 | `paged`                            | ['number'], Set start page number if not already paged                       | 1
 | `effect`                           | ['apollo', 'duke', 'goliath', 'julia', 'lexi', 'ming' or 'steve']            | apollo
-| `search`                           | ['search'] if set, filter will be disabled                                   |
+* 'search'                           | ['search'] search in previously definied post type. If set, filter will be disabled. |
+| `load_from_url`                           | ['true of false'] if set, plugin load filters, pagination or search from URL. Will override localstorage. Set `container_id` in shortcode is required to enable this option. Format need to be a JSON object, like: //www.site.com/?[...&]multifilter={"[container_id]":{"[taxonomies_terms_name]":{"[taxonomy1]":["subtaxonomy[,...]"],"[taxonomy2]":["subtaxonomy[,...]"]},"paged":[page_number],"search":"[search_for]"}}, the [container_id] is required | false
 | `store_session`                    | ['true' or 'false'] Store current session (page number, selected filters and search). Useful if visitor is hit back or click on back button | false
+| `in_all_taxnomies`                 | ['true' or 'false'] If true, match all taxonomy queries (subtractive query), otherwise posts which match at least one taxonomy query (additive query) | true
+| `random`                           | ['true' or 'false'] randomize query (pagination, filters and search are off) | false
+| `display_metas_taxonomies`         | only if display_metas has 'taxonomy', taxonomy name to display (eg. for posts: category, post_tag), string or comma separated list |
+| `container_id`                     | ['string'], Set wrapper/container id                                        |
+| `container_classes`                | ['string or a comma searated list'], Set wrapper/container class[es]        |
 
 INSTALLATION
 ------------
@@ -116,6 +122,11 @@ PLANNED
 
 CHANGELOG
 ---------
+
+= 20171003 - 2017-10-03 =
+* Added: can load filter, pagination or search from URL.
+* Added: container_id option to set wrapper/container id.
+* Added: container_classes option to set wrapper/container class/es.
 
 = 20170930 - 2017-09-30 =
 * Fixed: some effects css didn't showed up property
