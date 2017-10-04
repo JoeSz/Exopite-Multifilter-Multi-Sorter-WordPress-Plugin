@@ -130,13 +130,26 @@ class Exopite_Multifilter_Public {
 
         }
 
-        $version = ( $this->development ) ? 'dev' : 'min';
+        if ( ! wp_script_is( 'macy', 'registered' ) || ! wp_script_is( 'macy.js', 'registered' ) ) {
 
-        $public_js_url  = plugin_dir_url( __FILE__ ) . 'js/exopite-multifilter-public.' . $version . '.js';
-        $public_js_path = plugin_dir_path( __FILE__ ) . DIRECTORY_SEPARATOR . 'js' . DIRECTORY_SEPARATOR . 'exopite-multifilter-public.' . $version . '.js';
+            $public_js_url  = plugin_dir_url( __FILE__ ) . 'js/macy.js';
+            $public_js_path = plugin_dir_path( __FILE__ ) . DIRECTORY_SEPARATOR . 'js' . DIRECTORY_SEPARATOR . 'macy.js';
 
-		//wp_enqueue_script( $this->plugin_name, $public_js_url, array( 'jquery' ), filemtime( $public_js_path ), true );
-        wp_register_script( $this->plugin_name, $public_js_url, array( 'jquery' ), filemtime( $public_js_path ), true );
+            wp_register_script( 'macy', $public_js_url, array( 'jquery' ), filemtime( $public_js_path ), true );
+
+        }
+
+        if ( ! wp_script_is( $this->plugin_name, 'registered' ) ) {
+
+            $version = ( $this->development ) ? 'dev' : 'min';
+
+            $public_js_url  = plugin_dir_url( __FILE__ ) . 'js/exopite-multifilter-public.' . $version . '.js';
+            $public_js_path = plugin_dir_path( __FILE__ ) . DIRECTORY_SEPARATOR . 'js' . DIRECTORY_SEPARATOR . 'exopite-multifilter-public.' . $version . '.js';
+
+            wp_register_script( $this->plugin_name, $public_js_url, array( 'jquery', 'macy' ), filemtime( $public_js_path ), true );
+
+        }
+
         /**
          *  In backend there is global ajaxurl variable defined by WordPress itself.
          *
@@ -671,6 +684,9 @@ class Exopite_Multifilter_Public {
          */
         wp_enqueue_style( $this->plugin_name );
         wp_enqueue_style( 'exopite-effects' );
+        if ( ! wp_script_is( 'macy', 'queue' ) ) {
+            wp_enqueue_script( 'macy' );
+        }
         wp_enqueue_script( $this->plugin_name );
 
         // ToDo: sanitize data
