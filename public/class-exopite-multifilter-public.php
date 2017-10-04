@@ -684,10 +684,6 @@ class Exopite_Multifilter_Public {
          */
         wp_enqueue_style( $this->plugin_name );
         wp_enqueue_style( 'exopite-effects' );
-        if ( ! wp_script_is( 'macy', 'queue' ) ) {
-            wp_enqueue_script( 'macy' );
-        }
-        wp_enqueue_script( $this->plugin_name );
 
         // ToDo: sanitize data
 
@@ -749,6 +745,19 @@ class Exopite_Multifilter_Public {
         }
 
         $ret .= 'class="exopite-multifilter-container';
+
+        // If element has id and style is masonry then enqueue masonry JavaScript
+        // and add masonry class
+        if ( ! empty( $args['container_id'] ) && $args['style'] == 'masonry' ) {
+
+            $ret .= ' masonry';
+
+            if ( ! wp_script_is( 'macy', 'queue' ) ) {
+                wp_enqueue_script( 'macy' );
+            }
+
+        }
+        wp_enqueue_script( $this->plugin_name );
 
         // Check wrapper HTML (CSS) Classes
         if ( ! empty( $args['container_classes'] ) ) {
