@@ -40,6 +40,8 @@ class Exopite_Multifilter_Public {
 	 */
 	private $version;
 
+    private $development;
+
 	/**
 	 * Initialize the class and set its properties.
 	 *
@@ -51,6 +53,7 @@ class Exopite_Multifilter_Public {
 
 		$this->plugin_name = $plugin_name;
 		$this->version = $version;
+        $this->development = true;
 
 	}
 
@@ -86,13 +89,15 @@ class Exopite_Multifilter_Public {
             }
         }
 
-        $public_css_url  = plugin_dir_url( __FILE__ ) . 'css/exopite-multifilter-public.min.css';
-        $public_css_path = EXOPITE_MULTIFILTER_PATH . DIRECTORY_SEPARATOR . 'public' . DIRECTORY_SEPARATOR . 'css' . DIRECTORY_SEPARATOR . 'exopite-multifilter-public.min.css';
-        wp_enqueue_style( $this->plugin_name, $public_css_url, array(), filemtime( $public_css_path ) );
+        $version = ( $this->development ) ? 'dev' : 'min';
+
+        $public_css_url  = plugin_dir_url( __FILE__ ) . 'css/exopite-multifilter-public.' . $version . '.css';
+        $public_css_path = EXOPITE_MULTIFILTER_PATH . DIRECTORY_SEPARATOR . 'public' . DIRECTORY_SEPARATOR . 'css' . DIRECTORY_SEPARATOR . 'exopite-multifilter-public.' . $version . '.css';
+        wp_register_style( $this->plugin_name, $public_css_url, array(), filemtime( $public_css_path ) );
 
         $public_effect_css_url  = plugin_dir_url( __FILE__ ) . 'css/effects.min.css';
         $public_effect_css_path = EXOPITE_MULTIFILTER_PATH . DIRECTORY_SEPARATOR . 'public' . DIRECTORY_SEPARATOR . 'css' . DIRECTORY_SEPARATOR . 'effects.min.css';
-        wp_enqueue_style( 'exopite-effects', $public_effect_css_url, array(), filemtime( $public_effect_css_path ) );
+        wp_register_style( 'exopite-effects', $public_effect_css_url, array(), filemtime( $public_effect_css_path ) );
 
 	}
 
@@ -125,11 +130,13 @@ class Exopite_Multifilter_Public {
 
         }
 
-        $public_js_url  = plugin_dir_url( __FILE__ ) . 'js/exopite-multifilter-public.min.js';
-        $public_js_path = plugin_dir_path( __FILE__ ) . DIRECTORY_SEPARATOR . 'js' . DIRECTORY_SEPARATOR . 'exopite-multifilter-public.min.js';
+        $version = ( $this->development ) ? 'dev' : 'min';
 
-		wp_enqueue_script( $this->plugin_name, $public_js_url, array( 'jquery' ), filemtime( $public_js_path ), true );
+        $public_js_url  = plugin_dir_url( __FILE__ ) . 'js/exopite-multifilter-public.' . $version . '.js';
+        $public_js_path = plugin_dir_path( __FILE__ ) . DIRECTORY_SEPARATOR . 'js' . DIRECTORY_SEPARATOR . 'exopite-multifilter-public.' . $version . '.js';
 
+		//wp_enqueue_script( $this->plugin_name, $public_js_url, array( 'jquery' ), filemtime( $public_js_path ), true );
+        wp_register_script( $this->plugin_name, $public_js_url, array( 'jquery' ), filemtime( $public_js_path ), true );
         /**
          *  In backend there is global ajaxurl variable defined by WordPress itself.
          *
@@ -652,6 +659,19 @@ class Exopite_Multifilter_Public {
             ),
             $atts
         );
+
+        /*
+         * Enqueue scripts and styles only if shortcode is present
+         * https://wordpress.stackexchange.com/questions/165754/enqueue-scripts-styles-when-shortcode-is-present/191512#191512
+         *
+         * Issues:
+         * - css load in the footer
+         * - check with has_shortcode  has performace issues:
+         *   https://wordpress.stackexchange.com/questions/165754/enqueue-scripts-styles-when-shortcode-is-present/165759#165759
+         */
+        wp_enqueue_style( $this->plugin_name );
+        wp_enqueue_style( 'exopite-effects' );
+        wp_enqueue_script( $this->plugin_name );
 
         // ToDo: sanitize data
 
