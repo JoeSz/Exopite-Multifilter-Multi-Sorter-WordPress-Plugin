@@ -272,15 +272,6 @@ class Exopite_Multifilter_Public {
         return ExopiteSettings::getValue('exopite_multifilter_except_lenght');
     }
 
-    function excerpt_more() {
-        /**
-         * ToDo:
-         * - Excerpt -> leave the link, change only text and if text empty, leave it out
-         */
-        return '' . ExopiteSettings::getValue('exopite_multifilter_except_more') . '';
-    }
-
-
     // create pagination link
     function get_pagination( $page_id, $max_num_page, $current_page, $pagination, $format = 'page' ) {
         if( $max_num_page <= 1 ) return '';
@@ -396,6 +387,24 @@ class Exopite_Multifilter_Public {
         return implode( ', ', $metas );
     }
 
+
+    function excerpt_more( $excerpt ) {
+
+        if ( ! empty( $args['except_more'] ) && $args['except_more'] != 'none' ) {
+
+            $excerpt = apply_filters( 'excerpt_more_exopite_multifilter', $excerpt );
+        }
+
+        return '</div><div class="entry-excerpt-more">' . $excerpt . '</div>';
+
+    }
+
+    function excerpt( $excerpt ) {
+
+        return '<div class="entry-excerpt">' . $excerpt . '</div>';
+
+    }
+
     function get_articles( $args ) {
 
         // WP_Query: http://www.billerickson.net/code/wp_query-arguments/
@@ -491,11 +500,8 @@ class Exopite_Multifilter_Public {
                 add_filter( 'excerpt_length', array( $this, 'excerpt_length' ), 999 );
             }
 
-            if ( ! empty( $args['except_more'] ) && $args['except_more'] != 'none' ) {
-                ExopiteSettings::setValue( 'exopite_multifilter_except_more', $args['except_more'] );
-                ExopiteSettings::setValue( 'exopite_multifilter_except_more_url', get_the_permalink() );
-                add_filter( 'excerpt_more', array( $this, 'excerpt_more' ) );
-            }
+            add_filter( 'excerpt_more', array( $this, 'excerpt_more' ) );
+            add_filter( 'the_excerpt', array( $this, 'excerpt' ) );
 
             while ( $the_query->have_posts() ) {
                 $the_query->the_post();
@@ -545,17 +551,20 @@ class Exopite_Multifilter_Public {
                         $article_content .= '</header>';
                     }
                     if ( count( $args['display_metas'] ) > 0 ) {
-                        $article_content .= $this->get_metas( $args, get_the_ID() );
+                        $article_content .= '<div class="entry-metas">' . $this->get_metas( $args, get_the_ID() ) . '</div>';
                     }
                     if ( $args['except_lenght'] > 0 || $args['except_lenght'] === 'full' ) {
                         $article_content .= '<div class="entry-content">';
-                        $article_content .= ($args['except_lenght'] === 'full') ? get_the_content() : get_the_excerpt();
+                        $article_content .= '<div class="entry-content-inner">';
+                        $article_content .= ( $args['except_lenght'] === 'full' ) ? get_the_content() : get_the_excerpt();
                         $article_content .= '</div>';
                     }
                     $article_content .= '</div>';
                 }
 
-                $article_wrapper_begin = '<article class="col-12 ' . $classes . '"><div class="article-container">';
+                $article_wrapper_begin = '<article class="col-12 ' . $classes . '"><div class="article-container';
+                $article_wrapper_begin .= ( $args['style'] === 'equal-height' ) ? ' equal-height' : '';
+                $article_wrapper_begin .= '">';
 
                 switch ( $image_class ) {
                     case 'left':
@@ -638,6 +647,7 @@ class Exopite_Multifilter_Public {
                 'display_metas_taxonomies'  => '',              // comma searated list
                 'container_id'              => '',
                 'container_classes'         => '',              // comma searated list
+                'style'                     => '',              // empry, equal-height, masonry
 
             ),
             $atts
@@ -727,7 +737,7 @@ class Exopite_Multifilter_Public {
 
         $ret .= 'data-ajax=\'' . htmlentities( json_encode( $args ), ENT_QUOTES, 'UTF-8' ) . '\'>';
 
-        if ( $args['display_filter'] !== 'false' && ! $args['random'] ) {
+        if ( $args['display_filter'] && $args['display_filter'] !== 'false' && ! $args['random'] ) {
             /**
              * Insert args array to data-ajax for javascript as JSON.
              *
