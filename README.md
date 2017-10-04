@@ -2,7 +2,7 @@
 ## WordPress Plugin
 
 - Author: Joe Szalai
-- Version: 20171003
+- Version: 20171004
 - Plugin URL: https://github.com/JoeSz/exopite-multifilter
 - Demo URL: https://joe.szalai.org/exopite/multifilter/
 - Author URL: https://joe.szalai.org
@@ -122,6 +122,10 @@ PLANNED
 
 CHANGELOG
 ---------
+
+= 20171004 - 2017-10-04 =
+* Added: style options for equal-height.
+* Improvement: load plugin scripts and styles only if shortcode present
 
 = 20171003 - 2017-10-03 =
 * Added: can load filter, pagination or search from URL.

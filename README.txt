@@ -7,7 +7,7 @@ Tested up to: 4.8.2
 Stable tag: 4.8.2
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
-Version: 20171003
+Version: 20171004
 
 AJAX sorter/filter any post types by multiple taxonomies and/or terms (like post by categories and/or tags).
 
@@ -99,6 +99,10 @@ OR
 2. Multiple taxomonies as filter selected, thumbnail with title and ming effect.
 
 == Changelog ==
+
+= 20171004 - 2017-10-04 =
+* Added: style options for equal-height.
+* Improvement: load plugin scripts and styles only if shortcode present
 
 = 20171003 - 2017-10-03 =
 * Added: can load filter, pagination or search from URL.
