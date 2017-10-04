@@ -332,3 +332,27 @@
 .exopite-multifilter-items {
     height: auto !important;
 }
+.multi-column .article-container.equal-height {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+.exopite-multifilter-items .multi-column .equal-height .entry-content-container {
+    padding: 1.25rem;
+    display: flex;
+    flex: 1 auto;
+    flex-direction: column;
+}
+.exopite-multifilter-items .multi-column .equal-height .entry-header {
+    display: flex;
+    flex-wrap: wrap;
+}
+.exopite-multifilter-items .multi-column .equal-height .entry-content {
+    display: flex;
+    flex-wrap: wrap;
+    flex: 1 1 auto;
+}
+.exopite-multifilter-items .multi-column .equal-height .entry-excerpt-more {
+    align-self: flex-end;
+    width: 100%;
+}
