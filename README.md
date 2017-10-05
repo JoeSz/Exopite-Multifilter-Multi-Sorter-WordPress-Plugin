@@ -86,6 +86,7 @@ Available options
 | `display_metas_taxonomies`         | only if display_metas has 'taxonomy', taxonomy name to display (eg. for posts: category, post_tag), string or comma separated list |
 | `container_id`                     | ['string'], Set wrapper/container id                                        |
 | `container_classes`                | ['string or a comma searated list'], Set wrapper/container class[es]        |
+| `style`                            | ['equal-height', or empty], columns has equal height (flex)                 |
 
 INSTALLATION
 ------------
@@ -122,6 +123,10 @@ PLANNED
 
 CHANGELOG
 ---------
+
+= 20171005 - 2017-10-05 =
+* Improvement: equal-height for columns (flex)
+* Improvement: enqueue scripts and styles only if shortcode present (enqueue both in footer)
 
 = 20171004 - 2017-10-04 =
 * Added: style options for equal-height.
