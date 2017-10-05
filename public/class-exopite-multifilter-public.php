@@ -85,7 +85,7 @@ class Exopite_Multifilter_Public {
                  */
                 $bootstrap_css_url  = plugin_dir_url( __FILE__ ) . 'css/bootstrap4-grid-light.min.css';
                 $bootstrap_css_path = EXOPITE_MULTIFILTER_PATH . DIRECTORY_SEPARATOR . 'public' . DIRECTORY_SEPARATOR . 'css' . DIRECTORY_SEPARATOR . 'bootstrap4-grid-light.min.css';
-                wp_enqueue_style( 'bootstrap-light', $bootstrap_css_url, array(), filemtime( $bootstrap_css_path ), 'all' );
+                wp_register_style( 'bootstrap-light', $bootstrap_css_url, array(), filemtime( $bootstrap_css_path ), 'all' );
             }
         }
 
@@ -126,18 +126,20 @@ class Exopite_Multifilter_Public {
             $core_js_path = plugin_dir_path( __FILE__ ) . DIRECTORY_SEPARATOR . 'js' . DIRECTORY_SEPARATOR . 'exopite-core.min.js';
 
             // Exopite core scripts (debounce, throttle, filter & action hooks)
-            wp_enqueue_script( 'exopite-core-js', $core_js_url, array(), filemtime( $core_js_path ), true );
+            wp_register_script( 'exopite-core-js', $core_js_url, array(), filemtime( $core_js_path ), true );
 
         }
 
-        if ( ! wp_script_is( 'macy', 'registered' ) || ! wp_script_is( 'macy.js', 'registered' ) ) {
+        // Not working as well as required
+        //
+        // if ( ! wp_script_is( 'macy', 'registered' ) || ! wp_script_is( 'macy.js', 'registered' ) ) {
 
-            $public_js_url  = plugin_dir_url( __FILE__ ) . 'js/macy.js';
-            $public_js_path = plugin_dir_path( __FILE__ ) . DIRECTORY_SEPARATOR . 'js' . DIRECTORY_SEPARATOR . 'macy.js';
+        //     $public_js_url  = plugin_dir_url( __FILE__ ) . 'js/macy.js';
+        //     $public_js_path = plugin_dir_path( __FILE__ ) . DIRECTORY_SEPARATOR . 'js' . DIRECTORY_SEPARATOR . 'macy.js';
 
-            wp_register_script( 'macy', $public_js_url, array( 'jquery' ), filemtime( $public_js_path ), true );
+        //     wp_register_script( 'macy', $public_js_url, array( 'jquery' ), filemtime( $public_js_path ), true );
 
-        }
+        // }
 
         if ( ! wp_script_is( $this->plugin_name, 'registered' ) ) {
 
@@ -146,7 +148,7 @@ class Exopite_Multifilter_Public {
             $public_js_url  = plugin_dir_url( __FILE__ ) . 'js/exopite-multifilter-public.' . $version . '.js';
             $public_js_path = plugin_dir_path( __FILE__ ) . DIRECTORY_SEPARATOR . 'js' . DIRECTORY_SEPARATOR . 'exopite-multifilter-public.' . $version . '.js';
 
-            wp_register_script( $this->plugin_name, $public_js_url, array( 'jquery', 'macy' ), filemtime( $public_js_path ), true );
+            wp_register_script( $this->plugin_name, $public_js_url, array( 'jquery' ), filemtime( $public_js_path ), true );
 
         }
 
@@ -442,9 +444,12 @@ class Exopite_Multifilter_Public {
             $args['query']['orderby'] = 'rand';
         }
 
+        /*
+         * OR -> match all taxonomy queries (subtractive query),
+         * AND -> posts which match at least one taxonomy query (additive query).
+         *        $args['query']['tax_query']['relation'] = 'AND';
+         */
         $args['query']['tax_query']['relation'] = ( $args['in_all_taxnomies'] ) ? 'AND' : 'OR';
-
-        // $args['query']['tax_query']['relation'] = 'AND';
 
         foreach ( $args['taxonomies_terms'] as $taxonomy => $terms ) {
 
@@ -471,7 +476,6 @@ class Exopite_Multifilter_Public {
             $args['query']['paged'] = $args['paged'];
         }
         $args['query']['posts_per_page'] = $args['posts_per_page'];
-        //$args['query']['fields'] = 'ids';
 
         // START Deal with sticky posts
         $include_sticky = true;
@@ -673,18 +677,6 @@ class Exopite_Multifilter_Public {
             $atts
         );
 
-        /*
-         * Enqueue scripts and styles only if shortcode is present
-         * https://wordpress.stackexchange.com/questions/165754/enqueue-scripts-styles-when-shortcode-is-present/191512#191512
-         *
-         * Issues:
-         * - css load in the footer
-         * - check with has_shortcode  has performace issues:
-         *   https://wordpress.stackexchange.com/questions/165754/enqueue-scripts-styles-when-shortcode-is-present/165759#165759
-         */
-        wp_enqueue_style( $this->plugin_name );
-        wp_enqueue_style( 'exopite-effects' );
-
         // ToDo: sanitize data
 
         // Add page id and paged.
@@ -746,17 +738,32 @@ class Exopite_Multifilter_Public {
 
         $ret .= 'class="exopite-multifilter-container';
 
+
+        /*
+         * Enqueue scripts and styles only if shortcode is present
+         * https://wordpress.stackexchange.com/questions/165754/enqueue-scripts-styles-when-shortcode-is-present/191512#191512
+         *
+         * Issues:
+         * - css load in the footer
+         * - check with has_shortcode  has performace issues:
+         *   https://wordpress.stackexchange.com/questions/165754/enqueue-scripts-styles-when-shortcode-is-present/165759#165759
+         */
+        wp_enqueue_style( 'bootstrap-light' );
+        wp_enqueue_style( $this->plugin_name );
+        wp_enqueue_style( 'exopite-effects' );
+
         // If element has id and style is masonry then enqueue masonry JavaScript
         // and add masonry class
-        if ( ! empty( $args['container_id'] ) && $args['style'] == 'masonry' ) {
+        // if ( ! empty( $args['container_id'] ) && $args['style'] == 'masonry' ) {
 
-            $ret .= ' masonry';
+        //     $ret .= ' masonry';
 
-            if ( ! wp_script_is( 'macy', 'queue' ) ) {
-                wp_enqueue_script( 'macy' );
-            }
+        //     if ( ! wp_script_is( 'macy', 'queue' ) ) {
+        //         wp_enqueue_script( 'macy' );
+        //     }
 
-        }
+        // }
+        wp_enqueue_script( 'exopite-core-js' );
         wp_enqueue_script( $this->plugin_name );
 
         // Check wrapper HTML (CSS) Classes
