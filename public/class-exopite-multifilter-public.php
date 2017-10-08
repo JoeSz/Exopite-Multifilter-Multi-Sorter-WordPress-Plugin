@@ -9,7 +9,11 @@
  * @package    Exopite_Multifilter
  * @subpackage Exopite_Multifilter/public
  */
-
+/*
+ * ToDo:
+ * - gallery mode:
+ *   display only if image present and open image as link not the single
+ */
 /**
  * The public-facing functionality of the plugin.
  *
@@ -41,6 +45,7 @@ class Exopite_Multifilter_Public {
 	private $version;
 
     private $development;
+    private $masonry_type;
 
 	/**
 	 * Initialize the class and set its properties.
@@ -53,7 +58,17 @@ class Exopite_Multifilter_Public {
 
 		$this->plugin_name = $plugin_name;
 		$this->version = $version;
-        $this->development = true;
+
+        // MASONRY
+        $this->development = false;
+
+        // Load masonry versions
+        $version = ( $this->development ) ? '' : 'min.';
+        $this->masonry_type = array(
+            'waterfall-kudago' => 'jquery.waterfall.' . $version . 'js',
+            'masonry-desandro' => 'masonry.pkgd.' . $version . 'js',
+        );
+        // END MASONRY
 
 	}
 
@@ -64,17 +79,9 @@ class Exopite_Multifilter_Public {
 	 */
 	public function enqueue_styles() {
 
-		/**
-		 * This function is provided for demonstration purposes only.
-		 *
-		 * An instance of this class should be passed to the run() function
-		 * defined in Exopite_Multifilter_Loader as all of the hooks are defined
-		 * in that particular class.
-		 *
-		 * The Exopite_Multifilter_Loader will then create the relationship
-		 * between the defined hooks and the functions defined in this
-		 * class.
-		 */
+        $version = ( $this->development ) ? 'dev' : 'min';
+
+        // If Exopite Code plugin not inastalled and activated get Bootstrap 4 grid only
         if ( ! defined( EXOPITE_CORE_URL ) ) {
             if ( ! wp_style_is( 'bootstrap' ) && ! wp_style_is( 'bootstrap-4' ) ) {
 
@@ -83,20 +90,20 @@ class Exopite_Multifilter_Public {
                  *
                  * https://www.doitwithwp.com/enqueue-scripts-styles-automatic-versioning/
                  */
-                $bootstrap_css_url  = plugin_dir_url( __FILE__ ) . 'css/bootstrap4-grid-light.min.css';
-                $bootstrap_css_path = EXOPITE_MULTIFILTER_PATH . DIRECTORY_SEPARATOR . 'public' . DIRECTORY_SEPARATOR . 'css' . DIRECTORY_SEPARATOR . 'bootstrap4-grid-light.min.css';
-                wp_register_style( 'bootstrap-light', $bootstrap_css_url, array(), filemtime( $bootstrap_css_path ), 'all' );
+                $bootstrap_css_url  = plugin_dir_url( __FILE__ ) . 'css/bootstrap4-grid-light.' . $version . '.css';
+                $bootstrap_css_path = EXOPITE_MULTIFILTER_PATH . DIRECTORY_SEPARATOR . 'public' . DIRECTORY_SEPARATOR . 'css' . DIRECTORY_SEPARATOR . 'bootstrap4-grid-light.' . $version . '.css';
+                wp_enqueue_style( 'bootstrap-light', $bootstrap_css_url, array(), filemtime( $bootstrap_css_path ), 'all' );
             }
         }
 
-        $version = ( $this->development ) ? 'dev' : 'min';
-
+        // Register plugin main styles
         $public_css_url  = plugin_dir_url( __FILE__ ) . 'css/exopite-multifilter-public.' . $version . '.css';
         $public_css_path = EXOPITE_MULTIFILTER_PATH . DIRECTORY_SEPARATOR . 'public' . DIRECTORY_SEPARATOR . 'css' . DIRECTORY_SEPARATOR . 'exopite-multifilter-public.' . $version . '.css';
         wp_register_style( $this->plugin_name, $public_css_url, array(), filemtime( $public_css_path ) );
 
-        $public_effect_css_url  = plugin_dir_url( __FILE__ ) . 'css/effects.min.css';
-        $public_effect_css_path = EXOPITE_MULTIFILTER_PATH . DIRECTORY_SEPARATOR . 'public' . DIRECTORY_SEPARATOR . 'css' . DIRECTORY_SEPARATOR . 'effects.min.css';
+        // Register hover effets
+        $public_effect_css_url  = plugin_dir_url( __FILE__ ) . 'css/effects.' . $version . '.css';
+        $public_effect_css_path = EXOPITE_MULTIFILTER_PATH . DIRECTORY_SEPARATOR . 'public' . DIRECTORY_SEPARATOR . 'css' . DIRECTORY_SEPARATOR . 'effects.' . $version . '.css';
         wp_register_style( 'exopite-effects', $public_effect_css_url, array(), filemtime( $public_effect_css_path ) );
 
 	}
@@ -108,42 +115,36 @@ class Exopite_Multifilter_Public {
 	 */
 	public function enqueue_scripts() {
 
-		/**
-		 * This function is provided for demonstration purposes only.
-		 *
-		 * An instance of this class should be passed to the run() function
-		 * defined in Exopite_Multifilter_Loader as all of the hooks are defined
-		 * in that particular class.
-		 *
-		 * The Exopite_Multifilter_Loader will then create the relationship
-		 * between the defined hooks and the functions defined in this
-		 * class.
-		 */
+        $version = ( $this->development ) ? 'dev' : 'min';
+
+		// If Exopite Code plugin not inastalled and activated get core JavaScript functions
         if ( ! defined( EXOPITE_CORE_URL ) || ! wp_script_is( 'exopite-core-js' ) ) {
 
             // https://www.doitwithwp.com/enqueue-scripts-styles-automatic-versioning/
-            $core_js_url  = plugin_dir_url( __FILE__ ) . 'js/exopite-core.min.js';
-            $core_js_path = plugin_dir_path( __FILE__ ) . DIRECTORY_SEPARATOR . 'js' . DIRECTORY_SEPARATOR . 'exopite-core.min.js';
+            $core_js_url  = plugin_dir_url( __FILE__ ) . 'js/exopite-core.' . $version . '.js';
+            $core_js_path = plugin_dir_path( __FILE__ ) . DIRECTORY_SEPARATOR . 'js' . DIRECTORY_SEPARATOR . 'exopite-core.' . $version . '.js';
 
             // Exopite core scripts (debounce, throttle, filter & action hooks)
-            wp_register_script( 'exopite-core-js', $core_js_url, array(), filemtime( $core_js_path ), true );
+            wp_enqueue_script( 'exopite-core-js', $core_js_url, array(), filemtime( $core_js_path ), true );
 
         }
 
-        // Not working as well as required
-        //
-        // if ( ! wp_script_is( 'macy', 'registered' ) || ! wp_script_is( 'macy.js', 'registered' ) ) {
+        // Register JavaScripts for masonry
+        foreach ( $this->masonry_type as $script_name => $file_name ) {
 
-        //     $public_js_url  = plugin_dir_url( __FILE__ ) . 'js/macy.js';
-        //     $public_js_path = plugin_dir_path( __FILE__ ) . DIRECTORY_SEPARATOR . 'js' . DIRECTORY_SEPARATOR . 'macy.js';
+            if ( ! wp_script_is( $script_name, 'registered' ) ) {
 
-        //     wp_register_script( 'macy', $public_js_url, array( 'jquery' ), filemtime( $public_js_path ), true );
+                $js_url  = plugin_dir_url( __FILE__ ) . 'js/' . $file_name;
+                $js_path = plugin_dir_path( __FILE__ ) . DIRECTORY_SEPARATOR . 'js' . DIRECTORY_SEPARATOR . $file_name;
 
-        // }
+                wp_register_script( $script_name, $js_url, array( 'jquery' ), filemtime( $js_path), true );
 
+            }
+
+        }
+
+        // if plugin main Javascript file is not yes registered, then register it
         if ( ! wp_script_is( $this->plugin_name, 'registered' ) ) {
-
-            $version = ( $this->development ) ? 'dev' : 'min';
 
             $public_js_url  = plugin_dir_url( __FILE__ ) . 'js/exopite-multifilter-public.' . $version . '.js';
             $public_js_path = plugin_dir_path( __FILE__ ) . DIRECTORY_SEPARATOR . 'js' . DIRECTORY_SEPARATOR . 'exopite-multifilter-public.' . $version . '.js';
@@ -417,7 +418,7 @@ class Exopite_Multifilter_Public {
             $excerpt = apply_filters( 'excerpt_more_exopite_multifilter', $excerpt );
         }
 
-        return '</div><div class="entry-excerpt-more">' . $excerpt . '</div>';
+        return $excerpt;
 
     }
 
@@ -439,6 +440,7 @@ class Exopite_Multifilter_Public {
 
         $ret = '';
 
+        // If random, disable pagination
         if ( $args['random'] ) {
             $args['display_pagination'] = false;
             $args['query']['orderby'] = 'rand';
@@ -467,6 +469,7 @@ class Exopite_Multifilter_Public {
 
         }
 
+        // Set search if not random
         if ( isset( $args['search'] ) && ! $args['random'] ) {
             $args['query']['s'] = $args['search'];
         }
@@ -478,6 +481,7 @@ class Exopite_Multifilter_Public {
         $args['query']['posts_per_page'] = $args['posts_per_page'];
 
         // START Deal with sticky posts
+        // The idea here is, include sticky posts, so they does not exceeds the post per page amount
         $include_sticky = true;
         $args['query']['ignore_sticky_posts'] = 1;
 
@@ -516,7 +520,20 @@ class Exopite_Multifilter_Public {
         if ( $the_query->have_posts() ) {
 
             $class_row = ( $args['no-gap'] ) ? ' no-gap-container' : '';
-            $ret .= '<div class="row exopite-multifilter-items' . $class_row . '" data-page="' . get_the_permalink() . '">';
+            $ret .= '<div ';
+
+            // MASONRY -> DEBUG
+            // Add unique id to the article conteiner based on wrapper id
+            // If I may want to include more masonry JavaScript plugins,
+            // then I may need this later
+            // if ( ! empty( $args['container_id'] ) ) {
+
+            //     $ret .= 'id="' . $args['container_id'] . '-inner" ';
+
+            // }
+            // END MASONRY
+
+            $ret .= 'class="row exopite-multifilter-items' . $class_row . '" data-page="' . get_the_permalink() . '">';
             $index = 0;
 
             if ( $args['except_lenght'] > 0 ) {
@@ -535,19 +552,41 @@ class Exopite_Multifilter_Public {
                 $article_thumbnail = '';
                 $article_content = '';
                 $article_body = '';
-                $bootstrap_column_lg = 12 / $args['posts_per_row'];
-                $bootstrap_column_md = ( $bootstrap_column_lg == 3 ) ? 4 : 6;
-                $classes = ( $args['posts_per_row'] > 1 ) ? 'col-sm-6 col-md-' . $bootstrap_column_md . ' col-lg-' . $bootstrap_column_lg . ' multi-column' : ' single-column';
+
+                // Calculate Bootstrap cols
+                //       xs sm md lg
+                // 1/row: 1  1  1  1
+                // 2/row: 1  1  2  2
+                // 3/row: 1  2  2  3
+                // 4/row: 1  2  3  4
+                // 6/row: 2  3  4  6
+                $bootstrap_column_lg = (int)$args['posts_per_row']; // valid: 1, 2, 3, 4, 6
+                if ( $bootstrap_column_lg < 1 ) $bootstrap_column_lg = 1;
+                if ( $bootstrap_column_lg == 5 ) $bootstrap_column_lg = 4;
+                if ( $bootstrap_column_lg > 6 ) $bootstrap_column_lg = 6;
+
+                $bootstrap_column_md = round( ( $bootstrap_column_lg / 4 ) * 3 );
+                if ( $bootstrap_column_md == 5 ) $bootstrap_column_md = 4;
+
+                $bootstrap_column_sm = ceil( ( $bootstrap_column_lg / 4 ) * 2 );
+                $bootstrap_column_xs = ceil( $bootstrap_column_lg / 4 );
 
                 if ( $args['posts_per_row'] > 1 ) {
-                    $classes = 'col-sm-6 col-md-' . $bootstrap_column_md . ' col-lg-' . $bootstrap_column_lg . ' multi-column';
-                    $thumbnail_size = $args['thumbnail-size-multi-row'];
-                } else {
-                    $classes = 'single-column';
-                    $thumbnail_size = $args['thumbnail-size-single-row'];
-                }
-                $classes .= ( $args['no-gap'] ) ? ' no-gap' : '';
 
+                    $classes = 'multi-column';
+                    $classes .= ' col-' . ( 12 / $bootstrap_column_xs );
+                    $classes .= ' col-sm-' . ( 12 / $bootstrap_column_sm ) . ' col-md-' . (12 / $bootstrap_column_md ) . ' col-lg-' . ( 12 / $bootstrap_column_lg ) . ' multi-column';
+
+                    $thumbnail_size = $args['thumbnail-size-multi-row'];
+
+                } else {
+
+                    $classes = 'col-12 single-column';
+                    $thumbnail_size = $args['thumbnail-size-single-row'];
+
+                }
+
+                $classes .= ( $args['no-gap'] ) ? ' no-gap' : '';
 
                 if ( $args['blog_layout'] == 'left' || ( $args['blog_layout'] == 'zigzag' && ( $index % 2 == 0 ) ) ) {
                     $image_class = 'left';
@@ -563,14 +602,12 @@ class Exopite_Multifilter_Public {
                     $article_thumbnail = $this->get_thumbnail( get_the_id(), $image_class, $thumbnail_size, $args );
                 }
 
-
                 if ( ( $args['display_title'] || ( $args['except_lenght'] > 0 ) ) && ! $post_password_required ){
 
                     $article_content = '<div class="entry-content-container">';
                     if ( $args['display_title'] ) {
                         $article_content .= '<header class="entry-header">';
                         $article_content .= '<h2 class="entry-title"><a href="' . get_the_permalink() . '">' . get_the_title() . '</a></h2>';
-                        //$article_content .= '<div class="entry-meta">META1</div>';
 
                         $article_content .= '</header>';
                     }
@@ -579,14 +616,22 @@ class Exopite_Multifilter_Public {
                     }
                     if ( $args['except_lenght'] > 0 || $args['except_lenght'] === 'full' ) {
                         $article_content .= '<div class="entry-content">';
-                        $article_content .= '<div class="entry-content-inner">';
                         $article_content .= ( $args['except_lenght'] === 'full' ) ? get_the_content() : get_the_excerpt();
                         $article_content .= '</div>';
                     }
                     $article_content .= '</div>';
                 }
 
-                $article_wrapper_begin = '<article class="col-12 ' . $classes . '"><div class="article-container';
+                /*
+                 * Add ajax-added class to new elements, (css => visibility: hidden;)
+                 * removed after items processed by masonry-desandro,
+                 * for some reason this keep masonry-desandro align elements more accurate.
+                 */
+                if ( $args['ajax'] && $args['style'] == 'masonry' /*&& $args['masonry_type'] == 'masonry-desandro' */) {
+                    $classes .= ' ajax-added';
+                }
+
+                $article_wrapper_begin = '<article class="' . $classes . '"><div class="article-container';
                 $article_wrapper_begin .= ( $args['style'] === 'equal-height' ) ? ' equal-height' : '';
                 $article_wrapper_begin .= '">';
 
@@ -635,7 +680,7 @@ class Exopite_Multifilter_Public {
     }
 
     /**
-     * Display shoprt code
+     * Display content from short code
      */
     function exopite_multifilter_shortcode( $atts ) {
 
@@ -644,46 +689,59 @@ class Exopite_Multifilter_Public {
             array(
                 'post_type'                 => 'post',
                 'posts_per_page'            => 4,
-                'posts_per_row'             => 2,
+                'posts_per_row'             => 2,                   // 1, 2, 3, 4, 6
                 'display_title'             => false,
                 'display_filter'            => true,
                 'blog_layout'               => 'top',
                 'no-gap'                    => false,
                 'except_lenght'             => 0,
                 'except_more'               => '',
-                'pagination'                => 'pagination',    // pagination, readmore, infinite, none
+                'pagination'                => 'pagination',        // pagination, readmore, infinite, none
                 'multi_selectable'          => true,
                 'thumbnail-size-single-row' => 'full',
                 'thumbnail-size-multi-row'  => 'large',
-                'taxonomies_terms'          => 'category',      // term1, term2, ...
-                'update_paged'              => false,           // Do not update page in browser URL bar
-                'display_page_number'       => false,           // Show page number between loads in infinite and readmore
-                'paged'                     => 1,               // Set start page number if not already paged
+                'taxonomies_terms'          => 'category',          // term1, term2, ...
+                'update_paged'              => false,               // Do not update page in browser URL bar
+                'display_page_number'       => false,               // Show page number between loads in infinite and readmore
+                'paged'                     => 1,                   // Set start page number if not already paged
                 'effect'                    => 'apollo',
-                'search'                    => '',              // search
-                'store_session'             => false,           // store session
-                'load_from_url'             => false,           // load from url
-                'in_all_taxnomies'          => true,            // positive or negative selection
-                'random'                    => false,           // randomize (pagination and search are off)
+                'search'                    => '',                  // search
+                'store_session'             => false,               // store session
+                'load_from_url'             => false,               // load from url
+                'in_all_taxnomies'          => true,                // positive or negative selection
+                'random'                    => false,               // randomize (pagination and search are off)
                 // [date, author, commentcount, taxonomy, last-modified] comma separated list
                 'display_metas'             => '',
                 // only if display_metas has 'taxonomy', taxonomy name to display
-                'display_metas_taxonomies'  => '',              // comma searated list
+                'display_metas_taxonomies'  => '',                  // comma searated list
                 'container_id'              => '',
-                'container_classes'         => '',              // comma searated list
-                'style'                     => '',              // empry, equal-height, masonry
+                'container_classes'         => '',                  // comma searated list
+                'style'                     => '',                  // empty, equal-height, masonry
+                'masonry_type'              => 'waterfall-kudago',  // waterfall-kudago, masonry-desandro
+                'col_min_width'             => 340,                 // (int) only for waterfall-kudago
 
             ),
             $atts
         );
 
+        /*
+         * Enqueue scripts and styles only if shortcode is present
+         * https://wordpress.stackexchange.com/questions/165754/enqueue-scripts-styles-when-shortcode-is-present/191512#191512
+         *
+         * Issues:
+         * - css load in the footer
+         * - check with has_shortcode  has performace issues:
+         *   https://wordpress.stackexchange.com/questions/165754/enqueue-scripts-styles-when-shortcode-is-present/165759#165759
+         */
+        wp_enqueue_style( $this->plugin_name );
+        wp_enqueue_style( 'exopite-effects' );
+
         // ToDo: sanitize data
 
         // Add page id and paged.
         $args['page_id'] = get_the_ID();
-        // $args['ajax_string'] = bin2hex( mcrypt_create_iv( 10, MCRYPT_DEV_URANDOM ) );
+
         $args['ajax_nonce'] = wp_create_nonce( 'exopite-multifilter-nonce' );
-        // $args['ajax_nonce'] = wp_create_nonce( $args['ajax_string'] );
 
         // Do not display filter if it is search
         if ( $args['search'] !== '' ) $args['display_filter'] = false;
@@ -692,7 +750,7 @@ class Exopite_Multifilter_Public {
 
         $args['paged'] = ( $paged !== 0 ) ? $paged : $args['paged'];
 
-        // create an array from taxonomies_terms, devided by comma.
+        // create an array from taxonomies_terms devided by comma.
         $args['taxonomies_terms'] = explode( ',', preg_replace( '/\s+/', '', $args['taxonomies_terms'] ) );
 
         if ( ! empty( $args['display_metas'] ) ) {
@@ -738,32 +796,23 @@ class Exopite_Multifilter_Public {
 
         $ret .= 'class="exopite-multifilter-container';
 
-
-        /*
-         * Enqueue scripts and styles only if shortcode is present
-         * https://wordpress.stackexchange.com/questions/165754/enqueue-scripts-styles-when-shortcode-is-present/191512#191512
-         *
-         * Issues:
-         * - css load in the footer
-         * - check with has_shortcode  has performace issues:
-         *   https://wordpress.stackexchange.com/questions/165754/enqueue-scripts-styles-when-shortcode-is-present/165759#165759
-         */
-        wp_enqueue_style( 'bootstrap-light' );
-        wp_enqueue_style( $this->plugin_name );
-        wp_enqueue_style( 'exopite-effects' );
-
+        // MASONRY
         // If element has id and style is masonry then enqueue masonry JavaScript
         // and add masonry class
-        // if ( ! empty( $args['container_id'] ) && $args['style'] == 'masonry' ) {
+        if ( ! empty( $args['container_id'] ) && $args['style'] == 'masonry' ) {
 
-        //     $ret .= ' masonry';
+            $ret .= ' masonry';
 
-        //     if ( ! wp_script_is( 'macy', 'queue' ) ) {
-        //         wp_enqueue_script( 'macy' );
-        //     }
+            wp_enqueue_script( $args['masonry_type'] );
 
-        // }
-        wp_enqueue_script( 'exopite-core-js' );
+        } else {
+
+            unset( $args['masonry_type'] );
+
+        }
+        // END MASONRY
+
+        // Enqueue plugin main JavaScript file
         wp_enqueue_script( $this->plugin_name );
 
         // Check wrapper HTML (CSS) Classes
@@ -775,7 +824,7 @@ class Exopite_Multifilter_Public {
 
             $container_classes = explode( ',', preg_replace( '/\s+/', '', $args['container_classes'] ) );
 
-            // Get only matched for CSS class names classes
+            // Get only matched (for CSS syntax) class names from given classes
             // https://stackoverflow.com/questions/8627334/how-to-search-in-an-array-with-preg-match/8627354#8627354
             $container_classes_array = preg_grep( $regex_css_identifiers_name, $container_classes );
 
@@ -787,14 +836,16 @@ class Exopite_Multifilter_Public {
 
         $ret .= '" ';
 
+        /**
+         * Insert args array to data-ajax for javascript as JSON.
+         *
+         * http://stackoverflow.com/questions/7322682/best-way-to-store-json-in-an-html-attribute
+         */
         $ret .= 'data-ajax=\'' . htmlentities( json_encode( $args ), ENT_QUOTES, 'UTF-8' ) . '\'>';
 
+        // Display filters
         if ( $args['display_filter'] && $args['display_filter'] !== 'false' && ! $args['random'] ) {
-            /**
-             * Insert args array to data-ajax for javascript as JSON.
-             *
-             * http://stackoverflow.com/questions/7322682/best-way-to-store-json-in-an-html-attribute
-             */
+
             $ret .= '<div class="exopite-multifilter-filter-wrapper">';
             $ret .= '<div class="exopite-multifilter-filter-reset-search text-right"><span class="exopite-multifilter-filter-reset">' . __( 'Reset all', 'exopite-multifilter' ) . '</span>';
 
@@ -825,6 +876,8 @@ class Exopite_Multifilter_Public {
         if ( wp_verify_nonce( $AJAX['ajax_nonce'], 'exopite-multifilter-nonce' ) ) {
 
             $AJAX['paged'] = $AJAX['paged'] ? $AJAX['paged'] : 1;
+
+            if ( $AJAX['style'] == 'masonry' /*&& $AJAX['masonry_type'] == 'masonry-desandro'*/ ) $AJAX['ajax'] = true;
 
             $ret .= $this->get_articles( $AJAX );
 
