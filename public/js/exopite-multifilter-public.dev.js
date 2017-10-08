@@ -1,6 +1,11 @@
 ;(function ( $, window, document, undefined ) {
     'use strict';
 
+    /*
+     * ToDo:
+     * - http://javascriptcompressor.com/
+     */
+
     // Plugin definition.
     $.fn.exopiteMultifilter = function( options ) {
 
@@ -9,6 +14,7 @@
         }
 
         var _getSelectedTaxonomies = function getSelectedTaxonomies( taxonomies_terms, $taxonomies ) {
+
             // Get selected taxonomies
             $taxonomies.each(function( index, el ){
                 var taxonomy = $( el ).data( 'taxonomy' );
@@ -43,13 +49,17 @@
             return vars;
         }
 
-        var _animate = function animate( $what, when ) {
+        var _animate = function animate( $what, when, success, base, dataJSON ) {
             switch( when ) {
                 case 'out':
                     $what.stop(true, false).slideUp( 500 ).css({ opacity: 0, transition: 'opacity .5s' });
                     break;
                 case 'in':
-                    $what.stop(true, false).css({ opacity: 1, transition: 'opacity .5s', height: 'auto' }).slideDown( 500 );
+                    $what.stop(true, false).css({ opacity: 1, transition: 'opacity .5s', height: 'auto' }).slideDown( 500 ).promise().then(function(){
+                        if ( success ) {
+                            if ( typeof wp.hooks !== 'undefined' ) wp.hooks.doAction( 'ema-success-animation-end', base, dataJSON );
+                        }
+                    });
                     break;
             }
 
@@ -89,7 +99,8 @@
             /**
              * On pagionation click, Check if top is higher then viewport, if yes, scroll to top.
              *
-             * @param  {object} that  - this from the calling function
+             * @param  {object} that        - this from the calling function
+             * @param  {object} dataJSON    - settings from PHP
              * @return {object} that
              */
             var _checkTop = function( that, dataJSON ) {
@@ -117,7 +128,9 @@
 
                 if ( typeof wp.hooks !== 'undefined' ) {
 
-                    wp.hooks.addAction( 'ema-success-end', _checkTop, 10 );
+                    // Scroll wrapper top if not visible (before remove animate out or after)
+                    wp.hooks.addAction( 'ema-before-send', _checkTop, 10 );
+                    //wp.hooks.addAction( 'ema-success-end', _checkTop, 10 );
 
                 }
 
@@ -160,57 +173,85 @@
 
                         loading = true;
 
-                        // Add hook after load is success
+                        // Add hook before AJAX sent
                         // Can be used e.g. refresh masonry container, etc...
                         // https://gist.github.com/JoeSz/6aa061ff48eaf1af658d3adf9d71ec37
-                        if ( typeof wp.hooks !== 'undefined' ) wp.hooks.doAction( 'ema-before-send', base );
+                        if ( typeof wp.hooks !== 'undefined' ) wp.hooks.doAction( 'ema-before-send', base, dataJSON );
 
                         if ( dataJSON.pagination == 'pagination' || paged == 1 ) {
-                            _animate( elements.itemsContainer, 'out' );
+                            _animate( elements.itemsContainer, 'out', false, null, null );
                         }
 
                         if ( dataJSON.pagination != 'infinite' ) {
-                            _animate( elements.pagination, 'out' );
+                            _animate( elements.pagination, 'out', false, null, null );
                         }
 
-                        _animate( elements.loading, 'in' );
+                        _animate( elements.loading, 'in', false, null, null );
 
                     },
                     success: function( response ){
 
-                        if ( typeof wp.hooks !== 'undefined' ) wp.hooks.doAction( 'ema-success-top', base );
+                        if ( typeof wp.hooks !== 'undefined' ) wp.hooks.doAction( 'ema-success-top', base, dataJSON );
 
-                        _animate( elements.loading, 'out' );
+                        _animate( elements.loading, 'out', false, null, null );
 
-                        //var articles;
                         var html = $(response);
                         var articles = html.find('article');
                         var hasNoPosts = html.filter('.no-posts-found');
 
+                        // If response contain articles
                         if ( articles.length > 0 ) {
 
                             var pagination = html.filter('.exopite-multifilter-paginations').children(":first");
                             var pagedUrl = elements.itemsContainer.data( 'page' ) + 'page/' + paged + '/';
 
                             if ( dataJSON.pagination == 'pagination' || paged == 1 ) {
+
+                                // Overwrite container HTML with new items
                                 elements.itemsContainer.html( articles );
-                                _animate( elements.itemsContainer, 'in' );
+
+                                if ( dataJSON.style == 'masonry' ) {
+
+                                    // On masonry we do not need animation, should be handeled by masonry
+                                    $(elements.itemsContainer).css({ opacity: 1, height: 'auto', display: 'flex' });
+
+                                } else {
+
+                                    _animate( elements.itemsContainer, 'in' );
+
+                                }
+
+                                // Hook and event
+                                // Useful: eg. handeling masonry refresh (soms masonry required inserted elements too)
+                                if ( typeof wp.hooks !== 'undefined' ) wp.hooks.doAction( 'ema-success-items-paginated', base, articles );
+                                $( base ).trigger( 'success-items-paginated.exopiteMultifilter', [base, articles] );
+
                             } else {
                                 // infinite or readmore
 
                                 // Add page numbers
                                 if ( dataJSON.display_page_number ) {
+
                                     var pageNumber = $( '<div class="page-number" data-page="' + pagedUrl + '">' + paged + '</div>' );
                                     articles = pageNumber.add( articles );
+
                                 } else if( dataJSON.update_paged ) {
+
+                                    // Update page number in first inserted article data-page attribute
+                                    // This is need for update page in browser URL on scroll
                                     articles.filter( 'article' ).first().attr( 'data-page', pagedUrl );
+
                                 }
 
+                                // Apped new items to container
                                 elements.itemsContainer.append( articles );
+
+                                if ( typeof wp.hooks !== 'undefined' ) wp.hooks.doAction( 'ema-success-items-appended', base, articles );
+                                $( base ).trigger( 'success-items-appended.exopiteMultifilter', [base, articles] );
 
                             }
 
-                            // Update url
+                            // Update url in browser URL field
                             if( dataJSON.update_paged && pagedUrl != window.location ){
                                changeBrowserUrl( pagedUrl );
                             }
@@ -218,7 +259,7 @@
                             // Insert pagination if not infinite
                             if ( dataJSON.pagination != 'infinite' ) {
                                 elements.pagination.html( pagination );
-                                _animate( elements.pagination, 'in' );
+                                _animate( elements.pagination, 'in', true, base, dataJSON );
                             }
 
                         } else {
@@ -228,22 +269,32 @@
                             }
 
                             elements.pagination.html( hasNoPosts );
-                            _animate( elements.itemsContainer, 'in' );
-                            _animate( elements.pagination, 'in' );
-
-                            setTimeout(function() {
-                                if ( loaded ) {
-                                    elements.pagination.fadeOut('fast');
-                                }
-                            }, 3000);
+                            _animate( elements.itemsContainer, 'in', false, null, null );
+                            _animate( elements.pagination, 'in', false, null, null );
 
                             loaded = true;
 
+                            setTimeout(function() {
+
+                                elements.pagination.fadeOut('fast');
+
+                            }, 3000);
+
                         }
 
-                        loading = false;
+                        if ( $( base ).find( '.nothing-more' ).length ) {
+
+                               setTimeout(function() {
+
+                                elements.pagination.fadeOut('fast');
+
+                            }, 3000);
+
+                        }
 
                         if ( typeof wp.hooks !== 'undefined' ) wp.hooks.doAction( 'ema-success-end', base, dataJSON );
+
+                        loading = false;
 
                     },
                     error: function( xhr, status, error ) {
@@ -321,7 +372,7 @@
 
                 if ( elements.searchField.val() !== '' ) {
                     _reset( 'search' );
-                    if ( typeof wp.hooks !== 'undefined' ) wp.hooks.doAction( 'ema-search', base );
+                    if ( typeof wp.hooks !== 'undefined' ) wp.hooks.doAction( 'ema-search', base, elements.searchField.val() );
                     _getItems();
 
                 }
@@ -540,3 +591,8 @@
     });
 
 })( jQuery, window, document );
+/*
+ * ToDo:
+ * - make animation in after AJAX -> .on
+ * - try turn off if masonry
+ */
