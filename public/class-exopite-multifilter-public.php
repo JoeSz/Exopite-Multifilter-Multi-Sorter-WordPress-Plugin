@@ -237,7 +237,7 @@ class Exopite_Multifilter_Public {
         }
 
         $ret .= '</div>';
-        $ret .= '</figcation>';
+        $ret .= '</figcaption>';
         $ret .= '</figure>';
         $ret .= '</a>';
 
