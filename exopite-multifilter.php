@@ -16,7 +16,7 @@
  * Plugin Name:       Exopite multi-selectable AJAX sorter for any post types
  * Plugin URI:        https://joe.szalai.org/exopite/multifilter
  * Description:       Multi-selectable AJAX sorter for any post types. Working with taxonomies and terms as filters (e.g.: for post: categories and tags).
- * Version:           20171005
+ * Version:           20171008
  * Author:            Joe Szalai
  * Author URI:        https://joe.szalai.org
  * License:           GPL-2.0+
@@ -30,7 +30,6 @@
  * - select category via links? http://www.site.ext/?multifilter=filtertoselect  ?
  * - macy.js for masonry layout (https://github.com/bigbitecreative/macy.js/blob/master/src/macy.js)
  * - equal height with read more in bottom (hr4you)
- * - more hooks (eg, query)
  *
  * - on mobile 6 page number is too much -> how should be displayed?
  * - add widget (normal + VC)?
