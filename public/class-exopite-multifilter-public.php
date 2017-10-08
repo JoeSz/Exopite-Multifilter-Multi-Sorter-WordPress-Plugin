@@ -222,7 +222,7 @@ class Exopite_Multifilter_Public {
 
         $ret .= '<a href="' . get_permalink( $post_id ) . '">';
         $ret .= '<figure class="effect-multifilter' . $effect . ' entry-thumbnail">'; //for animation
-        $ret .= ( $post_password_required ) ? '' : '<img src="' . $url . '">';
+        $ret .= ( $post_password_required ) ? '' : '<img src="' . $url . '" alt="thumbnail">';
         $ret .= '<figcaption>';
         $ret .= '<div class="figure-caption animation">';
 
