@@ -2516,7 +2516,7 @@ return Outlayer;
 
             if ( ( '#' + wrapper_id + ' .exopite-multifilter-items:has(img)' ) ) {
 
-                $( '#' + wrapper_id + ' .exopite-multifilter-items img' ).one( 'load', function() {
+                $( '#' + wrapper_id + ' .exopite-multifilter-items img' ).on( 'load', function() {
 
                     masonryRefreshDebounce();
 
@@ -2532,29 +2532,20 @@ return Outlayer;
 
             function triggerRecalculateMasonry( wrapper_id, base, articles ) {
 
-                switch( dataJSON.masonry_type ) {
-                    case 'masonry-desandro':
+                if ( articles ) {
+                    // If has articles then use build in prepended or appended action
 
-                        if ( articles ) {
-                            // If has articles then use build in prepended or appended action
+                    var action = ( dataJSON.pagination == 'pagination' ) ? 'prepended' : 'appended';
+                    $( '#' + wrapper_id + ' .exopite-multifilter-items' ).masonry( action, articles );
 
-                            var action = ( dataJSON.pagination == 'pagination' ) ? 'prepended' : 'appended';
-                            $( '#' + wrapper_id + ' .exopite-multifilter-items' ).masonry( action, articles );
+                } else {
+                    // if not, then reload masonry on container (lazyload)
 
-                        } else {
-                            // if not, then reload masonry on container (lazyload)
+                    $( '#' + wrapper_id + ' .exopite-multifilter-items' ).masonry('destroy');
+                    $( '#' + wrapper_id + ' .exopite-multifilter-items' ).masonry({
+                        itemSelector: 'article',
+                    });
 
-                            $( '#' + wrapper_id + ' .exopite-multifilter-items' ).masonry('destroy');
-                            $( '#' + wrapper_id + ' .exopite-multifilter-items' ).masonry({
-                                itemSelector: 'article',
-                            });
-
-                        }
-                        break;
-                    default:
-
-                        // 'waterfall-kudago'
-                        $( '#' + wrapper_id + ' .exopite-multifilter-items' ).waterfall('reflow');
                 }
 
             }
@@ -2565,7 +2556,15 @@ return Outlayer;
 
                 setTimeout(function() {
                     triggerRecalculateMasonry( wrapper_id, base, articles );
+                }, 300);
+
+            });
+
+            $( this ).on( 'success-ajax.exopiteMultifilter', function( event, base, articles ) {
+
+                setTimeout(function() {
                     $( '#' + wrapper_id + ' .exopite-multifilter-items' ).find( 'article' ).removeClass( 'ajax-added' );
+                    masonryRefreshDebounce();
                 }, 300);
 
             });

@@ -1019,7 +1019,6 @@ Like masonry column shift, but works. */
 
                 // Without images
                 masonryRefreshDebounce();
-
             }
 
             function triggerRecalculateMasonry( wrapper_id ) {
@@ -1037,7 +1036,7 @@ Like masonry column shift, but works. */
 
                 if ( ( '#' + wrapper_id + ' .exopite-multifilter-items:has(img)' ) ) {
 
-                    $( '#' + wrapper_id + ' .exopite-multifilter-items img' ).one( 'load',  masonryRefreshDebounce );
+                    $( '#' + wrapper_id + ' .exopite-multifilter-items img' ).on( 'load', masonryRefreshDebounce );
 
                 } else {
 
@@ -1045,14 +1044,21 @@ Like masonry column shift, but works. */
 
                 }
 
+            });
+
+            $( this ).on( 'success-ajax.exopiteMultifilter', function( event, base, articles ) {
+
                 if ( dataJSON.pagination != 'pagination' ) {
+
                     setTimeout(function() {
                         $( '#' + wrapper_id + ' .exopite-multifilter-items' ).find( 'article' ).removeClass( 'ajax-added' );
                     }, 300);
-                } else {
-                    $( '#' + wrapper_id + ' .exopite-multifilter-items' ).find( 'article' ).removeClass( 'ajax-added' );
-                }
 
+                } else {
+
+                    $( '#' + wrapper_id + ' .exopite-multifilter-items' ).find( 'article' ).removeClass( 'ajax-added' );
+
+                }
 
             });
 
