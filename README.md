@@ -86,7 +86,10 @@ Available options
 | `display_metas_taxonomies`         | only if display_metas has 'taxonomy', taxonomy name to display (eg. for posts: category, post_tag), string or comma separated list |
 | `container_id`                     | ['string'], Set wrapper/container id                                        |
 | `container_classes`                | ['string or a comma searated list'], Set wrapper/container class[es]        |
-| `style`                            | ['equal-height', or empty], columns has equal height (flex)                 |
+| `style`                            | ['masonry', 'equal-height', or empty], columns has equal height (flex)      |
+| `masonry_type`                     | ['waterfall-kudago', 'masonry-desandro'], type of masonry                   | waterfall-kudago
+| `col_min_width`                    | ['number'] in px, only for waterfall-kudago                                 | 340
+| `gallery_mode`                     | ['true', 'false'] Galley mode. On thumbnail click, open images insted of post type single. Post without a thumbnail will be ignoriert. | false
 
 INSTALLATION
 ------------
@@ -123,6 +126,9 @@ PLANNED
 
 CHANGELOG
 ---------
+
+= 20171009 - 2017-10-09 =
+* Added: Galley mode. On thumbnail click, open images insted of post/page. It will not display post/pages/etc... without a thumbnail.
 
 = 20171005 - 2017-10-05 =
 * Improvement: equal-height for columns (flex)

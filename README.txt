@@ -73,6 +73,7 @@ https://tympanus.net/Development/HoverEffectIdeas/index2.html
 * 'style'                       => ['equal-height', or empty], columns has equal height (flex)
 * 'masonry_type'                => ['waterfall-kudago', 'masonry-desandro'], type of masonry
 * 'col_min_width'               => ['number'] in px, only for waterfall-kudago
+* 'gallery_mode'                => ['true', 'false'] Galley mode. On thumbnail click, open images insted of post type single. Post without a thumbnail will be ignoriert.
 
 == Installation ==
 
@@ -92,6 +93,9 @@ OR
 2. Multiple taxomonies as filter selected, thumbnail with title and ming effect.
 
 == Changelog ==
+
+= 20171009 - 2017-10-09 =
+* Added: Galley mode. On thumbnail click, open images insted of post/page. It will not display post/pages/etc... without a thumbnail.
 
 = 20171008 - 2017-10-08 =
 * Added: masonry style options.
