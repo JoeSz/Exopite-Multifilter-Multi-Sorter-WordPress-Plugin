@@ -251,6 +251,9 @@
 
                             }
 
+                            if ( typeof wp.hooks !== 'undefined' ) wp.hooks.doAction( 'ema-success', base, articles );
+                            $( base ).trigger( 'success-ajax.exopiteMultifilter', [base, articles] );
+
                             // Update url in browser URL field
                             if( dataJSON.update_paged && pagedUrl != window.location ){
                                changeBrowserUrl( pagedUrl );
