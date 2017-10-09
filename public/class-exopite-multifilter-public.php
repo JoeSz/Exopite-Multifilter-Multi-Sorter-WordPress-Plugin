@@ -176,7 +176,7 @@ class Exopite_Multifilter_Public {
     function _get_all_image_sizes() {
         global $_wp_additional_image_sizes;
 
-        $default_image_sizes = array( 'thumbnail', 'medium', 'large' );
+        $default_image_sizes = array( 'thumbnail', 'medium', 'medium_large', 'large' );
 
         foreach ( $default_image_sizes as $size ) {
             $image_sizes[ $size ][ 'width' ] = intval( get_option( "{$size}_size_w" ) );
@@ -212,15 +212,19 @@ class Exopite_Multifilter_Public {
         if ( empty( $url ) ) {
 
             $image_sizes = $this->_get_all_image_sizes();
+            $image_sizes_w = ( $image_sizes[$thumbnail_size]['width'] < 100 ) ? 200 : $image_sizes[$thumbnail_size]['width'];
+            $image_sizes_h = ( $image_sizes[$thumbnail_size]['height'] < 100 ) ? 200 : $image_sizes[$thumbnail_size]['height'];
 
-            $url = apply_filters( 'exopite-multifilter-placeholder-image', 'https://dummyimage.com/' . $image_sizes[$thumbnail_size]['width'] . 'x' . $image_sizes[$thumbnail_size]['height'] . '/cccccc/fff.jpg' );
+            $url = apply_filters( 'exopite-multifilter-placeholder-image', 'https://dummyimage.com/' . $image_sizes_w . 'x' . $image_sizes_h . '/cccccc/fff.jpg' );
 
             // $url = apply_filters( 'exopite-multifilter-placeholder-image', 'http://lorempixel.com/' . $image_sizes[$thumbnail_size]['width'] . '/' . $image_sizes[$thumbnail_size]['height'] . '/technics/' );
         }
 
         $ret .= '<div class="entry-thumbnail-container clearfix' . $class . '">';
 
-        $ret .= '<a href="' . get_permalink( $post_id ) . '">';
+        $link_url = ( $args['gallery_mode'] ) ? wp_get_attachment_image_src( get_post_thumbnail_id( $post_id ), 'full' )[0] : get_permalink( $post_id );
+
+        $ret .= '<a href="' . $link_url . '">';
         $ret .= '<figure class="effect-multifilter' . $effect . ' entry-thumbnail">'; //for animation
         $ret .= ( $post_password_required ) ? '' : '<img src="' . $url . '" alt="thumbnail">';
         $ret .= '<figcaption>';
@@ -509,10 +513,11 @@ class Exopite_Multifilter_Public {
 
             $args['query']['post__in'] = $posts_ids;
 
-            $args['query']['orderby'] = 'post__in';
-
         }
         // END Deal with sticky posts
+
+        // only images
+        if ( $args['gallery_mode'] ) $args['query']['meta_query'] = array( array( 'key' => '_thumbnail_id' ) );
 
         $the_query = new WP_Query( $args['query'] );
 
@@ -719,6 +724,7 @@ class Exopite_Multifilter_Public {
                 'style'                     => '',                  // empty, equal-height, masonry
                 'masonry_type'              => 'waterfall-kudago',  // waterfall-kudago, masonry-desandro
                 'col_min_width'             => 340,                 // (int) only for waterfall-kudago
+                'gallery_mode'              => false,               // on thumbnail click, open images self insted of the link of the post/page ("single")
 
             ),
             $atts
