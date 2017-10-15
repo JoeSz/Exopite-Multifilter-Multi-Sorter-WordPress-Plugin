@@ -57,6 +57,9 @@ class Exopite_Multifilter {
 	 */
 	protected $version;
 
+    // Make public class publicly available
+    public $plugin_public;
+
 	/**
 	 * Define the core functionality of the plugin.
 	 *
@@ -174,6 +177,7 @@ class Exopite_Multifilter {
 	private function define_public_hooks() {
 
 		$plugin_public = new Exopite_Multifilter_Public( $this->get_plugin_name(), $this->get_version() );
+        $this->plugin_public = $plugin_public;
 
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
