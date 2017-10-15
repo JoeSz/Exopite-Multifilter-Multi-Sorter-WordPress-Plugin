@@ -60,7 +60,7 @@ class Exopite_Multifilter_Public {
 		$this->version = $version;
 
         // MASONRY
-        $this->development = true;
+        $this->development = false;
 
         // Load masonry versions
         $version = ( $this->development ) ? '' : 'min.';
@@ -230,11 +230,13 @@ class Exopite_Multifilter_Public {
         $ret .= '<figcaption>';
         $ret .= '<div class="figure-caption animation">';
 
-        $ret .= '<div class="figure-caption-title">';
-        $ret .= get_the_title( $post_id );
-        $ret .= '</div>';
+        if ( $args['effect'] != '' && $args['effect'] != 'none' ) {
+            $ret .= '<div class="figure-caption-title">';
+            $ret .= get_the_title( $post_id );
+            $ret .= '</div>';
+        }
 
-        if ( count( $args['display_metas'] ) > 0 ) {
+        if ( ( ! $args['display_title'] || ( $args['except_lenght'] == 0 ) ) && ! $post_password_required && count( $args['display_metas'] ) > 0 ) {
             $ret .= '<div class="figure-caption-meta">';
             $ret .= $this->get_metas( $args, $post_id );
             $ret .= '</div>';
@@ -622,7 +624,7 @@ class Exopite_Multifilter_Public {
                     $article_thumbnail = $this->get_thumbnail( get_the_id(), $image_class, $thumbnail_size, $args );
                 }
 
-                if ( ( $args['display_title'] || ( $args['except_lenght'] > 0 ) ) && ! $post_password_required ){
+                if ( ( $args['display_title'] || ( $args['except_lenght'] > 0 ) ) && ! $post_password_required ) {
 
                     $article_content = '<div class="entry-content-container">';
                     if ( $args['display_title'] ) {
