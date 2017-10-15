@@ -589,7 +589,7 @@
 
     $(function() {
 
-        $( '.exopite-multifilter-container' ).exopiteMultifilter();
+        $( '.exopite-multifilter-container' ).not('ajax-disabled').exopiteMultifilter();
 
     });
 
@@ -597,5 +597,5 @@
 /*
  * ToDo:
  * - make animation in after AJAX -> .on
- * - try turn off if masonry
+ *  try turn off if masonry
  */

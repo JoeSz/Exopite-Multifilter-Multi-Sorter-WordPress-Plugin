@@ -60,7 +60,7 @@ class Exopite_Multifilter_Public {
 		$this->version = $version;
 
         // MASONRY
-        $this->development = false;
+        $this->development = true;
 
         // Load masonry versions
         $version = ( $this->development ) ? '' : 'min.';
@@ -809,10 +809,10 @@ class Exopite_Multifilter_Public {
 
         // ToDo: sanitize data
 
-        $args['ajax_nonce'] = wp_create_nonce( 'exopite-multifilter-nonce' );
+        if ( $args['ajax_mode'] ) $args['ajax_nonce'] = wp_create_nonce( 'exopite-multifilter-nonce' );
 
         // Do not display filter if it is search
-        if ( $args['search'] !== '' ) $args['display_filter'] = false;
+        if ( $args['search'] !== '' || ! $args['ajax_mode'] ) $args['display_filter'] = false;
 
         $paged = ( get_query_var( 'paged' ) ) ? get_query_var( 'paged' ) : get_query_var( 'page' );
 
@@ -881,7 +881,15 @@ class Exopite_Multifilter_Public {
         // END MASONRY
 
         // Enqueue plugin main JavaScript file
-        wp_enqueue_script( $this->plugin_name );
+        if ( $args['ajax_mode'] ) {
+
+            wp_enqueue_script( $this->plugin_name );
+
+        } else {
+
+            $ret .= ' ajax-disabled';
+
+        }
 
         // Check wrapper HTML (CSS) Classes
         if ( ! empty( $args['container_classes'] ) ) {
@@ -909,7 +917,8 @@ class Exopite_Multifilter_Public {
          *
          * http://stackoverflow.com/questions/7322682/best-way-to-store-json-in-an-html-attribute
          */
-        $ret .= 'data-ajax=\'' . htmlentities( json_encode( $args ), ENT_QUOTES, 'UTF-8' ) . '\'>';
+        if ( $args['ajax_mode'] ) $ret .= 'data-ajax=\'' . htmlentities( json_encode( $args ), ENT_QUOTES, 'UTF-8' );
+        $ret .= '\'>';
 
         // Display filters
         if ( $args['display_filter'] && $args['display_filter'] !== 'false' && ! $args['random'] ) {
