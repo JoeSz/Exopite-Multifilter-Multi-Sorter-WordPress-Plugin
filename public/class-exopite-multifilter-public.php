@@ -305,8 +305,14 @@ class Exopite_Multifilter_Public {
 
         $ret = '';
 
+        if ( is_numeric( $page_id ) ) {
+            $base_url = get_the_permalink( $page_id );
+        } else {
+            $base_url = $page_id;
+        }
+
         if ( $pagination != 'pagination' ) {
-            $next_url = get_the_permalink( $page_id ) . $format . '/' . ( $current_page + 1 ) . '/';
+            $next_url = $base_url . $format . '/' . ( $current_page + 1 ) . '/';
         }
 
         switch ( $pagination ) {
@@ -325,7 +331,7 @@ class Exopite_Multifilter_Public {
             default:
                 // pagination
                 $args = array(
-                    'base'      => get_the_permalink( $page_id ) . '%_%',
+                    'base'      => $base_url . '%_%',
                     'format'    => $format . '/%#%/',
                     'current'   => max( 1, $current_page ),
                     'total'     => $max_num_page,
@@ -672,6 +678,10 @@ class Exopite_Multifilter_Public {
 
             $pagination_orientation = ( $args['pagination'] == 'pagination' ) ? 'text-right' : 'text-center';
 
+            /* Restore original Post Data */
+            wp_reset_postdata();
+            wp_reset_query();
+
             if ( $args['pagination'] != 'none' ) {
                 $ret .= '<div class="row exopite-multifilter-paginations ' . $pagination_orientation . '">';
 
@@ -680,9 +690,6 @@ class Exopite_Multifilter_Public {
                 $ret .= '</div>';
             }
 
-            /* Restore original Post Data */
-            wp_reset_postdata();
-            wp_reset_query();
         } else {
 
             // no posts found
@@ -735,9 +742,13 @@ class Exopite_Multifilter_Public {
                 'col_min_width'             => 340,                 // (int) only for waterfall-kudago
                 'gallery_mode'              => false,               // on thumbnail click, open images self insted of the link of the post/page ("single")
                 'archive_mode'              => false,               // deal with archives
+                'ajax_mode'                 => true,                // Turn AJAX mode on or off
             ),
             $atts
         );
+
+        // Add page id and paged.
+        $args['page_id'] = get_the_ID();
 
         // START Deal with archives
         if ( $args['archive_mode'] && is_archive() ) {
@@ -747,25 +758,40 @@ class Exopite_Multifilter_Public {
             $args['random'] = false;
             $args['search'] = false;
             $args['display_filter'] = false;
+            $args['posts_per_page'] = get_option( 'posts_per_page' );
 
             $args['archive_mode'] = array();
-            if ( is_tag() ) $args['archive_mode']['tag'] = $wp_query->query_vars['tag'];
-            if ( is_category() ) $args['archive_mode']['category_name'] = $wp_query->query_vars['category_name'];
+            if ( is_tag() ) {
+                $args['archive_mode']['tag'] = $wp_query->query_vars['tag'];
+                $tag = get_term_by('slug', $wp_query->query_vars['tag'], 'post_tag');
+                $args['page_id'] = get_tag_link( $tag->term_id );
+            }
+            if ( is_category() ) {
+                $args['archive_mode']['category_name'] = $wp_query->query_vars['category_name'];
+                $args['page_id'] = get_category_link( get_category_by_slug( $wp_query->query_vars['category_name'] ) );
+            }
             if ( is_date() ) {
                 if ( is_year() ) {
                     $args['archive_mode']['year'] = $wp_query->query_vars['year'];
+                    $args['page_id'] = get_year_link( $wp_query->query_vars['year'] );
                 }
-                if ( is_year() || is_month() ) {
+                if ( is_month() ) {
                     $args['archive_mode']['year'] = $wp_query->query_vars['year'];
                     $args['archive_mode']['monthnum'] = $wp_query->query_vars['monthnum'];
+                    $args['page_id'] = get_month_link( $wp_query->query_vars['year'], $wp_query->query_vars['monthnum'] );
                 }
-                if ( is_year() || is_month() || is_day() ) {
+                if ( is_day() ) {
                     $args['archive_mode']['year'] = $wp_query->query_vars['year'];
                     $args['archive_mode']['monthnum'] = $wp_query->query_vars['monthnum'];
                     $args['archive_mode']['day'] = $wp_query->query_vars['day'];
+                    $args['page_id'] = get_day_link( $wp_query->query_vars['year'], $wp_query->query_vars['monthnum'], $wp_query->query_vars['day'] );
                 }
             }
-            if ( is_author() ) $args['archive_mode']['author_name'] = $wp_query->query_vars['author_name'];
+            if ( is_author() ) {
+                $args['archive_mode']['author_name'] = $wp_query->query_vars['author_name'];
+                $args['page_id'] = get_author_posts_url( $wp_query->query_vars['author'] );
+            }
+
         }
         // END Deal with archives
 
@@ -782,9 +808,6 @@ class Exopite_Multifilter_Public {
         wp_enqueue_style( 'exopite-effects' );
 
         // ToDo: sanitize data
-
-        // Add page id and paged.
-        $args['page_id'] = get_the_ID();
 
         $args['ajax_nonce'] = wp_create_nonce( 'exopite-multifilter-nonce' );
 
