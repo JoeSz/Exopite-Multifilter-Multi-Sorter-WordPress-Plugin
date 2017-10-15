@@ -73,7 +73,7 @@ https://tympanus.net/Development/HoverEffectIdeas/index2.html
 * 'style'                       => ['equal-height', or empty], columns has equal height (flex)
 * 'masonry_type'                => ['waterfall-kudago', 'masonry-desandro'], type of masonry
 * 'col_min_width'               => ['number'] in px, only for waterfall-kudago
-* 'gallery_mode'                => ['true', 'false'] Galley mode. On thumbnail click, open images insted of post type single. Post without a thumbnail will be ignoriert.
+* 'gallery_mode'                => ['true', 'false'] Galley mode. On thumbnail click, open images insted of post type single. Post without a thumbnail will be ignored.
 * 'archive_mode'                => ['true', 'false'] Automatically deal with archives. Only for posts. (Random, search, filters and taxonomies_terms will be disabled)
 * 'ajax_mode'                   => ['true', 'false'] Possibility to turn off AJAX loading. (Filters are off, no infinite or readmore pagination)
 
