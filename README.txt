@@ -55,7 +55,7 @@ Masonry. With Lazy load the masonry-desandro type not working completly nice.
 * 'multi_selectable'            => ['true' or 'false'] single or multiselect: true or false
 * 'thumbnail-size-single-row'   => ['thumbnail-size-slug'] thumbnail size for single post per row
 * 'thumbnail-size-multi-row'    => ['thumbnail-size-slug'] thumbnail size for multipe post per row
-* 'taxonomies_terms'            => ['category1, category2(slug|slug), tag']
+* 'taxonomies_terms'            => ['category1, category2(slug|slug), tag'] display seleted terms and taxonomies
 * 'update_paged'                => ['true' or 'false'] Update page in browser URL bar on readmore and infinite loading based on viewport
 * 'display_page_number'         => ['true' or 'false'] Show page number between loads in infinite and readmore
 * 'paged'                       => ['number'], Set start page number if not already paged
@@ -74,8 +74,8 @@ https://tympanus.net/Development/HoverEffectIdeas/index2.html
 * 'masonry_type'                => ['waterfall-kudago', 'masonry-desandro'], type of masonry
 * 'col_min_width'               => ['number'] in px, only for waterfall-kudago
 * 'gallery_mode'                => ['true', 'false'] Galley mode. On thumbnail click, open images insted of post type single. Post without a thumbnail will be ignoriert.
-* 'archive_mode'                => ['true', 'false'] Automatically deal with archives. (Random, search, filters and taxonomies_terms will be disabled)
-
+* 'archive_mode'                => ['true', 'false'] Automatically deal with archives. Only for posts. (Random, search, filters and taxonomies_terms will be disabled)
+* 'ajax_mode'                   => ['true', 'false'] Possibility to turn off AJAX loading. (Filters are off, no infinite or readmore pagination)
 
 == Installation ==
 

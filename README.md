@@ -73,7 +73,7 @@ Available options
 | `multi_selectable`                 | ['true' or 'false'] single or multiselect: true or false                     | true
 | `thumbnail-size-single-row`        | ['thumbnail-size-slug'] thumbnail size for single post per row               | full
 | `thumbnail-size-multi-row`         | ['thumbnail-size-slug'] thumbnail size for multipe post per row              | large
-| `taxonomies_terms`                 | ['category, category(slug&#124;slug)' or 'tag' etc...] the filters                | category
+| `taxonomies_terms`                 | ['category, category(slug&#124;slug)' or 'tag' etc...] display seleted terms and taxonomies | category
 | `update_paged`                     | ['true' or 'false'] Update page in browser URL bar on readmore and infinite loading based on viewport | false
 | `display_page_number`              | ['true' or 'false'] Show page number between loads in infinite and readmore  | false
 | `paged`                            | ['number'], Set start page number if not already paged                       | 1
@@ -90,7 +90,8 @@ Available options
 | `masonry_type`                     | ['waterfall-kudago', 'masonry-desandro'], type of masonry                   | waterfall-kudago
 | `col_min_width`                    | ['number'] in px, only for waterfall-kudago                                 | 340
 | `gallery_mode`                     | ['true', 'false'] Galley mode. On thumbnail click, open images insted of post type single. Post without a thumbnail will be ignoriert. | false
-| `archive_mode`                     | ['true', 'false'] Automatically deal with archives. (Random, search, filters and taxonomies_terms will be disabled) | false
+| `archive_mode`                     | ['true', 'false'] Automatically deal with archives. Only for posts. (Random, search, filters and taxonomies_terms will be disabled; posts_per_page is set to WordPress setting) | false
+| `ajax_mode`                        | ['true', 'false'] Possibility to turn off AJAX loading. (Filters are off, no infinite or readmore pagination) | true
 
 INSTALLATION
 ------------
