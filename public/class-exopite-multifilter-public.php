@@ -809,7 +809,11 @@ class Exopite_Multifilter_Public {
 
         // ToDo: sanitize data
 
-        if ( $args['ajax_mode'] ) $args['ajax_nonce'] = wp_create_nonce( 'exopite-multifilter-nonce' );
+        if ( $args['ajax_mode'] ) {
+            $args['ajax_nonce'] = wp_create_nonce( 'exopite-multifilter-nonce' );
+        } else {
+            $args['pagination'] = 'pagination';
+        }
 
         // Do not display filter if it is search
         if ( $args['search'] !== '' || ! $args['ajax_mode'] ) $args['display_filter'] = false;
