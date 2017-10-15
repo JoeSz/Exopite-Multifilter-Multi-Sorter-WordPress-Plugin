@@ -414,18 +414,6 @@ class Exopite_Multifilter_Public {
         return implode( ', ', $metas );
     }
 
-
-    function excerpt_more( $excerpt ) {
-
-        if ( ! empty( $args['except_more'] ) && $args['except_more'] != 'none' ) {
-
-            $excerpt = apply_filters( 'excerpt_more_exopite_multifilter', $excerpt );
-        }
-
-        return $excerpt;
-
-    }
-
     function excerpt( $excerpt ) {
 
         return '<div class="entry-excerpt">' . $excerpt . '</div>';
@@ -484,6 +472,17 @@ class Exopite_Multifilter_Public {
         }
         $args['query']['posts_per_page'] = $args['posts_per_page'];
 
+        // START Deal with archives
+        if ( $args['archive_mode'] !== false && is_array( $args['archive_mode'] ) ) {
+            // If only one
+            // $key = array_keys( $args['archive_mode'] )[0];
+            // $args['query'][$key] = $args['archive_mode'][$key];
+            foreach ( $args['archive_mode'] as $key => $value ) {
+                $args['query'][$key] = $value;
+            }
+        }
+        // END Deal with archives
+
         // START Deal with sticky posts
         // The idea here is, include sticky posts, so they does not exceeds the post per page amount
         $include_sticky = true;
@@ -539,6 +538,7 @@ class Exopite_Multifilter_Public {
             // END MASONRY
 
             $ret .= 'class="row exopite-multifilter-items' . $class_row . '" data-page="' . get_the_permalink() . '">';
+
             $index = 0;
 
             if ( $args['except_lenght'] > 0 ) {
@@ -546,8 +546,17 @@ class Exopite_Multifilter_Public {
                 add_filter( 'excerpt_length', array( $this, 'excerpt_length' ), 999 );
             }
 
-            add_filter( 'excerpt_more', array( $this, 'excerpt_more' ) );
-            add_filter( 'the_excerpt', array( $this, 'excerpt' ) );
+            // Override excerpt more (this will run before theme)
+            if ( $args['except_more'] !== '' ) {
+                add_filter( 'excerpt_more', function() use ( &$args ) {
+                    if ( $args['except_more'] === 'none' ) {
+                        return '';
+                    }
+                    return $args['except_more'];
+                });
+            }
+
+            add_filter( 'get_the_excerpt', array( $this, 'excerpt' ) );
 
             while ( $the_query->have_posts() ) {
                 $the_query->the_post();
@@ -725,10 +734,40 @@ class Exopite_Multifilter_Public {
                 'masonry_type'              => 'waterfall-kudago',  // waterfall-kudago, masonry-desandro
                 'col_min_width'             => 340,                 // (int) only for waterfall-kudago
                 'gallery_mode'              => false,               // on thumbnail click, open images self insted of the link of the post/page ("single")
-
+                'archive_mode'              => false,               // deal with archives
             ),
             $atts
         );
+
+        // START Deal with archives
+        if ( $args['archive_mode'] && is_archive() ) {
+            global $wp_query;
+
+            $args['taxonomies_terms'] = '';
+            $args['random'] = false;
+            $args['search'] = false;
+            $args['display_filter'] = false;
+
+            $args['archive_mode'] = array();
+            if ( is_tag() ) $args['archive_mode']['tag'] = $wp_query->query_vars['tag'];
+            if ( is_category() ) $args['archive_mode']['category_name'] = $wp_query->query_vars['category_name'];
+            if ( is_date() ) {
+                if ( is_year() ) {
+                    $args['archive_mode']['year'] = $wp_query->query_vars['year'];
+                }
+                if ( is_year() || is_month() ) {
+                    $args['archive_mode']['year'] = $wp_query->query_vars['year'];
+                    $args['archive_mode']['monthnum'] = $wp_query->query_vars['monthnum'];
+                }
+                if ( is_year() || is_month() || is_day() ) {
+                    $args['archive_mode']['year'] = $wp_query->query_vars['year'];
+                    $args['archive_mode']['monthnum'] = $wp_query->query_vars['monthnum'];
+                    $args['archive_mode']['day'] = $wp_query->query_vars['day'];
+                }
+            }
+            if ( is_author() ) $args['archive_mode']['author_name'] = $wp_query->query_vars['author_name'];
+        }
+        // END Deal with archives
 
         /*
          * Enqueue scripts and styles only if shortcode is present
