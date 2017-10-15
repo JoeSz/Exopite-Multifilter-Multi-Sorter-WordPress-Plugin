@@ -7,7 +7,7 @@ Tested up to: 4.8.2
 Stable tag: 4.8.2
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
-Version: 20171008
+Version: 20171015
 
 AJAX sorter/filter any post types by multiple taxonomies and/or terms (like post by categories and/or tags).
 
@@ -74,6 +74,8 @@ https://tympanus.net/Development/HoverEffectIdeas/index2.html
 * 'masonry_type'                => ['waterfall-kudago', 'masonry-desandro'], type of masonry
 * 'col_min_width'               => ['number'] in px, only for waterfall-kudago
 * 'gallery_mode'                => ['true', 'false'] Galley mode. On thumbnail click, open images insted of post type single. Post without a thumbnail will be ignoriert.
+* 'archive_mode'                => ['true', 'false'] Automatically deal with archives. (Random, search, filters and taxonomies_terms will be disabled)
+
 
 == Installation ==
 
@@ -93,6 +95,9 @@ OR
 2. Multiple taxomonies as filter selected, thumbnail with title and ming effect.
 
 == Changelog ==
+
+= 20171015 - 2017-10-15 =
+* Added: Archive mode. Automatically deal with archives.
 
 = 20171009 - 2017-10-09 =
 * Added: Galley mode. On thumbnail click, open images insted of post/page. It will not display post/pages/etc... without a thumbnail.

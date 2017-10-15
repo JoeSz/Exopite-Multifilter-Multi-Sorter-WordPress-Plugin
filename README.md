@@ -2,7 +2,7 @@
 ## WordPress Plugin
 
 - Author: Joe Szalai
-- Version: 20171004
+- Version: 20171015
 - Plugin URL: https://github.com/JoeSz/exopite-multifilter
 - Demo URL: https://joe.szalai.org/exopite/multifilter/
 - Author URL: https://joe.szalai.org
@@ -90,6 +90,7 @@ Available options
 | `masonry_type`                     | ['waterfall-kudago', 'masonry-desandro'], type of masonry                   | waterfall-kudago
 | `col_min_width`                    | ['number'] in px, only for waterfall-kudago                                 | 340
 | `gallery_mode`                     | ['true', 'false'] Galley mode. On thumbnail click, open images insted of post type single. Post without a thumbnail will be ignoriert. | false
+| `archive_mode`                     | ['true', 'false'] Automatically deal with archives. (Random, search, filters and taxonomies_terms will be disabled) | false
 
 INSTALLATION
 ------------
@@ -126,6 +127,9 @@ PLANNED
 
 CHANGELOG
 ---------
+
+= 20171015 - 2017-10-15 =
+* Added: Archive mode. Automatically deal with archives.
 
 = 20171009 - 2017-10-09 =
 * Added: Galley mode. On thumbnail click, open images insted of post/page. It will not display post/pages/etc... without a thumbnail.
