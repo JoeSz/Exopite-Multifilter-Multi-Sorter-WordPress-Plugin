@@ -359,67 +359,112 @@ class Exopite_Multifilter_Public {
 
     }
 
-    function get_metas( $args, $post_id ) {
+    function display_metas( $args, $post_id ) {
 
-        $ret = '';
-        $metas = array();
+        $sticky = $author = $date = $commentcount = $lastmodified = '';
 
-        if ( is_array( $args['display_metas'] ) && in_array( 'date', $args['display_metas'] ) ) {
-
-            $metas[] .= sprintf(
-                '<span class="exopite-multifilter-meta-date">%1$s</span>',
-                get_the_date()
-            );
-
+        // If the post is sticky, mark it.
+        if ( is_sticky() ) {
+            $sticky ='<li class="meta-featured-post"><i class="fa fa-thumb-tack"></i> ' . esc_attr__( 'Sticky', 'exopite' ) . ' </li>';
         }
 
+        // Get the post author.
         if ( is_array( $args['display_metas'] ) && in_array( 'author', $args['display_metas'] ) ) {
-
-            $metas[] .= sprintf(
-                '<span class="exopite-multifilter-meta-author">%1$s</span>',
+            $author = sprintf(
+                '<li class="exopite-multifilter-meta-author">By <a href="%1$s" rel="author">%2$s</a></li>',
+                esc_url( get_author_posts_url( get_the_author_meta( 'ID' ) ) ),
                 get_the_author()
             );
-
         }
 
-        if ( is_array( $args['display_metas'] ) && in_array( 'commentcount', $args['display_metas'] ) ) {
-
-            $comments_count = wp_count_comments( 2492 );
-
-            $metas[] .= sprintf(
-                '<span class="exopite-multifilter-meta-commentcount">%1$s</span>',
-                $comments_count->approved
-            );
-
+        // Get the date.
+        if ( is_array( $args['display_metas'] ) && in_array( 'date', $args['display_metas'] ) ) {
+            $date = '<li class="exopite-multifilter-meta-date"> <a href="' . esc_url( get_site_url() ) . '/' . get_the_date( 'Y' ) . '/' . get_the_date( 'm' ) . '/' . get_the_date( 'd' ) . '" rel="date">' . get_the_date() . '</a> </li>';
         }
+
+        // Get last modification date.
+        // https://andorwp.com/how-to-display-last-update-date-for-posts-and-pages-in-wordpress/
+        if ( is_array( $args['display_metas'] ) && in_array( 'last-modified', $args['display_metas'] ) ) {
+            $u_time = get_the_time('U');
+            $u_modified_time = get_the_modified_time('U');
+
+            if ( $u_modified_time >= $u_time + 86400 ) {
+                $lastmodified = '<li class="meta-last-modified"><time datetime="' . get_the_modified_time('Y-m-d') . '">';
+                $lastmodified .= esc_attr__( ' Last modified on ', 'exopite-multifilter' );
+                $lastmodified .= get_the_modified_time( get_option( 'date_format' ) );
+                $lastmodified .= '</time></li>';
+            }
+        }
+
         if ( is_array( $args['display_metas'] ) && in_array( 'taxonomy', $args['display_metas'] ) ) {
 
             if ( ! empty( $args['display_metas_taxonomies'] ) ) {
                 $taxonomies = '<span class="exopite-multifilter-meta-taxonomies">';
-
                 foreach ( $args['display_metas_taxonomies'] as $display_metas_taxonomy ) {
 
-                    $taxonomy[] = '<span class="exopite-multifilter-meta-taxonomy-' . $display_metas_taxonomy . '">' . strip_tags( get_the_term_list( $post_id, $display_metas_taxonomy, '', '/', '' ) ) . '</span>';
+                    $taxonomies .= '<span class="exopite-multifilter-meta-taxonomy-' . $display_metas_taxonomy . '">' . get_the_term_list( $post_id, $display_metas_taxonomy, '', '/', '' ) . '</span> ';
 
                 }
 
-                $taxonomies .= implode( ', ', $taxonomy );
                 $taxonomies .= '</span>';
 
-                $metas[] = $taxonomies;
             }
 
         }
-        if ( is_array( $args['display_metas'] ) && in_array( 'last-modified', $args['display_metas'] ) ) {
 
-            $metas[] .= sprintf(
-                '<span class="exopite-multifilter-meta-last-modified">%1$s</span>',
-                get_the_modified_time( get_option( 'date_format' ) )
-            );
+        // Comments link.
+        if ( is_array( $args['display_metas'] ) && in_array( 'commentcount', $args['display_metas'] ) ) {
+            if ( comments_open() ) {
+            //if ( comments_open() && ( is_single() || have_comments() ) ) :
+                $commentcount = '<li class="meta-reply">';
+                ob_start();
+                if ( is_single() ) {
+                    comments_popup_link(
+                        esc_attr__( 'Let us know what you think!', 'exopite-multifilter' ),
+                        esc_attr__( 'One comment so far', 'exopite-multifilter' ),
+                        esc_attr__( 'View all % comments', 'exopite-multifilter' )
+                    );
+                } else {
+                    comments_popup_link(
+                        '<i class="fa fa-comment" aria-hidden="true"></i>',
+                        '<i class="fa fa-comment" aria-hidden="true"></i> 1',
+                        '<i class="fa fa-comment" aria-hidden="true"></i> %'
+                    );
+                }
 
+                $commentcount .= ob_get_clean();
+                $commentcount .= '</li>';
+            }
         }
 
-        return implode( ', ', $metas );
+        $ret = '<ul class="list-inline entry-meta">';
+
+        foreach ( $args['display_metas'] as $key ) {
+
+            switch ( $key ) {
+                case 'author':
+                    $ret .= $author;
+                    break;
+                case 'date':
+                    $ret .= $date;
+                    break;
+                case 'taxonomy':
+                    $ret .= $taxonomies;
+                    break;
+                case 'last-modified':
+                    $ret .= $lastmodified;
+                    break;
+                case 'commentcount':
+                    $ret .= $commentcount;
+                    break;
+
+            }
+        }
+
+        $ret .= '</ul>';
+
+        return $ret;
+
     }
 
     function excerpt( $excerpt ) {
@@ -634,7 +679,7 @@ class Exopite_Multifilter_Public {
                         $article_content .= '</header>';
                     }
                     if ( count( $args['display_metas'] ) > 0 ) {
-                        $article_content .= '<div class="entry-metas">' . $this->get_metas( $args, get_the_ID() ) . '</div>';
+                        $article_content .= '<div class="entry-metas">' . $this->display_metas( $args, get_the_ID() ) . '</div>';
                     }
                     if ( $args['except_lenght'] > 0 || $args['except_lenght'] === 'full' ) {
                         $article_content .= '<div class="entry-content">';
