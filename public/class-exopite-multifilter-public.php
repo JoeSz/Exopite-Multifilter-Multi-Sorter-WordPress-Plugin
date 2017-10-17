@@ -753,7 +753,7 @@ class Exopite_Multifilter_Public {
         $args['page_id'] = get_the_ID();
 
         // START Deal with archives
-        if ( $args['archive_mode'] && is_archive() ) {
+        if ( $args['archive_mode'] && ( is_home() || is_archive() ) ) {
             global $wp_query;
 
             $args['taxonomies_terms'] = '';
@@ -763,6 +763,10 @@ class Exopite_Multifilter_Public {
             $args['posts_per_page'] = get_option( 'posts_per_page' );
 
             $args['archive_mode'] = array();
+            if ( is_home() ) {
+                // https://kellenmace.com/get-blog-posts-page-url-permalink-wordpress/
+                $args['page_id'] = ( 'page' === get_option( 'show_on_front' ) ) ? get_permalink( get_option( 'page_for_posts' ) ) : get_home_url();
+            }
             if ( is_tag() ) {
                 $args['archive_mode']['tag'] = $wp_query->query_vars['tag'];
                 $tag = get_term_by('slug', $wp_query->query_vars['tag'], 'post_tag');
