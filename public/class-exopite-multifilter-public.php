@@ -238,7 +238,7 @@ class Exopite_Multifilter_Public {
 
         if ( ( ! $args['display_title'] || ( $args['except_lenght'] == 0 ) ) && ! $post_password_required && count( $args['display_metas'] ) > 0 ) {
             $ret .= '<div class="figure-caption-meta">';
-            $ret .= $this->get_metas( $args, $post_id );
+            $ret .= $this->display_metas( $args, $post_id );
             $ret .= '</div>';
         }
 
@@ -361,6 +361,8 @@ class Exopite_Multifilter_Public {
 
     function display_metas( $args, $post_id ) {
 
+        if ( ! is_array( $args['display_metas'] ) ) return;
+
         $sticky = $author = $date = $commentcount = $lastmodified = '';
 
         // If the post is sticky, mark it.
@@ -369,7 +371,7 @@ class Exopite_Multifilter_Public {
         }
 
         // Get the post author.
-        if ( is_array( $args['display_metas'] ) && in_array( 'author', $args['display_metas'] ) ) {
+        if ( in_array( 'author', $args['display_metas'] ) ) {
             $author = sprintf(
                 '<li class="exopite-multifilter-meta-author">By <a href="%1$s" rel="author">%2$s</a></li>',
                 esc_url( get_author_posts_url( get_the_author_meta( 'ID' ) ) ),
@@ -378,7 +380,7 @@ class Exopite_Multifilter_Public {
         }
 
         // Get the date.
-        if ( is_array( $args['display_metas'] ) && in_array( 'date', $args['display_metas'] ) ) {
+        if ( in_array( 'date', $args['display_metas'] ) ) {
             $date = '<li class="exopite-multifilter-meta-date"> <a href="' . esc_url( get_site_url() ) . '/' . get_the_date( 'Y' ) . '/' . get_the_date( 'm' ) . '/' . get_the_date( 'd' ) . '" rel="date">' . get_the_date() . '</a> </li>';
         }
 
@@ -396,7 +398,7 @@ class Exopite_Multifilter_Public {
             }
         }
 
-        if ( is_array( $args['display_metas'] ) && in_array( 'taxonomy', $args['display_metas'] ) ) {
+        if ( in_array( 'taxonomy', $args['display_metas'] ) ) {
 
             if ( ! empty( $args['display_metas_taxonomies'] ) ) {
                 $taxonomies = '<span class="exopite-multifilter-meta-taxonomies">';
@@ -413,7 +415,7 @@ class Exopite_Multifilter_Public {
         }
 
         // Comments link.
-        if ( is_array( $args['display_metas'] ) && in_array( 'commentcount', $args['display_metas'] ) ) {
+        if ( in_array( 'commentcount', $args['display_metas'] ) ) {
             if ( comments_open() ) {
             //if ( comments_open() && ( is_single() || have_comments() ) ) :
                 $commentcount = '<li class="meta-reply">';
