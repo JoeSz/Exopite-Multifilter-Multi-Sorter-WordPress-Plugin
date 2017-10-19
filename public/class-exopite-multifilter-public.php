@@ -696,7 +696,7 @@ class Exopite_Multifilter_Public {
                  * removed after items processed by masonry-desandro,
                  * for some reason this keep masonry-desandro align elements more accurate.
                  */
-                if ( $args['ajax'] && $args['style'] == 'masonry' /*&& $args['masonry_type'] == 'masonry-desandro' */) {
+                if ( isset( $args['ajax'] ) && $args['ajax'] && $args['style'] == 'masonry' /*&& $args['masonry_type'] == 'masonry-desandro' */) {
                     $classes .= ' ajax-added';
                 }
 
