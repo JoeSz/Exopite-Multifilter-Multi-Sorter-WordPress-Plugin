@@ -2,165 +2,66 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"Report-Msgid-Bugs-To: BUG-EMAIL-ADDR <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: yyyy-mm-dd hh:mm+0000\n"
-"PO-Revision-Date: 2017-10-08 20:19+0100\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-11-01 18:06+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
-"X-Generator: Eazy Po 0.9.5.3\n"
 
-#: public/class-exopite-multifilter-public.php:311
+#: public/class-exopite-multifilter-public.php:328
 msgid "Read more"
 msgstr ""
 
-#: public/class-exopite-multifilter-public.php:313
+#: public/class-exopite-multifilter-public.php:330
 msgid "Nothing more to load."
 msgstr ""
 
-#: public/class-exopite-multifilter-public.php:328
+#: public/class-exopite-multifilter-public.php:345
 msgid "&lsaquo;"
 msgstr ""
 
-#: public/class-exopite-multifilter-public.php:329
+#: public/class-exopite-multifilter-public.php:346
 msgid "&rsaquo;"
 msgstr ""
 
-#: public/class-exopite-multifilter-public.php:675
+#: public/class-exopite-multifilter-public.php:375
+msgid "Sticky"
+msgstr ""
+
+#: public/class-exopite-multifilter-public.php:400
+msgid " Last modified on "
+msgstr ""
+
+#: public/class-exopite-multifilter-public.php:430
+msgid "Let us know what you think!"
+msgstr ""
+
+#: public/class-exopite-multifilter-public.php:431
+msgid "One comment so far"
+msgstr ""
+
+#: public/class-exopite-multifilter-public.php:432
+#, php-format
+msgid "View all % comments"
+msgstr ""
+
+#: public/class-exopite-multifilter-public.php:770
 msgid "No posts found"
 msgstr ""
 
-#: public/class-exopite-multifilter-public.php:850
+#: public/class-exopite-multifilter-public.php:1010
 msgid "Reset all"
 msgstr ""
 
-#: public/class-exopite-multifilter-public.php:852
+#: public/class-exopite-multifilter-public.php:1012
 msgid "Search…"
-msgstr ""
-
-#: widgets/class-exopite-multifilter-widget.php:23
-#: widgets/class-exopite-multifilter-wp-widget.php:23
-msgid "Add a filter module to the sidebar"
-msgstr ""
-
-#: widgets/class-exopite-multifilter-widget.php:71
-#: widgets/class-exopite-multifilter-wp-widget.php:71
-msgid "Title:"
-msgstr ""
-
-#: widgets/class-exopite-multifilter-widget.php:75
-#: widgets/class-exopite-multifilter-wp-widget.php:75
-msgid "Enable a \"clear all\" link: "
-msgstr ""
-
-#: widgets/class-exopite-multifilter-widget.php:77
-#: widgets/class-exopite-multifilter-widget.php:86
-#: widgets/class-exopite-multifilter-widget.php:95
-#: widgets/class-exopite-multifilter-widget.php:104
-#: widgets/class-exopite-multifilter-widget.php:113
-#: widgets/class-exopite-multifilter-wp-widget.php:77
-#: widgets/class-exopite-multifilter-wp-widget.php:86
-#: widgets/class-exopite-multifilter-wp-widget.php:95
-#: widgets/class-exopite-multifilter-wp-widget.php:104
-#: widgets/class-exopite-multifilter-wp-widget.php:113
-msgid "Inherit"
-msgstr ""
-
-#: widgets/class-exopite-multifilter-widget.php:78
-#: widgets/class-exopite-multifilter-widget.php:87
-#: widgets/class-exopite-multifilter-widget.php:96
-#: widgets/class-exopite-multifilter-widget.php:105
-#: widgets/class-exopite-multifilter-wp-widget.php:78
-#: widgets/class-exopite-multifilter-wp-widget.php:87
-#: widgets/class-exopite-multifilter-wp-widget.php:96
-#: widgets/class-exopite-multifilter-wp-widget.php:105
-msgid "Enable"
-msgstr ""
-
-#: widgets/class-exopite-multifilter-widget.php:79
-#: widgets/class-exopite-multifilter-widget.php:88
-#: widgets/class-exopite-multifilter-widget.php:97
-#: widgets/class-exopite-multifilter-widget.php:106
-#: widgets/class-exopite-multifilter-wp-widget.php:79
-#: widgets/class-exopite-multifilter-wp-widget.php:88
-#: widgets/class-exopite-multifilter-wp-widget.php:97
-#: widgets/class-exopite-multifilter-wp-widget.php:106
-msgid "Disable"
-msgstr ""
-
-#: widgets/class-exopite-multifilter-widget.php:84
-#: widgets/class-exopite-multifilter-wp-widget.php:84
-msgid "Hide empty terms: "
-msgstr ""
-
-#: widgets/class-exopite-multifilter-widget.php:93
-#: widgets/class-exopite-multifilter-wp-widget.php:93
-msgid "Show post count: "
-msgstr ""
-
-#: widgets/class-exopite-multifilter-widget.php:102
-#: widgets/class-exopite-multifilter-wp-widget.php:102
-msgid "Show term description: "
-msgstr ""
-
-#: widgets/class-exopite-multifilter-widget.php:111
-#: widgets/class-exopite-multifilter-wp-widget.php:111
-msgid "Dropdown deselect/default behaviour:"
-msgstr ""
-
-#: widgets/class-exopite-multifilter-widget.php:114
-#: widgets/class-exopite-multifilter-wp-widget.php:114
-msgid "All option"
-msgstr ""
-
-#: widgets/class-exopite-multifilter-widget.php:115
-#: widgets/class-exopite-multifilter-wp-widget.php:115
-msgid "Placeholder"
-msgstr ""
-
-#: widgets/class-exopite-multifilter-widget.php:120
-#: widgets/class-exopite-multifilter-wp-widget.php:120
-msgid "Specific posttype: "
-msgstr ""
-
-#: widgets/class-exopite-multifilter-widget.php:122
-#: widgets/class-exopite-multifilter-wp-widget.php:122
-msgid "Automatic (default)"
-msgstr ""
-
-#: widgets/class-exopite-multifilter-widget.php:139
-#: widgets/class-exopite-multifilter-wp-widget.php:139
-msgid ""
-"By Selecting a specific posttype the filter will work from anywhere but only "
-"for that posttype."
-msgstr ""
-
-#: widgets/class-exopite-multifilter-widget.php:301
-#: widgets/class-exopite-multifilter-widget.php:330
-#: widgets/class-exopite-multifilter-wp-widget.php:301
-#: widgets/class-exopite-multifilter-wp-widget.php:330
-msgid "All "
-msgstr ""
-
-#: widgets/class-exopite-multifilter-widget.php:344
-#: widgets/class-exopite-multifilter-wp-widget.php:344
-msgid "Apply filter"
-msgstr ""
-
-#: widgets/class-exopite-multifilter-widget.php:346
-#: widgets/class-exopite-multifilter-wp-widget.php:346
-msgid "Click to clear all active filters"
-msgstr ""
-
-#: widgets/class-exopite-multifilter-widget.php:346
-#: widgets/class-exopite-multifilter-wp-widget.php:346
-msgid "Clear all"
 msgstr ""
