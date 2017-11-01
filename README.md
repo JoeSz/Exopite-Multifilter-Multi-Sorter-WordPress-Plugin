@@ -92,7 +92,7 @@ Available options
 | `gallery_mode`                     | ['true', 'false'] Galley mode. On thumbnail click, open images insted of post type single. Post without a thumbnail will be ignored. | false
 | `archive_mode`                     | ['true', 'false'] Automatically deal with archives. Only for posts. (Random, search, filters and taxonomies_terms will be disabled; posts_per_page is set to WordPress setting) | false
 | `ajax_mode`                        | ['true', 'false'] Possibility to turn off AJAX loading. (Filters are off, no infinite or readmore pagination) | true
-| `target_override`                  | ['true', 'false'] Override target location. Use <!-- exopite-multifilter-external-link: link or image --> from content instead of the 'the_perlamink', on 'gallery_mode' this won't change image url.
+| `target_override`                  | ['true', 'false'] Override target location. Use <!-- exopite-multifilter-external-link: link or image --> from content instead of the 'the_perlamink', on 'gallery_mode' this won't change image url. | false
 
 INSTALLATION
 ------------
