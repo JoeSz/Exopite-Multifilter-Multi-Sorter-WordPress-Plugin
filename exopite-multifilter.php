@@ -16,7 +16,7 @@
  * Plugin Name:       Exopite multi-selectable AJAX sorter for any post types
  * Plugin URI:        https://joe.szalai.org/exopite/multifilter
  * Description:       Multi-selectable AJAX sorter for any post types. Working with taxonomies and terms as filters (e.g.: for post: categories and tags).
- * Version:           20171015
+ * Version:           20171101
  * Author:            Joe Szalai
  * Author URI:        https://joe.szalai.org
  * License:           GPL-2.0+
@@ -27,9 +27,7 @@
 /**
  * ToDo:
  *
- * - select category via links? http://www.site.ext/?multifilter=filtertoselect  ?
- * - macy.js for masonry layout (https://github.com/bigbitecreative/macy.js/blob/master/src/macy.js)
- * - equal height with read more in bottom (hr4you)
+ * - video mode? (get embed videos and/or meta!?)
  *
  * - on mobile 6 page number is too much -> how should be displayed?
  * - add widget (normal + VC)?
@@ -120,7 +118,7 @@ if ( ! class_exists( 'ExopiteSettings' ) ) {
  */
 if ( class_exists( 'Puc_v4_Factory' ) ) {
     $MyUpdateChecker = Puc_v4_Factory::buildUpdateChecker(
-        'http://update.szalai.org/?action=get_metadata&slug=exopite-multifilter', //Metadata URL.
+        'https://update.szalai.org/?action=get_metadata&slug=exopite-multifilter', //Metadata URL.
         __FILE__, //Full path to the main plugin file.
         'exopite-multifilter' //Plugin slug. Usually it's the same as the name of the directory.
     );
