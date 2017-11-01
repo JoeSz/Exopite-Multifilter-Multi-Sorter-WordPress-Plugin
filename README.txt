@@ -7,7 +7,7 @@ Tested up to: 4.8.2
 Stable tag: 4.8.2
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
-Version: 20171015
+Version: 20171101
 
 AJAX sorter/filter any post types by multiple taxonomies and/or terms (like post by categories and/or tags).
 
@@ -76,6 +76,7 @@ https://tympanus.net/Development/HoverEffectIdeas/index2.html
 * 'gallery_mode'                => ['true', 'false'] Galley mode. On thumbnail click, open images insted of post type single. Post without a thumbnail will be ignored.
 * 'archive_mode'                => ['true', 'false'] Automatically deal with archives. Only for posts. (Random, search, filters and taxonomies_terms will be disabled)
 * 'ajax_mode'                   => ['true', 'false'] Possibility to turn off AJAX loading. (Filters are off, no infinite or readmore pagination)
+* 'target_override'             => ['true', 'false'] Override target location. Use <!-- exopite-multifilter-external-link: link or image --> from content instead of the 'the_perlamink', on 'gallery_mode' this won't change image url.
 
 == Installation ==
 
@@ -95,6 +96,9 @@ OR
 2. Multiple taxomonies as filter selected, thumbnail with title and ming effect.
 
 == Changelog ==
+
+= 20171101 - 2017-11-01 =
+* Added: Target override. Override target location. Use <!-- exopite-multifilter-external-link: link or image -->  from content instead of the 'the_perlamink'.
 
 = 20171015 - 2017-10-15 =
 * Added: Archive mode. Automatically deal with archives.
