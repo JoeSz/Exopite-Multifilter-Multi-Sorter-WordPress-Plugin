@@ -191,7 +191,7 @@ class Exopite_Multifilter_Public {
         return $image_sizes;
     }
 
-    function get_thumbnail( $post_id, $blog_layout = 'top', $thumbnail_size = 'medium', $args ) {
+    function get_thumbnail( $post_id, $blog_layout = 'top', $thumbnail_size = 'medium', $args, $link_url = '' ) {
 
         $post_password_required = post_password_required();
 
@@ -222,7 +222,12 @@ class Exopite_Multifilter_Public {
 
         $ret .= '<div class="entry-thumbnail-container clearfix' . $class . '">';
 
-        $link_url = ( $args['gallery_mode'] ) ? wp_get_attachment_image_src( get_post_thumbnail_id( $post_id ), 'full' )[0] : get_permalink( $post_id );
+        if ( $args['gallery_mode'] ) {
+
+            $attachement_link = wp_get_attachment_image_src( get_post_thumbnail_id( $post_id ), 'full' )[0];
+            if ( $attachement_link ) $link_url = $attachement_link;
+
+        }
 
         $ret .= '<a href="' . $link_url . '">';
         $ret .= '<figure class="effect-multifilter' . $effect . ' entry-thumbnail">'; //for animation
@@ -665,10 +670,30 @@ class Exopite_Multifilter_Public {
                     $image_class = $args['blog_layout'];
                 }
 
+                $link = get_the_permalink();
+
+                if ( $args['target_override'] ) {
+
+                    $content_to_check = new DOMDocument;
+                    $content_to_check->loadHTML( get_the_content() );
+                    $content_xpath = new DOMXPath( $content_to_check );
+
+                    foreach ($content_xpath->query('//comment()') as $comment) {
+
+                        if ( preg_match('/exopite-multifilter-external-link/', $comment->textContent ) ) {
+                            $link = esc_attr( trim( str_replace( array( 'exopite-multifilter-external-link:', 'exopite-multifilter-external-link' ) , '', $comment->textContent ) ) );
+                            break;
+                        }
+
+
+                    }
+                    unset( $content_to_check );
+                }
+
                 if ( $args['blog_layout'] != 'none' ) {
                     $classes .= ( $image_class == 'left' || $image_class == 'right' ) ? ' image-aside' : '';
                     $classes .= ( $args['blog_layout'] != 'none' ) ? ' has-post-thumbnail' : '';
-                    $article_thumbnail = $this->get_thumbnail( get_the_id(), $image_class, $thumbnail_size, $args );
+                    $article_thumbnail = $this->get_thumbnail( get_the_id(), $image_class, $thumbnail_size, $args, $link );
                 }
 
                 if ( ( $args['display_title'] || ( $args['except_lenght'] > 0 ) ) && ! $post_password_required ) {
@@ -676,7 +701,7 @@ class Exopite_Multifilter_Public {
                     $article_content = '<div class="entry-content-container">';
                     if ( $args['display_title'] ) {
                         $article_content .= '<header class="entry-header">';
-                        $article_content .= '<h2 class="entry-title"><a href="' . get_the_permalink() . '">' . get_the_title() . '</a></h2>';
+                        $article_content .= '<h2 class="entry-title"><a href="' . $link . '">' . get_the_title() . '</a></h2>';
 
                         $article_content .= '</header>';
                     }
@@ -792,6 +817,7 @@ class Exopite_Multifilter_Public {
                 'gallery_mode'              => false,               // on thumbnail click, open images self insted of the link of the post/page ("single")
                 'archive_mode'              => false,               // deal with archives
                 'ajax_mode'                 => true,                // Turn AJAX mode on or off
+                'target_override'           => false,               // Override target location. Use <!-- exopite-multifilter-external-link: link or image --> insted of the 'the_perlamink'
             ),
             $atts
         );
