@@ -77,7 +77,7 @@ Available options
 | `update_paged`                     | ['true' or 'false'] Update page in browser URL bar on readmore and infinite loading based on viewport | false
 | `display_page_number`              | ['true' or 'false'] Show page number between loads in infinite and readmore  | false
 | `paged`                            | ['number'], Set start page number if not already paged                       | 1
-| `effect`                           | ['apollo', 'duke', 'goliath', 'julia', 'lexi', 'ming' or 'steve']            | apollo
+| `effect`                           | ['apollo', 'duke', 'goliath', 'julia', 'lexi', 'ming', 'steve' or none]            | apollo
 | `search`                           | ['search'] search in previously definied post type. If set, filter will be disabled. |
 | `load_from_url`                           | ['true of false'] if set, plugin load filters, pagination or search from URL. Will override localstorage. Set `container_id` in shortcode is required to enable this option. Format need to be a JSON object, like: //www.site.com/?[...&]multifilter={"[container_id]":{"[taxonomies_terms_name]":{"[taxonomy1]":["subtaxonomy[,...]"],"[taxonomy2]":["subtaxonomy[,...]"]},"paged":[page_number],"search":"[search_for]"}}, the [container_id] is required | false
 | `store_session`                    | ['true' or 'false'] Store current session (page number, selected filters and search). Useful if visitor is hit back or click on back button | false
@@ -92,7 +92,7 @@ Available options
 | `gallery_mode`                     | ['true', 'false'] Galley mode. On thumbnail click, open images insted of post type single. Post without a thumbnail will be ignored. | false
 | `archive_mode`                     | ['true', 'false'] Automatically deal with archives. Only for posts. (Random, search, filters and taxonomies_terms will be disabled; posts_per_page is set to WordPress setting) | false
 | `ajax_mode`                        | ['true', 'false'] Possibility to turn off AJAX loading. (Filters are off, no infinite or readmore pagination) | true
-| `target_override`                  | ['true', 'false'] Override target location. Use <!-- exopite-multifilter-external-link: link or image --> from content instead of the 'the_perlamink', on 'gallery_mode' this won't change image url. | false
+| `target_override`                  | ['true', 'false'] Override target location. Use <code>&lt;!-- exopite-multifilter-external-link: custom (absolute/relative) url --&gt;</code> or <code>&lt;!-- exopite-multifilter-internal-link: custom (absolute/relative) url --&gt;</code> from content instead of the 'the_perlamink', on 'gallery_mode' this won't change image url. Open exopite-multifilter-external-link in new tab and display taxonomies without links. | false
 
 INSTALLATION
 ------------

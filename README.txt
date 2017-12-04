@@ -59,7 +59,7 @@ Masonry. With Lazy load the masonry-desandro type not working completly nice.
 * 'update_paged'                => ['true' or 'false'] Update page in browser URL bar on readmore and infinite loading based on viewport
 * 'display_page_number'         => ['true' or 'false'] Show page number between loads in infinite and readmore
 * 'paged'                       => ['number'], Set start page number if not already paged
-* 'effect'                      => ['apollo', 'duke', 'goliath', 'julia', 'lexi', 'ming' or 'steve']
+* 'effect'                      => ['apollo', 'duke', 'goliath', 'julia', 'lexi', 'ming', 'steve' or none]
 https://tympanus.net/Development/HoverEffectIdeas/index.html
 https://tympanus.net/Development/HoverEffectIdeas/index2.html
 * 'search'                      => ['search'] search in previously definied post type. If set, filter will be disabled.
@@ -76,7 +76,7 @@ https://tympanus.net/Development/HoverEffectIdeas/index2.html
 * 'gallery_mode'                => ['true', 'false'] Galley mode. On thumbnail click, open images insted of post type single. Post without a thumbnail will be ignored.
 * 'archive_mode'                => ['true', 'false'] Automatically deal with archives. Only for posts. (Random, search, filters and taxonomies_terms will be disabled)
 * 'ajax_mode'                   => ['true', 'false'] Possibility to turn off AJAX loading. (Filters are off, no infinite or readmore pagination)
-* 'target_override'             => ['true', 'false'] Override target location. Use <!-- exopite-multifilter-external-link: link or image --> from content instead of the 'the_perlamink', on 'gallery_mode' this won't change image url.
+* 'target_override'             => ['true', 'false'] Override target location. Use <!-- exopite-multifilter-external-link: custom (absolute/relative) url --> or <!-- exopite-multifilter-internal-link: custom (absolute/relative) url --> from content instead of the 'the_perlamink', on 'gallery_mode' this won't change image url. Open exopite-multifilter-external-link in new tab and display taxonomies without links.
 
 == Installation ==
 
