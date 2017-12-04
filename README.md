@@ -131,8 +131,8 @@ CHANGELOG
 ---------
 
 = 20171204 - 2017-12-04 =
-* Added: Target override. Override target location. Use <!-- exopite-multifilter-internal-link: link or image -->  from content instead of the 'the_perlamink'.
-* Added: On <!-- exopite-multifilter-external-link: link or image --> open in new tab and taxonomies displayed without links.
+* Added: Target override. Override target location. Use <code>&lt;!-- exopite-multifilter-internal-link: custom (absolute/relative) url --&gt;</code>  from content instead of the 'the_perlamink'.
+* Added: On <code>&lt;!-- exopite-multifilter-external-link: custom (absolute/relative) url --&gt;</code> open in new tab and taxonomies displayed without links.
 
 = 20171101 - 2017-11-01 =
 * Added: Target override. Override target location. Use <!-- exopite-multifilter-external-link: link or image -->  from content instead of the 'the_perlamink'.
