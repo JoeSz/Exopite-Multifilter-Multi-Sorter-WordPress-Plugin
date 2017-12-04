@@ -679,13 +679,13 @@ class Exopite_Multifilter_Public {
                 }
 
                 $link = get_the_permalink();
+                $target = '';
 
                 if ( $args['target_override'] ) {
 
                     $content_to_check = new DOMDocument;
                     $content_to_check->loadHTML( get_the_content() );
                     $content_xpath = new DOMXPath( $content_to_check );
-                    $target = '';
 
                     foreach ($content_xpath->query('//comment()') as $comment) {
 
