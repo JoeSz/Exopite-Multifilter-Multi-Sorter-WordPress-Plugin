@@ -191,7 +191,7 @@ class Exopite_Multifilter_Public {
         return $image_sizes;
     }
 
-    function get_thumbnail( $post_id, $blog_layout = 'top', $thumbnail_size = 'medium', $args, $link_url = '' ) {
+    function get_thumbnail( $post_id, $blog_layout = 'top', $thumbnail_size = 'medium', $args, $link_url = '', $target = '' ) {
 
         $post_password_required = post_password_required();
 
@@ -229,7 +229,7 @@ class Exopite_Multifilter_Public {
 
         }
 
-        $ret .= '<a href="' . $link_url . '">';
+        $ret .= '<a href="' . $link_url . '"' . $target . '>';
         $ret .= '<figure class="effect-multifilter' . $effect . ' entry-thumbnail">'; //for animation
         $ret .= ( $post_password_required ) ? '' : '<img src="' . $url . '" alt="thumbnail">';
         $ret .= '<figcaption>';
@@ -241,7 +241,7 @@ class Exopite_Multifilter_Public {
             $ret .= '</div>';
         }
 
-        if ( ( ! $args['display_title'] || ( $args['except_lenght'] == 0 ) ) && ! $post_password_required && count( $args['display_metas'] ) > 0 ) {
+        if ( ( ! ( $args['display_title'] && $args['except_lenght'] == 0 ) ) && ! $post_password_required && count( $args['display_metas'] ) > 0 ) {
             $ret .= '<div class="figure-caption-meta">';
             $ret .= $this->display_metas( $args, $post_id );
             $ret .= '</div>';
@@ -364,7 +364,7 @@ class Exopite_Multifilter_Public {
 
     }
 
-    function display_metas( $args, $post_id ) {
+    function display_metas( $args, $post_id, $no_link = false ) {
 
         if ( ! is_array( $args['display_metas'] ) ) return;
 
@@ -377,8 +377,9 @@ class Exopite_Multifilter_Public {
 
         // Get the post author.
         if ( in_array( 'author', $args['display_metas'] ) ) {
+            $author_name = ( $no_link ) ? '%2$s' : '<a href="%1$s" rel="author">%2$s</a></li>';
             $author = sprintf(
-                '<li class="exopite-multifilter-meta-author">By <a href="%1$s" rel="author">%2$s</a></li>',
+                '<li class="exopite-multifilter-meta-author">By ' . $author_name . '</li>',
                 esc_url( get_author_posts_url( get_the_author_meta( 'ID' ) ) ),
                 get_the_author()
             );
@@ -386,7 +387,8 @@ class Exopite_Multifilter_Public {
 
         // Get the date.
         if ( in_array( 'date', $args['display_metas'] ) ) {
-            $date = '<li class="exopite-multifilter-meta-date"> <a href="' . esc_url( get_site_url() ) . '/' . get_the_date( 'Y' ) . '/' . get_the_date( 'm' ) . '/' . get_the_date( 'd' ) . '" rel="date">' . get_the_date() . '</a> </li>';
+            $date_link = ( $no_link ) ? get_the_date() : '<a href="' . esc_url( get_site_url() ) . '/' . get_the_date( 'Y' ) . '/' . get_the_date( 'm' ) . '/' . get_the_date( 'd' ) . '" rel="date">' . get_the_date() . '</a>';
+            $date = '<li class="exopite-multifilter-meta-date"> ' . $date_link . ' </li>';
         }
 
         // Get last modification date.
@@ -406,14 +408,20 @@ class Exopite_Multifilter_Public {
         if ( in_array( 'taxonomy', $args['display_metas'] ) ) {
 
             if ( ! empty( $args['display_metas_taxonomies'] ) ) {
-                $taxonomies = '<span class="exopite-multifilter-meta-taxonomies">';
+                $taxonomies = '<li class="exopite-multifilter-meta-taxonomies">';
                 foreach ( $args['display_metas_taxonomies'] as $display_metas_taxonomy ) {
 
-                    $taxonomies .= '<span class="exopite-multifilter-meta-taxonomy-' . $display_metas_taxonomy . '">' . get_the_term_list( $post_id, $display_metas_taxonomy, '', '/', '' ) . '</span> ';
+                    $terms = get_the_term_list( $post_id, $display_metas_taxonomy, '', ', ', '' );
+                    if ( $no_link ) {
+                        $terms = strip_tags( $terms  );
+                    }
+
+                    $taxonomies .= '<span class="exopite-multifilter-meta-taxonomy-' . $display_metas_taxonomy . '">' . $terms . '</span> ';
+
 
                 }
 
-                $taxonomies .= '</span>';
+                $taxonomies .= '</li>';
 
             }
 
@@ -677,14 +685,20 @@ class Exopite_Multifilter_Public {
                     $content_to_check = new DOMDocument;
                     $content_to_check->loadHTML( get_the_content() );
                     $content_xpath = new DOMXPath( $content_to_check );
+                    $target = '';
 
                     foreach ($content_xpath->query('//comment()') as $comment) {
 
                         if ( preg_match('/exopite-multifilter-external-link/', $comment->textContent ) ) {
                             $link = esc_attr( trim( str_replace( array( 'exopite-multifilter-external-link:', 'exopite-multifilter-external-link' ) , '', $comment->textContent ) ) );
+                            $target = ' target="_blank"';
                             break;
                         }
 
+                        if ( preg_match('/exopite-multifilter-internal-link/', $comment->textContent ) ) {
+                            $link = esc_attr( trim( str_replace( array( 'exopite-multifilter-internal-link:', 'exopite-multifilter-internal-link' ) , '', $comment->textContent ) ) );
+                            break;
+                        }
 
                     }
                     unset( $content_to_check );
@@ -693,7 +707,7 @@ class Exopite_Multifilter_Public {
                 if ( $args['blog_layout'] != 'none' ) {
                     $classes .= ( $image_class == 'left' || $image_class == 'right' ) ? ' image-aside' : '';
                     $classes .= ( $args['blog_layout'] != 'none' ) ? ' has-post-thumbnail' : '';
-                    $article_thumbnail = $this->get_thumbnail( get_the_id(), $image_class, $thumbnail_size, $args, $link );
+                    $article_thumbnail = $this->get_thumbnail( get_the_id(), $image_class, $thumbnail_size, $args, $link, $target );
                 }
 
                 if ( ( $args['display_title'] || ( $args['except_lenght'] > 0 ) ) && ! $post_password_required ) {
@@ -701,12 +715,13 @@ class Exopite_Multifilter_Public {
                     $article_content = '<div class="entry-content-container">';
                     if ( $args['display_title'] ) {
                         $article_content .= '<header class="entry-header">';
-                        $article_content .= '<h2 class="entry-title"><a href="' . $link . '">' . get_the_title() . '</a></h2>';
+                        $article_content .= '<h2 class="entry-title"><a href="' . $link . '"' . $target . '>' . get_the_title() . '</a></h2>';
 
                         $article_content .= '</header>';
                     }
                     if ( count( $args['display_metas'] ) > 0 ) {
-                        $article_content .= '<div class="entry-metas">' . $this->display_metas( $args, get_the_ID() ) . '</div>';
+                        $no_link = ! empty( $target );
+                        $article_content .= '<div class="entry-metas">' . $this->display_metas( $args, get_the_ID(), $no_link ) . '</div>';
                     }
                     if ( $args['except_lenght'] > 0 || $args['except_lenght'] === 'full' ) {
                         $article_content .= '<div class="entry-content">';
