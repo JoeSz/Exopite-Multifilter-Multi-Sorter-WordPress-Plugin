@@ -2,7 +2,7 @@
 ## WordPress Plugin
 
 - Author: Joe Szalai
-- Version: 20171204
+- Version: 20180106
 - Plugin URL: https://github.com/JoeSz/exopite-multifilter
 - Demo URL: https://joe.szalai.org/exopite/multifilter/
 - Author URL: https://joe.szalai.org
@@ -93,6 +93,8 @@ Available options
 | `archive_mode`                     | ['true', 'false'] Automatically deal with archives. Only for posts. (Random, search, filters and taxonomies_terms will be disabled; posts_per_page is set to WordPress setting) | false
 | `ajax_mode`                        | ['true', 'false'] Possibility to turn off AJAX loading. (Filters are off, no infinite or readmore pagination) | true
 | `target_override`                  | ['true', 'false'] Override target location. Use <code>&lt;!-- exopite-multifilter-external-link: custom (absolute/relative) url --&gt;</code> or <code>&lt;!-- exopite-multifilter-internal-link: custom (absolute/relative) url --&gt;</code> from content instead of the 'the_perlamink', on 'gallery_mode' this won't change image url. Open exopite-multifilter-external-link in new tab and display taxonomies without links. | false
+| `post_in`                          | ['post_id,post_id,...'] use post ids. Specify posts to retrieve.      |
+| `post_not_in`                      | ['post_id,post_id,...'] use post ids. Specify post NOT to retrieve.      |
 
 INSTALLATION
 ------------
@@ -129,6 +131,9 @@ PLANNED
 
 CHANGELOG
 ---------
+
+= 20180106 - 2018-01-06 =
+* Added: post_in and post_not_in
 
 = 20171204 - 2017-12-04 =
 * Added: Target override. Override target location. Use <code>&lt;!-- exopite-multifilter-internal-link: custom (absolute/relative) url --&gt;</code>  from content instead of the 'the_perlamink'.

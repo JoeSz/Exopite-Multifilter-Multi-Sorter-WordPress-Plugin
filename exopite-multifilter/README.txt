@@ -77,6 +77,8 @@ https://tympanus.net/Development/HoverEffectIdeas/index2.html
 * 'archive_mode'                => ['true', 'false'] Automatically deal with archives. Only for posts. (Random, search, filters and taxonomies_terms will be disabled)
 * 'ajax_mode'                   => ['true', 'false'] Possibility to turn off AJAX loading. (Filters are off, no infinite or readmore pagination)
 * 'target_override'             => ['true', 'false'] Override target location. Use <!-- exopite-multifilter-external-link: custom (absolute/relative) url --> or <!-- exopite-multifilter-internal-link: custom (absolute/relative) url --> from content instead of the 'the_perlamink', on 'gallery_mode' this won't change image url. Open exopite-multifilter-external-link in new tab and display taxonomies without links.
+* 'post_in'                     => ['post_id,post_id,...'] use post ids. Specify posts to retrieve.
+* 'post_not_in'                 => ['post_id,post_id,...'] use post ids. Specify post NOT to retrieve.
 
 == Installation ==
 
@@ -96,6 +98,9 @@ OR
 2. Multiple taxomonies as filter selected, thumbnail with title and ming effect.
 
 == Changelog ==
+
+= 20180106 - 2018-01-06 =
+* Added: post_in and post_not_in
 
 = 20171204 - 2017-12-04 =
 * Added: Target override. Override target location. Use <!-- exopite-multifilter-internal-link: link or image -->  from content instead of the 'the_perlamink'.
