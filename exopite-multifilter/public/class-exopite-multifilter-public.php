@@ -493,10 +493,24 @@ class Exopite_Multifilter_Public {
         // WP_Query: http://www.billerickson.net/code/wp_query-arguments/
         // Set post type
         $args['query'] = array(
-            'post_type'     => $args['post_type'],
             'post_status'   => 'publish',
             's'             => $args['search'],
         );
+
+        if ( ! empty( $args['post_not_in'] ) ) {
+            $args['query']['post__not_in'] = explode( ',', preg_replace( '/\s+/', '', $args['post_not_in'] ) );
+        }
+
+        if ( ! empty( $args['post_in'] ) ) {
+
+            $args['post_in'] = explode( ',', preg_replace( '/\s+/', '', $args['post_in'] ) );
+
+        } else {
+
+            $args['post_in'] = array();
+            $args['query']['post_type'] = $args['post_type'];
+
+        }
 
         $ret = '';
 
@@ -551,37 +565,45 @@ class Exopite_Multifilter_Public {
         }
         // END Deal with archives
 
-        // START Deal with sticky posts
-        // The idea here is, include sticky posts, so they does not exceeds the post per page amount
-        $include_sticky = true;
-        $args['query']['ignore_sticky_posts'] = 1;
+        if ( empty( $args['post_in'] ) ) {
 
-        if ( ! $args['random'] && $include_sticky && $args['query']['post_type'] == 'post' ) {
+            // START Deal with sticky posts
+            // The idea here is, include sticky posts, so they does not exceeds the post per page amount
+            $include_sticky = true;
+            $args['query']['ignore_sticky_posts'] = 1;
 
-            // http://www.kriesi.at/support/topic/sticky-posts-in-b-og-grid/
-            $sticky = get_option( 'sticky_posts' );
-            $sticky_args = $args['query'];
-            $sticky_args['post__not_in'] = $sticky;
-            $sticky_args['posts_per_page'] = -1;
+            if ( ! $args['random'] && $include_sticky && $args['query']['post_type'] == 'post' ) {
 
-            /**
-             * Get only post ids from query
-             *
-             * @link http://wordpress.stackexchange.com/questions/166029/get-post-ids-from-wp-query/166034#166034
-             */
-            $sticky_args['fields'] = 'ids';
+                // http://www.kriesi.at/support/topic/sticky-posts-in-b-og-grid/
+                $sticky = get_option( 'sticky_posts' );
+                $sticky_args = $args['query'];
+                $sticky_args['post__not_in'] = $sticky;
+                $sticky_args['posts_per_page'] = -1;
 
-            $posts_query = new WP_Query( $sticky_args );
-            $posts_ids = $posts_query->posts;
+                /**
+                 * Get only post ids from query
+                 *
+                 * @link http://wordpress.stackexchange.com/questions/166029/get-post-ids-from-wp-query/166034#166034
+                 */
+                $sticky_args['fields'] = 'ids';
 
-            if ( is_array( $sticky ) && is_array( $posts_ids ) ) {
-                $posts_ids = array_merge( $sticky, $posts_ids );
+                $posts_query = new WP_Query( $sticky_args );
+                $posts_ids = $posts_query->posts;
+
+                if ( is_array( $sticky ) && is_array( $posts_ids ) ) {
+                    $posts_ids = array_merge( $sticky, $posts_ids );
+                }
+
+                $args['query']['post__in'] = $posts_ids;
+
             }
+            // END Deal with sticky posts
 
-            $args['query']['post__in'] = $posts_ids;
+        } else {
+
+            $args['query']['post__in'] = $args['post_in'];
 
         }
-        // END Deal with sticky posts
 
         // only images
         if ( $args['gallery_mode'] ) $args['query']['meta_query'] = array( array( 'key' => '_thumbnail_id' ) );
@@ -833,6 +855,8 @@ class Exopite_Multifilter_Public {
                 'archive_mode'              => false,               // deal with archives
                 'ajax_mode'                 => true,                // Turn AJAX mode on or off
                 'target_override'           => false,               // Override target location. Use <!-- exopite-multifilter-external-link: link or image --> insted of the 'the_perlamink'
+                'post_in'                   => array(),
+                'post_not_in'               => '',
             ),
             $atts
         );
