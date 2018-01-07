@@ -215,7 +215,7 @@ class Exopite_Multifilter_Public {
             $image_sizes_w = ( $image_sizes[$thumbnail_size]['width'] < 100 ) ? 200 : $image_sizes[$thumbnail_size]['width'];
             $image_sizes_h = ( $image_sizes[$thumbnail_size]['height'] < 100 ) ? 200 : $image_sizes[$thumbnail_size]['height'];
 
-            $url = apply_filters( 'exopite-multifilter-placeholder-image', 'https://dummyimage.com/' . $image_sizes_w . 'x' . $image_sizes_h . '/cccccc/fff.jpg' );
+            $url = apply_filters( 'exopite-multifilter-placeholder-image', 'https://dummyimage.com/' . $image_sizes_w . 'x' . $image_sizes_h . '/cccccc/fff.gif' );
 
             // $url = apply_filters( 'exopite-multifilter-placeholder-image', 'http://lorempixel.com/' . $image_sizes[$thumbnail_size]['width'] . '/' . $image_sizes[$thumbnail_size]['height'] . '/technics/' );
         }
