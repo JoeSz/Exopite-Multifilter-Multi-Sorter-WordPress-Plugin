@@ -27,6 +27,8 @@
 /**
  * ToDo:
  *
+ * - time window (from - to)
+ * - use as carossel? (http://kenwheeler.github.io/slick/)
  * - video mode? (get embed videos and/or meta!?)
  *
  * - on mobile 6 page number is too much -> how should be displayed?
