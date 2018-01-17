@@ -28,8 +28,18 @@
  * ToDo:
  *
  * - time window (from - to)
- * - use as carossel? (http://kenwheeler.github.io/slick/)
+ * - use as carousel? (http://kenwheeler.github.io/slick/)
+ *   - style = "carousel"
+ *   - no pagination
+ *   - no filter?
+ *   - no search
+ *   - no update_paged
+ *   - no display_page_number
+ *   - no store_session
+ *   - no load_from_url
+ *   - no ajax_mode
  * - video mode? (get embed videos and/or meta!?)
+ *   - video insted of thumbnail (need a meta field for url)
  *
  * - on mobile 6 page number is too much -> how should be displayed?
  * - add widget (normal + VC)?
