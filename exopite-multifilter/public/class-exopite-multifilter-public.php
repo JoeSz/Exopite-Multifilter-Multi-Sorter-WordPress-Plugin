@@ -509,6 +509,16 @@ class Exopite_Multifilter_Public {
 
     }
 
+    public function check_date( $date ) {
+
+        if ( ! empty( $date ) && preg_match( "/^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/", $date ) ) {
+            return true;
+        }
+
+        return false;
+
+    }
+
     function get_articles( $args ) {
 
         // WP_Query: http://www.billerickson.net/code/wp_query-arguments/
@@ -541,25 +551,40 @@ class Exopite_Multifilter_Public {
             $args['query']['orderby'] = 'rand';
         }
 
+        if ( $this->check_date( $args['date_to'] ) || $this->check_date( $args['date_from'] ) ) {
+
+            $date_query = array();
+
+            if ( $this->check_date( $args['date_from'] ) ) $date_query += array( 'after' => $args['date_from'] );
+            if ( $this->check_date( $args['date_to'] ) ) $date_query += array( 'before' => $args['date_to'] );
+
+            $args['query']['date_query'] = $date_query;
+
+        }
+
         /*
          * OR -> match all taxonomy queries (subtractive query),
          * AND -> posts which match at least one taxonomy query (additive query).
          *        $args['query']['tax_query']['relation'] = 'AND';
          */
-        $args['query']['tax_query']['relation'] = ( $args['in_all_taxnomies'] ) ? 'AND' : 'OR';
+        if ( ! empty( $args['taxonomies_terms'] ) ) {
 
-        foreach ( $args['taxonomies_terms'] as $taxonomy => $terms ) {
+            $args['query']['tax_query']['relation'] = ( $args['in_all_taxnomies'] ) ? 'AND' : 'OR';
 
-            // Set taxonomies and terms
-            if ( is_array( $terms ) && ! empty( $terms ) ) {
-                foreach ( $terms as $term ) {
-                    $args['query']['tax_query'][] = array(
-                        'taxonomy' => $taxonomy,
-                        'terms' => $term,
-                        'include_children' => true,
-                        'field' => 'slug',
-                    );
+            foreach ( $args['taxonomies_terms'] as $taxonomy => $terms ) {
+
+                // Set taxonomies and terms
+                if ( is_array( $terms ) && ! empty( $terms ) ) {
+                    foreach ( $terms as $term ) {
+                        $args['query']['tax_query'][] = array(
+                            'taxonomy' => $taxonomy,
+                            'terms' => $term,
+                            'include_children' => true,
+                            'field' => 'slug',
+                        );
+                    }
                 }
+
             }
 
         }
@@ -886,6 +911,8 @@ class Exopite_Multifilter_Public {
                 'target_override'           => false,               // Override target location. Use <!-- exopite-multifilter-external-link: link or image --> insted of the 'the_perlamink'
                 'post_in'                   => array(),
                 'post_not_in'               => '',
+                'date_from'                 => '',
+                'date_to'                   => '',
                 /*
                  * Slick carousel settings
                  * http://kenwheeler.github.io/slick/
@@ -1001,9 +1028,6 @@ class Exopite_Multifilter_Public {
 
         $args['paged'] = ( $paged !== 0 ) ? $paged : $args['paged'];
 
-        // create an array from taxonomies_terms devided by comma.
-        $args['taxonomies_terms'] = explode( ',', preg_replace( '/\s+/', '', $args['taxonomies_terms'] ) );
-
         if ( ! empty( $args['display_metas'] ) ) {
             $args['display_metas'] = explode( ',', preg_replace( '/\s+/', '', $args['display_metas'] ) );
 
@@ -1016,6 +1040,9 @@ class Exopite_Multifilter_Public {
          * Process terms for taxonomies (if exist)
          * taxonomies_terms="exopite-portfolio-category(suspendisse|tempus), exopite-portfolio-tag"
          */
+        // create an array from taxonomies_terms devided by comma.
+        $args['taxonomies_terms'] = explode( ',', preg_replace( '/\s+/', '', $args['taxonomies_terms'] ) );
+
         foreach ( $args['taxonomies_terms'] as $taxonomy ) {
             if ( strpos( $taxonomy, '(') !== false ) {
                 $args['display_filter'] = false;
