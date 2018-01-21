@@ -96,6 +96,8 @@ Available options
 | `target_override`                  | ['true', 'false'] Override target location. Use <code>&lt;!-- exopite-multifilter-external-link: custom (absolute/relative) url --&gt;</code> or <code>&lt;!-- exopite-multifilter-internal-link: custom (absolute/relative) url --&gt;</code> from content instead of the 'the_perlamink', on 'gallery_mode' this won't change image url. Open exopite-multifilter-external-link in new tab and display taxonomies without links. | false
 | `post_in`                          | ['post_id,post_id,...'] use post ids. Specify posts to retrieve.      |
 | `post_not_in`                      | ['post_id,post_id,...'] use post ids. Specify post NOT to retrieve.      |
+| `date_from`                        | ['2001-12-31'] iso date. Specify date to retrieve post AFTER.      |
+| `date_to`                          | ['2002-12-31'] iso date. Specify date to retrieve post BEFORE.   |
 | `autoplay`                         | ['true', 'false'] carousel autoplay (only style="carousel"). | true
 | `arrows`                           | ['true', 'false'] carousel display arrows (only style="carousel"). | true
 | `autoplay_speed`                   | ['number'] carousel time to display each slide (only style="carousel"). | 300
@@ -150,6 +152,7 @@ CHANGELOG
 
 = 20180121 - 2018-01-21 =
 * Added: carousel mode
+* Added: date query (from date and/or to date)
 
 = 20180106 - 2018-01-06 =
 * Added: post_in and post_not_in

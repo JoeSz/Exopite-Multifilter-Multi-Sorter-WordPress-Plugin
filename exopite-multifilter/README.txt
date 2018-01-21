@@ -80,6 +80,8 @@ https://tympanus.net/Development/HoverEffectIdeas/index2.html
 * 'target_override'             => ['true', 'false'] Override target location. Use <!-- exopite-multifilter-external-link: custom (absolute/relative) url --> or <!-- exopite-multifilter-internal-link: custom (absolute/relative) url --> from content instead of the 'the_perlamink', on 'gallery_mode' this won't change image url. Open exopite-multifilter-external-link in new tab and display taxonomies without links.
 * 'post_in'                     => ['post_id,post_id,...'] use post ids. Specify posts to retrieve.
 * 'post_not_in'                 => ['post_id,post_id,...'] use post ids. Specify post NOT to retrieve.
+* 'date_from'                   => ['2001-12-31'] iso date. Specify date to retrieve post AFTER.
+* 'date_to'                     => ['2002-12-31'] iso date. Specify date to retrieve post BEFORE.
 * 'autoplay'                    => [true] carousel autoplay (only style="carousel")
 * 'arrows'                      => [true] carousel display arrows (only style="carousel")
 * 'autoplay_speed'              => [3000] carousel time to display each slide (only style="carousel")
@@ -114,6 +116,7 @@ OR
 
 = 20180121 - 2018-01-21 =
 * Added: carousel mode
+* Added: date query (from date and/or to date)
 
 = 20180106 - 2018-01-06 =
 * Added: post_in and post_not_in
