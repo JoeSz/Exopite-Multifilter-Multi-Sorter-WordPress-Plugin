@@ -7,7 +7,7 @@ Tested up to: 4.8.2
 Stable tag: 4.8.2
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
-Version: 20171204
+Version: 20180121
 
 AJAX sorter/filter any post types by multiple taxonomies and/or terms (like post by categories and/or tags).
 
@@ -79,7 +79,19 @@ https://tympanus.net/Development/HoverEffectIdeas/index2.html
 * 'target_override'             => ['true', 'false'] Override target location. Use <!-- exopite-multifilter-external-link: custom (absolute/relative) url --> or <!-- exopite-multifilter-internal-link: custom (absolute/relative) url --> from content instead of the 'the_perlamink', on 'gallery_mode' this won't change image url. Open exopite-multifilter-external-link in new tab and display taxonomies without links.
 * 'post_in'                     => ['post_id,post_id,...'] use post ids. Specify posts to retrieve.
 * 'post_not_in'                 => ['post_id,post_id,...'] use post ids. Specify post NOT to retrieve.
-
+* 'autoplay'                    => [true] carousel autoplay (only style="carousel")
+* 'arrows'                      => [true] carousel display arrows (only style="carousel")
+* 'autoplay_speed'              => [3000] carousel time to display each slide (only style="carousel")
+* 'infinite'                    => [true] carousel infinite (loop) play (only style="carousel")
+* 'speed'                       => [1000] carousel slide changing speed (only style="carousel")
+* 'pause_on_hover'              => [true] carousel paise play on mouse hover (only style="carousel")
+* 'dots'                        => [true] carousel display dots (only style="carousel")
+* 'adaptive_height'             => [false] carousel adaptive height (only style="carousel")
+* 'mobile_first'                => [false] carousel mobile first (only style="carousel")
+* 'slides_per_row'              => [1] carousel slides per row (only style="carousel")
+* 'slides_to_show'              => [1] carousel slides to show (only style="carousel")
+* 'slides_to_scroll'            => [1] carousel to scroll per turn (only style="carousel")
+* 'use_transform'               => [true] carousel use css transition (only style="carousel")
 == Installation ==
 
 1. Upload `exopite-multifilter` files to the `/wp-content/plugins/exopite-multifilter` directory
@@ -98,6 +110,9 @@ OR
 2. Multiple taxomonies as filter selected, thumbnail with title and ming effect.
 
 == Changelog ==
+
+= 20180121 - 2018-01-21 =
+* Added: carousel mode
 
 = 20180106 - 2018-01-06 =
 * Added: post_in and post_not_in

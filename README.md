@@ -2,7 +2,7 @@
 ## WordPress Plugin
 
 - Author: Joe Szalai
-- Version: 20180106
+- Version: 20180121
 - Plugin URL: https://github.com/JoeSz/exopite-multifilter
 - Demo URL: https://joe.szalai.org/exopite/multifilter/
 - Author URL: https://joe.szalai.org
@@ -95,6 +95,21 @@ Available options
 | `target_override`                  | ['true', 'false'] Override target location. Use <code>&lt;!-- exopite-multifilter-external-link: custom (absolute/relative) url --&gt;</code> or <code>&lt;!-- exopite-multifilter-internal-link: custom (absolute/relative) url --&gt;</code> from content instead of the 'the_perlamink', on 'gallery_mode' this won't change image url. Open exopite-multifilter-external-link in new tab and display taxonomies without links. | false
 | `post_in`                          | ['post_id,post_id,...'] use post ids. Specify posts to retrieve.      |
 | `post_not_in`                      | ['post_id,post_id,...'] use post ids. Specify post NOT to retrieve.      |
+| `autoplay`                         | ['true', 'false'] carousel autoplay (only style="carousel"). | true
+| `arrows`                           | ['true', 'false'] carousel display arrows (only style="carousel"). | true
+| `autoplay_speed`                   | ['number'] carousel time to display each slide (only style="carousel"). | 300
+| `infinite`                         | ['true', 'false'] carousel infinite (loop) play (only style="carousel"). | true
+| `speed`                            | [1000] carousel slide changing speed (only style="carousel"). | 1000
+| `pause_on_hover`                   | ['true', 'false'] carousel paise play on mouse hover (only style="carousel"). | true
+| `dots`                             | ['true', 'false'] carousel display dots (only style="carousel"). | true
+| `adaptive_height`                  | ['true', 'false'] carousel adaptive height (only style="carousel"). | false
+| `mobile_first`                     | ['true', 'false'] carousel mobile first (only style="carousel"). | false
+| `slides_per_row`                   | ['number'] carousel slides per row (only style="carousel"). | 1
+| `slides_to_show`                   | ['number'] carousel slides to show (only style="carousel"). | 1
+| `slides_to_scroll`                 | ['number'] carousel to scroll per turn (only style="carousel"). | 1
+| `use_transform`                    | ['true', 'false'] carousel use css transition (only style="carousel"). | true
+
+
 
 INSTALLATION
 ------------
@@ -131,6 +146,9 @@ PLANNED
 
 CHANGELOG
 ---------
+
+= 20180121 - 2018-01-21 =
+* Added: carousel mode
 
 = 20180106 - 2018-01-06 =
 * Added: post_in and post_not_in
