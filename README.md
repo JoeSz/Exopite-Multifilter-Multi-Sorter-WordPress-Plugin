@@ -98,6 +98,8 @@ Available options
 | `post_not_in`                      | ['post_id,post_id,...'] use post ids. Specify post NOT to retrieve.      |
 | `date_from`                        | ['2001-12-31'] iso date. Specify date to retrieve post AFTER.      |
 | `date_to`                          | ['2002-12-31'] iso date. Specify date to retrieve post BEFORE.   |
+| `video`                            | [meta_field_name] get video url from video field name. Set poster to post thumbnail. If empty video url, post thumbnail will be displayed.   |
+| `video-args`                       | ['controls muted autoplay'] extra args to video tag. | controls muted
 | `autoplay`                         | ['true', 'false'] carousel autoplay (only style="carousel"). | true
 | `arrows`                           | ['true', 'false'] carousel display arrows (only style="carousel"). | true
 | `autoplay_speed`                   | ['number'] carousel time to display each slide (only style="carousel"). | 300

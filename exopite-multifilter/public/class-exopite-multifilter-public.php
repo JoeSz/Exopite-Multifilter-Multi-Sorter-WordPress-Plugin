@@ -249,29 +249,67 @@ class Exopite_Multifilter_Public {
 
         }
 
-        $ret .= '<a href="' . $link_url . '"' . $target . '>';
+        $video_url = ( ! empty( $args['video'] ) ) ? get_post_meta( $post_id, esc_attr( $args['video'] ), true ) : '';
+
+        if ( empty( $args['video'] ) || empty( $video_url ) ) $ret .= '<a href="' . $link_url . '"' . $target . '>';
+
         $ret .= '<figure class="effect-multifilter' . $effect . ' entry-thumbnail">'; //for animation
-        $ret .= ( $post_password_required ) ? '' : '<img src="' . $url . '" alt="thumbnail">';
-        $ret .= '<figcaption>';
-        $ret .= '<div class="figure-caption animation">';
 
-        if ( $args['effect'] != '' && $args['effect'] != 'none' ) {
-            $ret .= '<div class="figure-caption-title">';
-            $ret .= get_the_title( $post_id );
-            $ret .= '</div>';
+        // $ret .= ( $post_password_required ) ? '' : '<img src="' . $url . '" alt="thumbnail">';
+
+        // If post required password do not display thumbnail
+        if ( $post_password_required ) {
+
+            $ret .= '';
+
+        } else {
+
+            /*
+             * If shortcode has video
+             * - get url from meta, id: $args['video']
+             * - add thumbnail as poster
+             * - if video url missing, display post thumbnail
+             */
+            if ( ! empty( $args['video'] && ! empty( $video_url ) ) ) {
+
+                $ret .= '<video class="multifilter-video" ' . $args['video-args'] . ' poster="' . $url . '" src="' . $video_url . '"></video>';
+
+            } else {
+                /*
+                 * If no video
+                 * - display thumbnail
+                 * - display overlay effect on demand
+                 * - display metas on demand
+                 */
+
+                $ret .= '<img src="' . $url . '" alt="thumbnail">';
+
+                $ret .= '<figcaption>';
+                $ret .= '<div class="figure-caption animation">';
+
+                if ( $args['effect'] != '' && $args['effect'] != 'none' ) {
+                    $ret .= '<div class="figure-caption-title">';
+                    $ret .= get_the_title( $post_id );
+                    $ret .= '</div>';
+                }
+
+                if ( ( ! ( $args['display_title'] && $args['except_lenght'] == 0 ) ) && ! $post_password_required && count( $args['display_metas'] ) > 0 ) {
+                    $ret .= '<div class="figure-caption-meta">';
+                    // $ret .= $this->display_metas( $args, $post_id );
+                    $ret .= strip_tags( $this->display_metas( $args, $post_id ), '<li><ul><i>' );
+                    $ret .= '</div>';
+                }
+
+                $ret .= '</div>';
+                $ret .= '</figcaption>';
+
+            }
+
         }
 
-        if ( ( ! ( $args['display_title'] && $args['except_lenght'] == 0 ) ) && ! $post_password_required && count( $args['display_metas'] ) > 0 ) {
-            $ret .= '<div class="figure-caption-meta">';
-            // $ret .= $this->display_metas( $args, $post_id );
-            $ret .= strip_tags( $this->display_metas( $args, $post_id ), '<li><ul><i>' );
-            $ret .= '</div>';
-        }
 
-        $ret .= '</div>';
-        $ret .= '</figcaption>';
         $ret .= '</figure>';
-        $ret .= '</a>';
+        if ( empty( $args['video'] ) || empty( $video_url ) )  $ret .= '</a>';
 
         $ret .= '</div>';
 
@@ -909,10 +947,10 @@ class Exopite_Multifilter_Public {
                 'archive_mode'              => false,               // deal with archives
                 'ajax_mode'                 => true,                // Turn AJAX mode on or off
                 'target_override'           => false,               // Override target location. Use <!-- exopite-multifilter-external-link: link or image --> insted of the 'the_perlamink'
-                'post_in'                   => array(),
+                'post_in'                   => '',
                 'post_not_in'               => '',
-                'date_from'                 => '',
-                'date_to'                   => '',
+                'date_from'                 => '',                  // iso date: 2001-12-31
+                'date_to'                   => '',                  // iso date: 2002-12-31
                 /*
                  * Slick carousel settings
                  * http://kenwheeler.github.io/slick/
@@ -930,6 +968,8 @@ class Exopite_Multifilter_Public {
                 'slides_to_show'            => 1,
                 'slides_to_scroll'          => 1,
                 'use_transform'             => true,
+                'video'                     => '',
+                'video-args'                => 'controls muted',
             ),
             $atts
         );

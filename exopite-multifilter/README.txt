@@ -82,6 +82,8 @@ https://tympanus.net/Development/HoverEffectIdeas/index2.html
 * 'post_not_in'                 => ['post_id,post_id,...'] use post ids. Specify post NOT to retrieve.
 * 'date_from'                   => ['2001-12-31'] iso date. Specify date to retrieve post AFTER.
 * 'date_to'                     => ['2002-12-31'] iso date. Specify date to retrieve post BEFORE.
+* 'video'                       => ['meta_field_name'] get video url from video field name. Set poster to post thumbnail. If empty video url, post thumbnail will be displayed.
+* 'video-args'                  => ['controls muted autoplay'] extra args to video tag.
 * 'autoplay'                    => [true] carousel autoplay (only style="carousel")
 * 'arrows'                      => [true] carousel display arrows (only style="carousel")
 * 'autoplay_speed'              => [3000] carousel time to display each slide (only style="carousel")
