@@ -382,3 +382,43 @@
 .exopite-multifilter-container.masonry .ajax-added {
     visibility: hidden;
 }
+/* Slick carousel */
+.exopite-multifilter-items .slick-track .entry-content-container {
+    padding: 15px;
+}
+.exopite-multifilter-items .slick-prev::before {
+    content: '\f104';
+}
+.exopite-multifilter-items .slick-prev::before,
+.exopite-multifilter-items .slick-next::before {
+    font-family: 'FontAwesome';
+    font-size: 55px;
+}
+.exopite-multifilter-items .slick-next::before {
+    content: '\f105';
+}
+.exopite-multifilter-items .slick-next {
+    right: 0;
+}
+.exopite-multifilter-items .slick-prev {
+    left: 0;
+}
+.exopite-multifilter-items .slick-prev,
+.exopite-multifilter-items .slick-next {
+    height: 55px;
+    z-index: 2;
+}
+.exopite-multifilter-items .slick-prev::before,
+.exopite-multifilter-items .slick-next::before {
+    color: #000;
+}
+.exopite-multifilter-container {
+    max-width: 100%;
+    overflow-x: hidden;
+}
+.exopite-multifilter-items .slick-dots li button::before {
+    font-size: 43px;
+}
+.slick-carousel article {
+    display: none;
+}
