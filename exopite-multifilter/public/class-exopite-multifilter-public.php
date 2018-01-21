@@ -96,6 +96,22 @@ class Exopite_Multifilter_Public {
             }
         }
 
+        /*
+         * Slick carousel
+         */
+        // Register styles for carousel
+        $slick_css_url  = plugin_dir_url( __FILE__ ) . 'css/slick.' . $version . '.css';
+        $slick_css_path = EXOPITE_MULTIFILTER_PATH . 'public' . DIRECTORY_SEPARATOR . 'css' . DIRECTORY_SEPARATOR . 'slick.' . $version . '.css';
+        wp_register_style( 'slick', $slick_css_url, array(), filemtime( $slick_css_path ) );
+
+        // Theme style for slick (carousel)
+        $slick_theme_css_url  = plugin_dir_url( __FILE__ ) . 'css/slick-theme.' . $version . '.css';
+        $slick_theme_css_path = EXOPITE_MULTIFILTER_PATH .  'public' . DIRECTORY_SEPARATOR . 'css' . DIRECTORY_SEPARATOR . 'slick-theme.' . $version . '.css';
+        wp_register_style( 'slick-theme', $slick_theme_css_url, array(), filemtime( $slick_theme_css_path ) );
+
+        /*
+         * Plugin styles
+         */
         // Register plugin main styles
         $public_css_url  = plugin_dir_url( __FILE__ ) . 'css/exopite-multifilter-public.' . $version . '.css';
         $public_css_path = EXOPITE_MULTIFILTER_PATH . DIRECTORY_SEPARATOR . 'public' . DIRECTORY_SEPARATOR . 'css' . DIRECTORY_SEPARATOR . 'exopite-multifilter-public.' . $version . '.css';
@@ -107,7 +123,6 @@ class Exopite_Multifilter_Public {
         wp_register_style( 'exopite-effects', $public_effect_css_url, array(), filemtime( $public_effect_css_path ) );
 
 	}
-
 	/**
 	 * Register the JavaScript for the public-facing side of the site.
 	 *
@@ -142,6 +157,11 @@ class Exopite_Multifilter_Public {
             }
 
         }
+
+        // Slick for carousel style
+        $slick_js_url  = plugin_dir_url( __FILE__ ) . 'js/slick.' . $version . '.js';
+        $slick_js_path = plugin_dir_path( __FILE__ ) . DIRECTORY_SEPARATOR . 'js' . DIRECTORY_SEPARATOR . 'slick.' . $version . '.js';
+        wp_register_script( 'slick', $slick_js_url, array( 'jquery' ), filemtime( $slick_js_path), true );
 
         // if plugin main Javascript file is not yes registered, then register it
         if ( ! wp_script_is( $this->plugin_name, 'registered' ) ) {
@@ -243,7 +263,8 @@ class Exopite_Multifilter_Public {
 
         if ( ( ! ( $args['display_title'] && $args['except_lenght'] == 0 ) ) && ! $post_password_required && count( $args['display_metas'] ) > 0 ) {
             $ret .= '<div class="figure-caption-meta">';
-            $ret .= $this->display_metas( $args, $post_id );
+            // $ret .= $this->display_metas( $args, $post_id );
+            $ret .= strip_tags( $this->display_metas( $args, $post_id ), '<li><ul><i>' );
             $ret .= '</div>';
         }
 
@@ -614,6 +635,7 @@ class Exopite_Multifilter_Public {
         if ( $the_query->have_posts() ) {
 
             $class_row = ( $args['no-gap'] ) ? ' no-gap-container' : '';
+            $class_row .= ( $args['style'] == 'carousel' ) ? ' slick-carousel' : '';
             $ret .= '<div ';
 
             // MASONRY -> DEBUG
@@ -627,7 +649,14 @@ class Exopite_Multifilter_Public {
             // }
             // END MASONRY
 
-            $ret .= 'class="row exopite-multifilter-items' . $class_row . '" data-page="' . get_the_permalink() . '">';
+            $ret .= 'class="row exopite-multifilter-items' . $class_row;
+            $ret .= '" data-page="' . get_the_permalink() . '"';
+            if ( $args['style'] == 'carousel' ) {
+                $ret .= '" data-speed="' . get_the_permalink() . '"';
+                $ret .= '" data-autoplay="' . get_the_permalink() . '"';
+                $ret .= '" data-pause-on-hover="' . get_the_permalink() . '"';
+            }
+            $ret .= '>';
 
             $index = 0;
 
@@ -848,7 +877,7 @@ class Exopite_Multifilter_Public {
                 'display_metas_taxonomies'  => '',                  // comma searated list
                 'container_id'              => '',
                 'container_classes'         => '',                  // comma searated list
-                'style'                     => '',                  // empty, equal-height, masonry
+                'style'                     => '',                  // empty, equal-height, masonry, carousel
                 'masonry_type'              => 'waterfall-kudago',  // waterfall-kudago, masonry-desandro
                 'col_min_width'             => 340,                 // (int) only for waterfall-kudago
                 'gallery_mode'              => false,               // on thumbnail click, open images self insted of the link of the post/page ("single")
@@ -857,9 +886,28 @@ class Exopite_Multifilter_Public {
                 'target_override'           => false,               // Override target location. Use <!-- exopite-multifilter-external-link: link or image --> insted of the 'the_perlamink'
                 'post_in'                   => array(),
                 'post_not_in'               => '',
+                /*
+                 * Slick carousel settings
+                 * http://kenwheeler.github.io/slick/
+                 */
+                'autoplay'                  => true,                // for slick carousel
+                'arrows'                    => true,
+                'autoplay_speed'            => 3000,
+                'infinite'                  => true,
+                'speed'                     => 1000,
+                'pause_on_hover'            => true,
+                'dots'                      => true,
+                'adaptive_height'           => false,
+                'mobile_first'              => false,
+                'slides_per_row'            => 1,
+                'slides_to_show'            => 1,
+                'slides_to_scroll'          => 1,
+                'use_transform'             => true,
             ),
             $atts
         );
+
+
 
         // Add page id and paged.
         $args['page_id'] = get_the_ID();
@@ -926,6 +974,19 @@ class Exopite_Multifilter_Public {
         wp_enqueue_style( 'exopite-effects' );
 
         // ToDo: sanitize data
+
+        if ( $args['style'] == 'carousel' ) {
+            $args['ajax_mode']           = false;
+            $args['display_filter']      = false;
+            $args['pagination']          = 'none';
+            $args['search']              = '';
+            $args['update_paged']        = false;
+            $args['display_page_number'] = false;
+            $args['store_session']       = false;
+            $args['load_from_url']       = false;
+            $args['posts_per_row']       = '1';
+            $args['no-gap']              = true;
+        }
 
         if ( $args['ajax_mode'] ) {
             $args['ajax_nonce'] = wp_create_nonce( 'exopite-multifilter-nonce' );
@@ -1034,13 +1095,41 @@ class Exopite_Multifilter_Public {
 
         $ret .= '" ';
 
+
+        if ( $args['style'] == 'carousel' ) {
+
+            wp_enqueue_script( 'slick' );
+            wp_enqueue_style( 'slick' );
+            wp_enqueue_style( 'slick-theme' );
+
+            $carousel_args = array(
+                'autoplay'                  => $args['autoplay'],
+                'arrows'                    => $args['arrows'],
+                'autoplay_speed'            => $args['autoplay_speed'],
+                'infinite'                  => $args['infinite'],
+                'speed'                     => $args['speed'],
+                'pause_on_hover'            => $args['pause_on_hover'],
+                'dots'                      => $args['dots'],
+                'adaptive_height'           => $args['adaptive_height'],
+                'mobile_first'              => $args['mobile_first'],
+                'slides_per_row'            => $args['slides_per_row'],
+                'slides_to_show'            => $args['slides_to_show'],
+                'slides_to_scroll'          => $args['slides_to_scroll'],
+                'use_transform'             => $args['use_transform'],
+            );
+
+            $ret .= 'data-carousel=\'' . htmlentities( json_encode( $carousel_args ), ENT_QUOTES, 'UTF-8' ) . '\'';
+
+        }
+
         /**
          * Insert args array to data-ajax for javascript as JSON.
          *
          * http://stackoverflow.com/questions/7322682/best-way-to-store-json-in-an-html-attribute
          */
-        if ( $args['ajax_mode'] ) $ret .= 'data-ajax=\'' . htmlentities( json_encode( $args ), ENT_QUOTES, 'UTF-8' );
-        $ret .= '\'>';
+        if ( $args['ajax_mode'] ) $ret .= 'data-ajax=\'' . htmlentities( json_encode( $args ), ENT_QUOTES, 'UTF-8' ) . '\'';
+
+        $ret .= '>';
 
         // Display filters
         if ( $args['display_filter'] && $args['display_filter'] !== 'false' && ! $args['random'] ) {
