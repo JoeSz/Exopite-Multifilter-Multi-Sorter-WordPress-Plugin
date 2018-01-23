@@ -2,7 +2,7 @@
 ## WordPress Plugin
 
 - Author: Joe Szalai
-- Version: 20180121
+- Version: 20180123
 - Plugin URL: https://github.com/JoeSz/exopite-multifilter
 - Demo URL: https://joe.szalai.org/exopite/multifilter/
 - Author URL: https://joe.szalai.org
@@ -113,7 +113,8 @@ Available options
 | `slides_to_show`                   | ['number'] carousel slides to show (only style="carousel"). | 1
 | `slides_to_scroll`                 | ['number'] carousel to scroll per turn (only style="carousel"). | 1
 | `use_transform`                    | ['true', 'false'] carousel use css transition (only style="carousel"). | true
-
+| `meta_key`                         | ['meta-key'] custom field key. |
+| `meta_value`                       | ['meta-value'] custom field value. |
 
 
 INSTALLATION
@@ -151,6 +152,9 @@ PLANNED
 
 CHANGELOG
 ---------
+
+= 20180123 - 2018-01-23 =
+* Added: meta_key and meta_value
 
 = 20180121 - 2018-01-21 =
 * Added: carousel mode

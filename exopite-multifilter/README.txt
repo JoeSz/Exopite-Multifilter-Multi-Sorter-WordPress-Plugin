@@ -7,7 +7,7 @@ Tested up to: 4.8.2
 Stable tag: 4.8.2
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
-Version: 20180121
+Version: 20180123
 
 AJAX sorter/filter any post types by multiple taxonomies and/or terms (like post by categories and/or tags).
 
@@ -97,6 +97,8 @@ https://tympanus.net/Development/HoverEffectIdeas/index2.html
 * 'slides_to_show'              => [1] carousel slides to show (only style="carousel")
 * 'slides_to_scroll'            => [1] carousel to scroll per turn (only style="carousel")
 * 'use_transform'               => [true] carousel use css transition (only style="carousel")
+* 'meta_key'                    => ['meta-key'] custom field key.
+* 'meta_value'                  => ['meta-value'] custom field value.
 == Installation ==
 
 1. Upload `exopite-multifilter` files to the `/wp-content/plugins/exopite-multifilter` directory
@@ -115,6 +117,9 @@ OR
 2. Multiple taxomonies as filter selected, thumbnail with title and ming effect.
 
 == Changelog ==
+
+= 20180123 - 2018-01-23 =
+* Added: meta_key and meta_value
 
 = 20180121 - 2018-01-21 =
 * Added: carousel mode
