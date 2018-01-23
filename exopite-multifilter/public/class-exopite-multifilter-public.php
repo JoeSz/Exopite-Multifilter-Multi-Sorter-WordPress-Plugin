@@ -627,6 +627,9 @@ class Exopite_Multifilter_Public {
 
         }
 
+        if ( ! empty( $args['meta_key'] ) ) $args['query']['meta_key'] = esc_attr( $args['meta_key'] );
+        if ( ! empty( $args['meta_value'] ) ) $args['query']['meta_value'] = esc_attr( $args['meta_value'] );
+
         // Set search if not random
         if ( isset( $args['search'] ) && ! $args['random'] ) {
             $args['query']['s'] = $args['search'];
@@ -970,6 +973,8 @@ class Exopite_Multifilter_Public {
                 'use_transform'             => true,
                 'video'                     => '',
                 'video-args'                => 'controls muted',
+                'meta_key'                  => '',
+                'meta_value'                => '',
             ),
             $atts
         );
