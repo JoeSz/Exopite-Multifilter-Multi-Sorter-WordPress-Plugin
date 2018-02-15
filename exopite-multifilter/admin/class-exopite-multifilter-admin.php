@@ -61,7 +61,7 @@ class Exopite_Multifilter_Admin {
      */
     public function register_widgets() {
 
-        register_widget( 'exopite_multifilter_CS_Widget' );
+        // register_widget( 'exopite_multifilter_CS_Widget' );
 
     }
 

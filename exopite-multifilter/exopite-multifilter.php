@@ -133,7 +133,7 @@ if ( class_exists( 'Puc_v4_Factory' ) ) {
 /**
  * CodeStar Widget
  */
-require plugin_dir_path( __FILE__ ) . 'widgets/class-exopite-multifilter-cs-widget.php';
+// require plugin_dir_path( __FILE__ ) . 'widgets/class-exopite-multifilter-cs-widget.php';
 
 /**
  * The core plugin class that is used to define internationalization,
