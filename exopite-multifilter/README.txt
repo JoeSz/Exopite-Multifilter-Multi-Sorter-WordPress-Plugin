@@ -7,7 +7,7 @@ Tested up to: 4.8.2
 Stable tag: 4.8.2
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
-Version: 20180123
+Version: 20180216
 
 AJAX sorter/filter any post types by multiple taxonomies and/or terms (like post by categories and/or tags).
 
@@ -117,6 +117,9 @@ OR
 2. Multiple taxomonies as filter selected, thumbnail with title and ming effect.
 
 == Changelog ==
+
+= 20180216 - 2018-02-16 =
+* Fixed: remove widget to avoid actiovation error
 
 = 20180123 - 2018-01-23 =
 * Added: meta_key and meta_value

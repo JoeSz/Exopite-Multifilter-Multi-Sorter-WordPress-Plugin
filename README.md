@@ -2,7 +2,7 @@
 ## WordPress Plugin
 
 - Author: Joe Szalai
-- Version: 20180123
+- Version: 20180216
 - Plugin URL: https://github.com/JoeSz/exopite-multifilter
 - Demo URL: https://joe.szalai.org/exopite/multifilter/
 - Author URL: https://joe.szalai.org
@@ -152,6 +152,9 @@ PLANNED
 
 CHANGELOG
 ---------
+
+= 20180216 - 2018-02-16 =
+* Fixed: remove widget to avoid actiovation error
 
 = 20180123 - 2018-01-23 =
 * Added: meta_key and meta_value
