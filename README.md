@@ -153,6 +153,9 @@ PLANNED
 CHANGELOG
 ---------
 
+= 20180218 - 2018-02-18 =
+* Fixed: some error for slider
+
 = 20180216 - 2018-02-16 =
 * Fixed: remove widget to avoid actiovation error
 
