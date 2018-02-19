@@ -422,3 +422,6 @@
 .slick-carousel article {
     display: none;
 }
+.exopite-multifilter-container[data-carousel] {
+    overflow-x: unset;
+}
