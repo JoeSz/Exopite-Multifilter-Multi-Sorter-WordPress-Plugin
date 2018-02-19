@@ -1062,7 +1062,7 @@ class Exopite_Multifilter_Public {
 
         if ( $args['ajax_mode'] ) {
             $args['ajax_nonce'] = wp_create_nonce( 'exopite-multifilter-nonce' );
-        } else {
+        } elseif ( $args['style'] != 'carousel' ) {
             $args['pagination'] = 'pagination';
         }
 
