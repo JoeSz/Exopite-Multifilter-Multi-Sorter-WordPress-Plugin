@@ -188,6 +188,7 @@
 
                         _animate( elements.loading, 'in', false, null, null );
 
+
                     },
                     success: function( response ){
 
@@ -201,6 +202,8 @@
 
                         // If response contain articles
                         if ( articles.length > 0 ) {
+
+                            console.log( '2' );
 
                             var pagination = html.filter('.exopite-multifilter-paginations').children(":first");
                             var pagedUrl = elements.itemsContainer.data( 'page' ) + 'page/' + paged + '/';
@@ -329,18 +332,22 @@
 
             var _onScroll = Exopite.throttle(function() {
 
-                if ( dataJSON.pagination == 'infinite' ) {
-                    _checkBottom();
-                }
+                if ( typeof dataJSON !== "undefined" ) {
 
-                if ( dataJSON.update_paged ) {
-                    $( '[data-page]' ).each(function ( idx, el ) {
-                        var link = $( el ).data( 'page' );
-                        if ( isElementInViewport( el ) ) {
-                            if ( window.location.href == link ) return;
-                            changeBrowserUrl( link );
-                        }
-                    });
+                    if ( dataJSON.pagination == 'infinite' ) {
+                        _checkBottom();
+                    }
+
+                    if ( dataJSON.update_paged ) {
+                        $( '[data-page]' ).each(function ( idx, el ) {
+                            var link = $( el ).data( 'page' );
+                            if ( isElementInViewport( el ) ) {
+                                if ( window.location.href == link ) return;
+                                changeBrowserUrl( link );
+                            }
+                        });
+                    }
+
                 }
 
             }, 100);
@@ -580,7 +587,9 @@
                 if ( paged > 1 || _run ) _getItems();
             };
 
-            if ( dataJSON.store_session || dataJSON.load_from_url ) _loadOnStart();
+            if ( typeof dataJSON !== "undefined" ) {
+                if ( dataJSON.store_session || dataJSON.load_from_url ) _loadOnStart();
+            }
 
 
         });
