@@ -203,8 +203,6 @@
                         // If response contain articles
                         if ( articles.length > 0 ) {
 
-                            console.log( '2' );
-
                             var pagination = html.filter('.exopite-multifilter-paginations').children(":first");
                             var pagedUrl = elements.itemsContainer.data( 'page' ) + 'page/' + paged + '/';
 
@@ -402,12 +400,13 @@
 
             // Click on filter
             elements.filterItems.on('click', function(event) {
+
                 event.preventDefault();
                 if ( loading ) return;
 
                 if ( typeof wp.hooks !== 'undefined' ) wp.hooks.doAction( 'ema-filter-selected', base );
 
-                if ( dataJSON.multi_selectable ) {
+                if ( dataJSON.multi_selectable === true ) {
                     _reset();
                     $( this ).toggleClass( 'active' );
                 } else {
