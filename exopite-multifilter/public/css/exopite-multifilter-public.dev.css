@@ -414,7 +414,7 @@
 }
 .exopite-multifilter-container {
     max-width: 100%;
-    overflow-x: hidden;
+    /*overflow-x: hidden;*/
 }
 .exopite-multifilter-items .slick-dots li button::before {
     font-size: 43px;
