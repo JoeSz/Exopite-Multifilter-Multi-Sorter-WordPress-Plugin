@@ -585,7 +585,7 @@ class Exopite_Multifilter_Public {
 
         // If random, disable pagination
         if ( $args['random'] ) {
-            $args['display_pagination'] = false;
+            $args['pagination'] = 'none';
             $args['query']['orderby'] = 'rand';
         }
 
