@@ -2,7 +2,7 @@
 ## WordPress Plugin
 
 - Author: Joe Szalai
-- Version: 20180216
+- Version: 20180223
 - Plugin URL: https://github.com/JoeSz/exopite-multifilter
 - Demo URL: https://joe.szalai.org/exopite/multifilter/
 - Author URL: https://joe.szalai.org
@@ -84,6 +84,9 @@ Available options
 | `store_session`                    | ['true' or 'false'] Store current session (page number, selected filters and search). Useful if visitor is hit back or click on back button | false
 | `in_all_taxnomies`                 | ['true' or 'false'] If true, match all taxonomy queries (subtractive query), otherwise posts which match at least one taxonomy query (additive query) | true
 | `random`                           | ['true' or 'false'] randomize query (pagination, filters and search are off) | false
+| `order`                            | ['asc' or 'desc'] Designates the ascending or descending order of the 'orderby' parameter. | desc
+| `orderby`                          | ['string' or '(string1|string2)'] Sort retrieved posts by parameter. WordPress default is 'date (post_date)'. |
+| `meta_key`                         | ['meta-key'] Custom Field Parameter |
 | `display_metas_taxonomies`         | only if display_metas has 'taxonomy', taxonomy name to display (eg. for posts: category, post_tag), string or comma separated list |
 | `container_id`                     | ['string'], Set wrapper/container id                                        |
 | `container_classes`                | ['string or a comma searated list'], Set wrapper/container class[es]        |
@@ -152,6 +155,9 @@ PLANNED
 
 CHANGELOG
 ---------
+
+= 20180223 - 2018-02-23 =
+* Added: order, orderby and meta_key
 
 = 20180218 - 2018-02-18 =
 * Fixed: some error for slider

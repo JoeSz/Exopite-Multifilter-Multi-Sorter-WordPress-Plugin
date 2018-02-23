@@ -695,6 +695,14 @@ class Exopite_Multifilter_Public {
         // only images
         if ( $args['gallery_mode'] ) $args['query']['meta_query'] = array( array( 'key' => '_thumbnail_id' ) );
 
+        $args['query']['order'] = $args['order'];
+
+        if ( ! empty( $args['orderby'] ) ) {
+            $orderby = explode( '|', $args['orderby'] );
+            $args['query']['orderby'] = array_filter( $orderby );
+        }
+        if ( ! empty( $args['meta_key'] ) ) $args['query']['meta_key'] = $args['meta_key'];
+
         $the_query = new WP_Query( $args['query'] );
 
         // The Loop
@@ -954,6 +962,9 @@ class Exopite_Multifilter_Public {
                 'post_not_in'               => '',
                 'date_from'                 => '',                  // iso date: 2001-12-31
                 'date_to'                   => '',                  // iso date: 2002-12-31
+                'order'                     => 'DESC',
+                'orderby'                   => '',
+                'meta_key'                  => '',
                 /*
                  * Slick carousel settings
                  * http://kenwheeler.github.io/slick/

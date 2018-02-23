@@ -7,7 +7,7 @@ Tested up to: 4.8.2
 Stable tag: 4.8.2
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
-Version: 20180216
+Version: 20180223
 
 AJAX sorter/filter any post types by multiple taxonomies and/or terms (like post by categories and/or tags).
 
@@ -68,6 +68,9 @@ https://tympanus.net/Development/HoverEffectIdeas/index2.html
 * 'store_session'               => ['true' or 'false'] Store current session (page, filters and search). Useful if visitor is hit back or click on back button.
 * 'in_all_taxnomies'            => ['true' or 'false'] If true, match all taxonomy queries (subtractive query), otherwise posts which match at least one taxonomy query (additive query) | true
 * 'random'                      => ['true' or 'false'] randomize query (pagination, filters and search are off)
+* 'order'                       => ['asc' or 'desc'] Designates the ascending or descending order of the 'orderby' parameter.
+* 'orderby'                     => ['string' or '(string1|string2)'] Sort retrieved posts by parameter. WordPress default is 'date (post_date)'.
+* 'meta_key'                    => ['meta-key'] Custom Field Parameter
 * 'display_metas_taxonomies'    => only if display_metas has 'taxonomy', taxonomy name to display (eg. for posts: category, post_tag), string or comma separated list
 * 'container_id'                => ['string'], Set wrapper/container id
 * 'container_classes'           => ['string or a comma searated list'], Set wrapper/container class[es]
@@ -117,6 +120,9 @@ OR
 2. Multiple taxomonies as filter selected, thumbnail with title and ming effect.
 
 == Changelog ==
+
+= 20180223 - 2018-02-23 =
+* Added: order, orderby and meta_key
 
 = 20180218 - 2018-02-18 =
 * Fixed: some error for slider
