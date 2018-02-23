@@ -682,6 +682,7 @@
 
     Slick.prototype.changeSlide = function(event, dontAnimate) {
 
+
         var _ = this,
             $target = $(event.currentTarget),
             indexOffset, slideOffset, unevenOffset;
@@ -1205,10 +1206,18 @@
             max = _.slideCount * 2;
         }
 
+        var fs = 0;
+
         while (breakPoint < max) {
             indexes.push(breakPoint);
             breakPoint = counter + _.options.slidesToScroll;
             counter += _.options.slidesToScroll <= _.options.slidesToShow ? _.options.slidesToScroll : _.options.slidesToShow;
+
+            fs++;
+            if ( fs > 200 ) {
+                console.log( 'WARNING! Infinite loop!' );
+                break;
+            }
         }
 
         return indexes;
@@ -3011,27 +3020,28 @@
 
     $( document ).ready(function() {
 
-        console.log( 'slick' );
 
-        $( '.exopite-multifilter-items' ).each(function ( idx, item ) {
+        $( '.exopite-multifilter-items.slick-carousel' ).each(function ( idx, item ) {
+
             var carouselId = "slick-carousel" + idx;
             var data = $( this ).parent( '.exopite-multifilter-container' ).data( 'carousel' );
+
             if ( typeof data !== "undefined" ) {
                 this.id = carouselId;
                 $( this ).slick({
-                    autoplay: data.autoplay,
-                    arrows: data.arrows,
+                    autoplay: ( data.autoplay === 'false' ) ? false : true,
+                    arrows: ( data.arrows === 'false' ) ? false : true,
                     autoplaySpeed: data.autoplay_speed,
-                    infinite: data.infinite,
-                    speed: data.speed,
-                    pauseOnHover: data.pause_on_hover,
-                    dots: data.dots,
-                    adaptiveHeight: data.adaptive_height,
-                    mobileFirst: data.mobile_first,
-                    slidesPerRow: data.slides_per_row,
-                    slidesToShow: data.slides_to_show,
-                    slidesToScroll: data.slides_to_scroll,
-                    useTransform: data.use_transform,
+                    infinite: ( data.infinite === 'false' ) ? false : true,
+                    speed: parseInt( data.speed ),
+                    pauseOnHover: ( data.pause_on_hover === 'false' ) ? false : true,
+                    dots: ( data.dots === 'false' ) ? false : true,
+                    adaptiveHeight: ( data.adaptive_height === 'false' ) ? false : true,
+                    mobileFirst: ( data.mobile_first === 'false' ) ? false : true,
+                    slidesPerRow: parseInt( data.slides_per_row ),
+                    slidesToShow: parseInt( data.slides_to_show ),
+                    slidesToScroll: parseInt( data.slides_to_scroll ),
+                    useTransform: ( data.use_transform === 'false' ) ? false : true,
                 });
             }
         });
