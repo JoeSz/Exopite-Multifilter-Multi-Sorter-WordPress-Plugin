@@ -150,7 +150,7 @@ PLANNED
 -------
 
 * On mobile 6 page number is too much -> how should be displayed?
-* Add widget (only if [CodeStar Framework](http://codestarframework.com/) as plugin installed)
+* Add widget (useful for SiteOrigin Page Builder)
 * Add to WordPress repo.
 
 CHANGELOG
