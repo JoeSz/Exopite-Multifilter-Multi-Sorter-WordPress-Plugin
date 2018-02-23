@@ -400,9 +400,9 @@ class Exopite_Multifilter_Public {
         switch ( $pagination ) {
             case 'readmore':
                 if ( $current_page < $max_num_page ) {
-                    $ret .='<a href="' . $next_url . '" class="btn btn-material btn-readmore next">' . __( 'Read more', 'exopite-multifilter' ) . '</a>';
+                    $ret .='<a href="' . $next_url . '" class="btn btn-material btn-readmore next">' . esc_attr__( 'Read more', 'exopite-multifilter' ) . '</a>';
                 } else {
-                    $ret .= '<span class="nothing-more">' . __( 'Nothing more to load.', 'exopite-multifilter' ) . '</span>';
+                    $ret .= '<span class="nothing-more">' . esc_attr__( 'Nothing more to load.', 'exopite-multifilter' ) . '</span>';
                 }
                 break;
 
@@ -417,8 +417,8 @@ class Exopite_Multifilter_Public {
                     'format'    => $format . '/%#%/',
                     'current'   => max( 1, $current_page ),
                     'total'     => $max_num_page,
-                    'prev_text' => esc_html__('&lsaquo;', 'exopite-multifilter' ),
-                    'next_text' => esc_html__('&rsaquo;', 'exopite-multifilter' ),
+                    'prev_text' => esc_attr__('&lsaquo;', 'exopite-multifilter' ),
+                    'next_text' => esc_attr__('&rsaquo;', 'exopite-multifilter' ),
                     'show_all'  => false,
                     'end_size'  => 1,
                     'mid_size'  => 2,
@@ -923,7 +923,11 @@ class Exopite_Multifilter_Public {
         } else {
 
             // no posts found
-            $ret .= '<div class="col-12 text-center no-posts-found">' . __( 'No posts found', 'exopite-multifilter' ) . '</div>';
+            if ( $args['pagination'] == 'infinite' && $args['paged'] > 1 )  {
+                $ret .= '<div class="col-12 text-center no-posts-found">' . esc_attr__( 'Nothing more to load.', 'exopite-multifilter' ) . '</div>';
+            } else {
+                $ret .= '<div class="col-12 text-center no-posts-found">' . esc_attr__( 'No posts found', 'exopite-multifilter' ) . '</div>';
+            }
         }
 
         return $ret;
@@ -1234,7 +1238,7 @@ class Exopite_Multifilter_Public {
         if ( $args['display_filter'] && $args['display_filter'] !== 'false' && ! $args['random'] ) {
 
             $ret .= '<div class="exopite-multifilter-filter-wrapper">';
-            $ret .= '<div class="exopite-multifilter-filter-reset-search text-right"><span class="exopite-multifilter-filter-reset">' . __( 'Reset all', 'exopite-multifilter' ) . '</span>';
+            $ret .= '<div class="exopite-multifilter-filter-reset-search text-right"><span class="exopite-multifilter-filter-reset">' . esc_attr__( 'Reset all', 'exopite-multifilter' ) . '</span>';
 
             if ( $args['search'] == '' ) $ret .= '<form role="search" method="get" class="exopite-multifilter-search" action="' . esc_url( home_url( '/' ) ) . '"><div class="form-group"><input type="text" class="form-group" placeholder="' . esc_attr__( 'Search…', 'exopite-multifilter' ) . '" name="s" id="" value="' . esc_attr( get_search_query() ) . '" /><span class="form-group-btn"><button class="btn btn-default" type="submit" id="" value="Search"><i class="fa fa-search" aria-hidden="true"></i></button></span></div><!-- /input-group --></form>';
 

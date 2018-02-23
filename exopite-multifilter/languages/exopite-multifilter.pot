@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-11-01 18:06+0100\n"
+"POT-Creation-Date: 2018-02-23 11:36+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,51 +17,52 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: public/class-exopite-multifilter-public.php:328
+#: public/class-exopite-multifilter-public.php:403
 msgid "Read more"
 msgstr ""
 
-#: public/class-exopite-multifilter-public.php:330
+#: public/class-exopite-multifilter-public.php:405
+#: public/class-exopite-multifilter-public.php:927
 msgid "Nothing more to load."
 msgstr ""
 
-#: public/class-exopite-multifilter-public.php:345
+#: public/class-exopite-multifilter-public.php:420
 msgid "&lsaquo;"
 msgstr ""
 
-#: public/class-exopite-multifilter-public.php:346
+#: public/class-exopite-multifilter-public.php:421
 msgid "&rsaquo;"
 msgstr ""
 
-#: public/class-exopite-multifilter-public.php:375
+#: public/class-exopite-multifilter-public.php:450
 msgid "Sticky"
 msgstr ""
 
-#: public/class-exopite-multifilter-public.php:400
+#: public/class-exopite-multifilter-public.php:477
 msgid " Last modified on "
 msgstr ""
 
-#: public/class-exopite-multifilter-public.php:430
+#: public/class-exopite-multifilter-public.php:513
 msgid "Let us know what you think!"
 msgstr ""
 
-#: public/class-exopite-multifilter-public.php:431
+#: public/class-exopite-multifilter-public.php:514
 msgid "One comment so far"
 msgstr ""
 
-#: public/class-exopite-multifilter-public.php:432
+#: public/class-exopite-multifilter-public.php:515
 #, php-format
 msgid "View all % comments"
 msgstr ""
 
-#: public/class-exopite-multifilter-public.php:770
+#: public/class-exopite-multifilter-public.php:929
 msgid "No posts found"
 msgstr ""
 
-#: public/class-exopite-multifilter-public.php:1010
+#: public/class-exopite-multifilter-public.php:1241
 msgid "Reset all"
 msgstr ""
 
-#: public/class-exopite-multifilter-public.php:1012
+#: public/class-exopite-multifilter-public.php:1243
 msgid "Search…"
 msgstr ""
