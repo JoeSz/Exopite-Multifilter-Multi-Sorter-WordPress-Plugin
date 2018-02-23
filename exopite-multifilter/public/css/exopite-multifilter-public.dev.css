@@ -450,3 +450,6 @@
     display: flex;
     flex-direction: column;
 }
+.slick-slide > div article {
+    vertical-align: top;
+}
