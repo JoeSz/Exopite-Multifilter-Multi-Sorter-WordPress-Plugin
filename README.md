@@ -86,11 +86,10 @@ Available options
 | `random`                           | ['true' or 'false'] randomize query (pagination, filters and search are off) | false
 | `order`                            | ['asc' or 'desc'] Designates the ascending or descending order of the 'orderby' parameter. | desc
 | `orderby`                          | ['string' or 'string1&#124;string2&#124;...'] Sort retrieved posts by parameter. WordPress default is 'date (post_date)'. |
-| `meta_key`                         | ['meta-key'] Custom Field Parameter |
 | `display_metas_taxonomies`         | only if display_metas has 'taxonomy', taxonomy name to display (eg. for posts: category, post_tag), string or comma separated list |
 | `container_id`                     | ['string'], Set wrapper/container id                                        |
 | `container_classes`                | ['string or a comma searated list'], Set wrapper/container class[es]        |
-| `style`                            | ['masonry', 'equal-height', or empty], columns has equal height (flex)      |
+| `style`                            | ['masonry', 'equal-height', carousel or empty], columns has equal height (flex)      |
 | `masonry_type`                     | ['waterfall-kudago', 'masonry-desandro'], type of masonry                   | waterfall-kudago
 | `col_min_width`                    | ['number'] in px, only for waterfall-kudago                                 | 340
 | `gallery_mode`                     | ['true', 'false'] Galley mode. On thumbnail click, open images insted of post type single. Post without a thumbnail will be ignored. | false

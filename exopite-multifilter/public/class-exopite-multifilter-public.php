@@ -717,7 +717,6 @@ class Exopite_Multifilter_Public {
             $orderby = explode( '|', $args['orderby'] );
             $args['query']['orderby'] = array_filter( $orderby );
         }
-        if ( ! empty( $args['meta_key'] ) ) $args['query']['meta_key'] = $args['meta_key'];
 
         $the_query = new WP_Query( $args['query'] );
 
@@ -984,7 +983,6 @@ class Exopite_Multifilter_Public {
                 'date_to'                   => '',                  // iso date: 2002-12-31
                 'order'                     => 'DESC',
                 'orderby'                   => '',
-                'meta_key'                  => '',
                 /*
                  * Slick carousel settings
                  * http://kenwheeler.github.io/slick/
