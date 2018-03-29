@@ -136,7 +136,7 @@ if ( is_admin() ) {
      */
     if( ! class_exists( 'Puc_v4_Factory' ) ) {
 
-        require_once join( DIRECTORY_SEPARATOR, array( EXOPITE_SEO_PATH, 'vendor', 'plugin-update-checker', 'plugin-update-checker.php' ) );
+        require_once join( DIRECTORY_SEPARATOR, array( EXOPITE_MULTIFILTER_PATH, 'vendor', 'plugin-update-checker', 'plugin-update-checker.php' ) );
 
     }
 
