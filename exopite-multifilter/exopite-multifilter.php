@@ -83,6 +83,7 @@ if ( ! defined( 'WPINC' ) ) {
 
 define( 'EXOPITE_MULTIFILTER_URL', plugin_dir_url( __FILE__ ) );
 define( 'EXOPITE_MULTIFILTER_PATH', plugin_dir_path( __FILE__ ) );
+define( 'EXOPITE_MULTIFILTER_PLUGIN_NAME', 'exopite-multifilter' );
 
 if ( ! class_exists( 'ExopiteSettings' ) ) {
     class ExopiteSettings {
@@ -119,14 +120,32 @@ if ( ! class_exists( 'ExopiteSettings' ) ) {
 
 /*
  * Update
- * Required Exopite-Core plugin
  */
-if ( class_exists( 'Puc_v4_Factory' ) ) {
+if ( is_admin() ) {
+
+    /**
+     * A custom update checker for WordPress plugins.
+     *
+     * Useful if you don't want to host your project
+     * in the official WP repository, but would still like it to support automatic updates.
+     * Despite the name, it also works with themes.
+     *
+     * @link http://w-shadow.com/blog/2011/06/02/automatic-updates-for-commercial-themes/
+     * @link https://github.com/YahnisElsts/plugin-update-checker
+     * @link https://github.com/YahnisElsts/wp-update-server
+     */
+    if( ! class_exists( 'Puc_v4_Factory' ) ) {
+
+        require_once join( DIRECTORY_SEPARATOR, array( EXOPITE_SEO_PATH, 'vendor', 'plugin-update-checker', 'plugin-update-checker.php' ) );
+
+    }
+
     $MyUpdateChecker = Puc_v4_Factory::buildUpdateChecker(
-        'https://update.szalai.org/?action=get_metadata&slug=exopite-multifilter', //Metadata URL.
+        'https://update.szalai.org/?action=get_metadata&slug=' . EXOPITE_MULTIFILTER_PLUGIN_NAME, //Metadata URL.
         __FILE__, //Full path to the main plugin file.
-        'exopite-multifilter' //Plugin slug. Usually it's the same as the name of the directory.
+        EXOPITE_MULTIFILTER_PLUGIN_NAME //Plugin slug. Usually it's the same as the name of the directory.
     );
+
 }
 // End Update
 
