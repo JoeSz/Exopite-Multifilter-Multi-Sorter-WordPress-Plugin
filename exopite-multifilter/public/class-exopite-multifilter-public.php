@@ -99,7 +99,7 @@ class Exopite_Multifilter_Public {
 
         // If Exopite Code plugin not inastalled and activated get Bootstrap 4 grid only
         if ( ! defined( EXOPITE_CORE_URL ) ) {
-            if ( ! wp_style_is( 'bootstrap' ) && ! wp_style_is( 'bootstrap-4' ) ) {
+            if ( ! wp_style_is( 'bootstrap' ) && ! wp_style_is( 'bootstrap-41' ) ) {
 
                 /*
                  * Enqueue scripts and styles with automatic versioning
