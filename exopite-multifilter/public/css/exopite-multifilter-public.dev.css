@@ -458,3 +458,6 @@
 .slick-slide > div article {
     vertical-align: top;
 }
+.exopite-multifilter-container .list-inline {
+    margin-bottom: 0;
+}
