@@ -483,7 +483,9 @@ class Exopite_Multifilter_Public {
         if ( in_array( 'taxonomy', $args['display_metas'] ) ) {
 
             if ( ! empty( $args['display_metas_taxonomies'] ) ) {
-                $taxonomies = '<li class="exopite-multifilter-meta-taxonomies">';
+
+                $taxonomies = '';
+
                 foreach ( $args['display_metas_taxonomies'] as $display_metas_taxonomy ) {
 
                     $terms = get_the_term_list( $post_id, $display_metas_taxonomy, '', ', ', '' );
@@ -491,12 +493,11 @@ class Exopite_Multifilter_Public {
                         $terms = strip_tags( $terms  );
                     }
 
-                    $taxonomies .= '<span class="exopite-multifilter-meta-taxonomy-' . $display_metas_taxonomy . '">' . $terms . '</span> ';
-
+                    $taxonomies .= ( ! empty( $terms ) ) ? '<span class="exopite-multifilter-meta-taxonomy-' . $display_metas_taxonomy . '">' . $terms . '</span> ' : '';
 
                 }
 
-                $taxonomies .= '</li>';
+                $taxonomies = ( !empty( $taxonomies ) ) ? '<li class="exopite-multifilter-meta-taxonomies">' . $taxonomies .  '</li>' : '';
 
             }
 
@@ -853,15 +854,15 @@ class Exopite_Multifilter_Public {
                 if ( ( $args['display_title'] || ( $args['except_lenght'] > 0 ) ) && ! $post_password_required ) {
 
                     $article_content = '<div class="entry-content-container">';
+                    if ( count( $args['display_metas'] ) > 0 ) {
+                        $no_link = ! empty( $target );
+                        $article_content .= '<div class="entry-metas">' . $this->display_metas( $args, get_the_ID(), $no_link ) . '</div>';
+                    }
                     if ( $args['display_title'] ) {
                         $article_content .= '<header class="entry-header">';
                         $article_content .= '<h2 class="entry-title"><a href="' . $link . '"' . $target . '>' . get_the_title() . '</a></h2>';
 
                         $article_content .= '</header>';
-                    }
-                    if ( count( $args['display_metas'] ) > 0 ) {
-                        $no_link = ! empty( $target );
-                        $article_content .= '<div class="entry-metas">' . $this->display_metas( $args, get_the_ID(), $no_link ) . '</div>';
                     }
                     if ( $args['except_lenght'] > 0 || $args['except_lenght'] === 'full' ) {
                         $article_content .= '<div class="entry-content">';
