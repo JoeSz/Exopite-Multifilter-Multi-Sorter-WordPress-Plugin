@@ -2,7 +2,7 @@
 ## WordPress Plugin
 
 - Author: Joe Szalai
-- Version: 20180223
+- Version: 20180509
 - Plugin URL: https://github.com/JoeSz/exopite-multifilter
 - Demo URL: https://joe.szalai.org/exopite/multifilter/
 - Author URL: https://joe.szalai.org
@@ -154,6 +154,10 @@ PLANNED
 
 CHANGELOG
 ---------
+
+= 20180509 - 2018-05-09 =
+* Improvement: First display meta then title
+* Fixed: Do not display meta list if empty
 
 = 20180223 - 2018-02-23 =
 * Added: order, orderby and meta_key
