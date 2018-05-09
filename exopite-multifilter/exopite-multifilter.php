@@ -16,7 +16,7 @@
  * Plugin Name:       Exopite multi-selectable AJAX sorter for any post types
  * Plugin URI:        https://joe.szalai.org/exopite/multifilter
  * Description:       Multi-selectable AJAX sorter for any post types. Working with taxonomies and terms as filters (e.g.: for post: categories and tags).
- * Version:           20180415
+ * Version:           20180509
  * Author:            Joe Szalai
  * Author URI:        https://joe.szalai.org
  * License:           GPL-2.0+
@@ -26,13 +26,6 @@
  */
 /**
  * ToDo:
- *
- * - time window (from - to)
- *   https://codex.wordpress.org/Class_Reference/WP_Query#Date_Parameters
- *   https://wordpress.stackexchange.com/questions/52070/how-to-get-posts-published-between-a-date-and-today
- *   https://stackoverflow.com/questions/10778122/query-posts-published-after-a-certain-date-in-wordpress
- * - video mode? (get embed videos and/or meta!?)
- *   - video insted of thumbnail (need a meta field for url)
  *
  * - on mobile 6 page number is too much -> how should be displayed?
  * - add widget (normal + VC)?
@@ -53,7 +46,7 @@
  *   - Working with Shortcodes
  *     https://www.sitepoint.com/unleash-the-power-of-the-wordpress-shortcode-api/
  */
-/*
+/**
  * ToDo Widget:
  * - Visual Composer is active -> add VC widget
  * - PageBuilder actvie && CodeStar framework active -> add WP widget
