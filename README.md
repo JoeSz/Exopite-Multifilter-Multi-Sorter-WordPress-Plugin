@@ -1,4 +1,4 @@
-# Exopite Multifilter
+# Exopite Multifilter / Advanced filters
 ## WordPress Plugin
 
 - Author: Joe Szalai
