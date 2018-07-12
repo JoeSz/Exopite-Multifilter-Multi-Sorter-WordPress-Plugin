@@ -2,7 +2,7 @@
 ## WordPress Plugin
 
 - Author: Joe Szalai
-- Version: 20180509
+- Version: 20180712
 - Plugin URL: https://github.com/JoeSz/exopite-multifilter
 - Demo URL: https://joe.szalai.org/exopite/multifilter/
 - Author URL: https://joe.szalai.org
@@ -154,6 +154,9 @@ PLANNED
 
 CHANGELOG
 ---------
+
+= 20180712 - 2018-07-12 =
+* Fixed: Plugin won't load (Fatal error), thanks for 0x4d0x44
 
 = 20180509 - 2018-05-09 =
 * Improvement: First display meta then title

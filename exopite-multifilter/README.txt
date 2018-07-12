@@ -3,11 +3,11 @@ Contributors: Joe Szalai
 Donate link: https://joe.szalai.org
 Tags: multisort, sort, filter, miltiple filter, custom post type filter, AJAX infinite load, AJAX load more, AJAX pagination, AJAX search
 Requires at least: 4.7.0
-Tested up to: 4.9.5
-Stable tag: 4.9.5
+Tested up to: 4.9.7
+Stable tag: 4.9.7
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
-Version: 20180509
+Version: 20180712
 
 AJAX sorter/filter any post types by multiple taxonomies and/or terms (like post by categories and/or tags).
 
@@ -120,6 +120,9 @@ OR
 2. Multiple taxomonies as filter selected, thumbnail with title and ming effect.
 
 == Changelog ==
+
+= 20180712 - 2018-07-12 =
+* Fixed: Plugin won't load (Fatal error), thanks for 0x4d0x44
 
 = 20180509 - 2018-05-09 =
 * Improvement: First display meta then title
