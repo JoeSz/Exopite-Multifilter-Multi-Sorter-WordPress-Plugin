@@ -286,7 +286,7 @@ class Exopite_Multifilter_Public {
              * - add thumbnail as poster
              * - if video url missing, display post thumbnail
              */
-            if ( ! empty( $args['video'] && ! empty( $video_url ) ) ) {
+            if ( ! empty( $args['video'] ) && ! empty( $video_url ) ) {
 
                 $ret .= '<video class="multifilter-video" ' . $args['video-args'] . ' poster="' . $url . '" src="' . $video_url . '"></video>';
 
