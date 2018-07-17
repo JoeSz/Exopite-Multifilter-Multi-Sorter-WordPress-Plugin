@@ -624,7 +624,11 @@ class Exopite_Multifilter_Public {
          */
         if ( ! empty( $args['taxonomies_terms'] ) ) {
 
-            $args['query']['tax_query']['relation'] = ( $args['in_all_taxnomies'] ) ? 'AND' : 'OR';
+            if($args['in_all_taxnomies'] == "true"){
+                 $args['query']['tax_query']['relation'] = 'AND';
+            }else{
+                 $args['query']['tax_query']['relation'] = 'OR';
+            }
 
             foreach ( $args['taxonomies_terms'] as $taxonomy => $terms ) {
 
