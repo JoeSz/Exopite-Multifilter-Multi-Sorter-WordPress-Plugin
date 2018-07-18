@@ -624,6 +624,10 @@ class Exopite_Multifilter_Public {
          */
         if ( ! empty( $args['taxonomies_terms'] ) ) {
 
+            /**
+             * Fixed by Fires04
+             * PHP v7: string "true" || "false" in evaluation $args['query']['tax_query']['relation'] = ( $args['in_all_taxnomies'] ) ? 'AND' : 'OR'; is evaluated to TRUE everytime
+             */
             if($args['in_all_taxnomies'] == "true"){
                  $args['query']['tax_query']['relation'] = 'AND';
             }else{
