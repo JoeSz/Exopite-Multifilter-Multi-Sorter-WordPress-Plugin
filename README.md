@@ -2,7 +2,7 @@
 ## WordPress Plugin
 
 - Author: Joe Szalai
-- Version: 20180712
+- Version: 20180718
 - Plugin URL: https://github.com/JoeSz/exopite-multifilter
 - Demo URL: https://joe.szalai.org/exopite/multifilter/
 - Author URL: https://joe.szalai.org
@@ -154,6 +154,9 @@ PLANNED
 
 CHANGELOG
 ---------
+
+= 20180718 - 2018-07-18 =
+* Fixed: PHP v7: string "true" || "false" is evaluated to TRUE everytime, thanks for Fires04 (GitHub)
 
 = 20180712 - 2018-07-12 =
 * Fixed: Plugin won't load (Fatal error), thanks for 0x4d0x44

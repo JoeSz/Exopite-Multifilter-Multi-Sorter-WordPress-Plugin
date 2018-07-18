@@ -7,7 +7,7 @@ Tested up to: 4.9.7
 Stable tag: 4.9.7
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
-Version: 20180712
+Version: 20180718
 
 AJAX sorter/filter any post types by multiple taxonomies and/or terms (like post by categories and/or tags).
 
@@ -121,8 +121,11 @@ OR
 
 == Changelog ==
 
+= 20180718 - 2018-07-18 =
+* Fixed: PHP v7: string "true" || "false" is evaluated to TRUE everytime, thanks for Fires04 (GitHub)
+
 = 20180712 - 2018-07-12 =
-* Fixed: Plugin won't load (Fatal error), thanks for 0x4d0x44
+* Fixed: Plugin won't load (Fatal error), thanks for 0x4d0x44 (GitHub)
 
 = 20180509 - 2018-05-09 =
 * Improvement: First display meta then title
