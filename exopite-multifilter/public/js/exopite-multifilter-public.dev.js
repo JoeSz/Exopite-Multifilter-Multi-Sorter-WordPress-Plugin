@@ -4,6 +4,12 @@
     /*
      * ToDo:
      * - http://javascriptcompressor.com/
+     *
+     * Sometimes SlideUp and SlideDown try to run in the same time, miscalculating the element/container height
+     * - maybe add a class "animation" and wait
+     * - slow it down
+     * - check animation is running
+     * - using css animation with a slideup and slidedown class
      */
 
     // Plugin definition.
