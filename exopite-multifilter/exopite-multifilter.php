@@ -48,6 +48,9 @@
  *     https://www.quora.com/Is-it-possible-to-pass-an-associative-array-with-a-shortcode-attribute
  *   - Working with Shortcodes
  *     https://www.sitepoint.com/unleash-the-power-of-the-wordpress-shortcode-api/
+ *
+ * Design
+ * - https://www.billerickson.net/code/display-posts-shortcode-full-content/
  */
 /**
  * ToDo Widget:
