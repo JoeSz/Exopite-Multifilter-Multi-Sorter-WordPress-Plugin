@@ -1,6 +1,6 @@
 === Exopite multifilter ===
 Contributors: Joe Szalai
-Donate link: https://joe.szalai.org
+Donate link: https://www.joeszalai.org
 Tags: multisort, sort, filter, miltiple filter, custom post type filter, AJAX infinite load, AJAX load more, AJAX pagination, AJAX search
 Requires at least: 4.7.0
 Tested up to: 4.9.8

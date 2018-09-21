@@ -3,8 +3,9 @@
 
 - Author: Joe Szalai
 - Version: 20180921
-- Plugin URL: https://github.com/JoeSz/exopite-multifilter
-- Demo URL: https://joe.szalai.org/exopite/multifilter/
+- GitHub URL: https://github.com/JoeSz/exopite-multifilter/
+- Plugin URL: https://www.joeszalai.org/exopite/multifilter/
+- Demo URL: https://www.joeszalai.org/exopite/multifilter/exopite-multifilter-demos/
 - Author URL: https://www.joeszalai.org
 - License: GNU General Public License v3 or later
 - License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -50,7 +51,7 @@ With Lazy load the masonry-desandro type not working completly nice.
 
 ### Live preview <br />
 <p align="center">
-    <a href="https://joe.szalai.org/exopite/multifilter/" rel="Theme URL and Live Demo"><img src="https://joe.szalai.org/wp-content/uploads/2017/07/plugin_live_demo.png" alt="Theme URL and Live Demo"></a>
+    <a href="https://www.joeszalai.org/exopite/multifilter/" rel="Theme URL and Live Demo"><img src="https://www.joeszalai.org/wp-content/uploads/2017/07/plugin_live_demo.png" alt="Theme URL and Live Demo"></a>
 </p>
 
 Read more                  |  Display without filer and gap |  With title and excerpt
