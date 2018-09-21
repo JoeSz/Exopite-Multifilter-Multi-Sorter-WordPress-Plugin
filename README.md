@@ -11,6 +11,9 @@
 
 IMPORTANT
 -----------
+
+DO NOT UPDATE YET!
+
 From version 20180921
 * taxonomies_terms to include_taxonomies, select posts in taxonomies, terms are not allowed<br />
 filter will be displayed default.
