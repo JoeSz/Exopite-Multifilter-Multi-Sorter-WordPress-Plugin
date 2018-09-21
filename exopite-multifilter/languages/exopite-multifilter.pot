@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-23 11:36+0100\n"
+"POT-Creation-Date: 2018-09-21 22:28+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,52 +17,107 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: public/class-exopite-multifilter-public.php:403
+#: public/class-exopite-multifilter-public.php:424
 msgid "Read more"
 msgstr ""
 
-#: public/class-exopite-multifilter-public.php:405
-#: public/class-exopite-multifilter-public.php:927
+#: public/class-exopite-multifilter-public.php:426
+#: public/class-exopite-multifilter-public.php:992
 msgid "Nothing more to load."
 msgstr ""
 
-#: public/class-exopite-multifilter-public.php:420
+#: public/class-exopite-multifilter-public.php:441
 msgid "&lsaquo;"
 msgstr ""
 
-#: public/class-exopite-multifilter-public.php:421
+#: public/class-exopite-multifilter-public.php:442
 msgid "&rsaquo;"
 msgstr ""
 
-#: public/class-exopite-multifilter-public.php:450
+#: public/class-exopite-multifilter-public.php:471
 msgid "Sticky"
 msgstr ""
 
-#: public/class-exopite-multifilter-public.php:477
+#: public/class-exopite-multifilter-public.php:498
 msgid " Last modified on "
 msgstr ""
 
-#: public/class-exopite-multifilter-public.php:513
+#: public/class-exopite-multifilter-public.php:535
 msgid "Let us know what you think!"
 msgstr ""
 
-#: public/class-exopite-multifilter-public.php:514
+#: public/class-exopite-multifilter-public.php:536
 msgid "One comment so far"
 msgstr ""
 
-#: public/class-exopite-multifilter-public.php:515
+#: public/class-exopite-multifilter-public.php:537
 #, php-format
 msgid "View all % comments"
 msgstr ""
 
-#: public/class-exopite-multifilter-public.php:929
+#: public/class-exopite-multifilter-public.php:819
+msgid "exopite_multifilter_except_lenght"
+msgstr ""
+
+#: public/class-exopite-multifilter-public.php:994
 msgid "No posts found"
 msgstr ""
 
-#: public/class-exopite-multifilter-public.php:1241
+#: public/class-exopite-multifilter-public.php:1339
 msgid "Reset all"
 msgstr ""
 
-#: public/class-exopite-multifilter-public.php:1243
+#: public/class-exopite-multifilter-public.php:1341
 msgid "Search…"
+msgstr ""
+
+#: vendor/plugin-update-checker/Puc/v4/Plugin/UpdateChecker.php:358
+#: vendor/plugin-update-checker/Puc/v4p4/Plugin/UpdateChecker.php:395
+msgid "Check for updates"
+msgstr ""
+
+#: vendor/plugin-update-checker/Puc/v4/Plugin/UpdateChecker.php:404
+msgid "This plugin is up to date."
+msgstr ""
+
+#: vendor/plugin-update-checker/Puc/v4/Plugin/UpdateChecker.php:406
+msgid "A new version of this plugin is available."
+msgstr ""
+
+#: vendor/plugin-update-checker/Puc/v4/Plugin/UpdateChecker.php:408
+#: vendor/plugin-update-checker/Puc/v4p4/Plugin/UpdateChecker.php:558
+#, php-format
+msgid "Unknown update checker status \"%s\""
+msgstr ""
+
+#: vendor/plugin-update-checker/Puc/v4/Vcs/PluginUpdateChecker.php:83
+#: vendor/plugin-update-checker/Puc/v4p4/Vcs/PluginUpdateChecker.php:98
+msgid "There is no changelog available."
+msgstr ""
+
+#: vendor/plugin-update-checker/Puc/v4p4/Plugin/UpdateChecker.php:432
+msgid "View details"
+msgstr ""
+
+#: vendor/plugin-update-checker/Puc/v4p4/Plugin/UpdateChecker.php:455
+#, php-format
+msgid "More information about %s"
+msgstr ""
+
+#: vendor/plugin-update-checker/Puc/v4p4/Plugin/UpdateChecker.php:548
+#, php-format
+msgctxt "the plugin title"
+msgid "The %s plugin is up to date."
+msgstr ""
+
+#: vendor/plugin-update-checker/Puc/v4p4/Plugin/UpdateChecker.php:550
+#, php-format
+msgctxt "the plugin title"
+msgid "A new version of the %s plugin is available."
+msgstr ""
+
+#: vendor/plugin-update-checker/Puc/v4p4/Plugin/UpdateChecker.php:552
+#, php-format
+msgctxt "the plugin title"
+msgid "Could not determine if updates are available for %s."
 msgstr ""
