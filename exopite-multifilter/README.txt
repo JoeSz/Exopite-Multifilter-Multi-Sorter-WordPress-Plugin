@@ -15,7 +15,7 @@ AJAX sorter/filter any post types by multiple taxonomies and/or terms (like post
 
 IMPORTANT<br />
 From version 20180921<br />
-* taxonomies_terms to include_taxonomies, select posts in taxonomies, terms are not allowed<br />
+* taxonomies_terms changed to include_taxonomies, select posts in taxonomies, terms are not allowed<br />
 filter will be displayed default.
 * Update URL changed, need to update manually!
 
