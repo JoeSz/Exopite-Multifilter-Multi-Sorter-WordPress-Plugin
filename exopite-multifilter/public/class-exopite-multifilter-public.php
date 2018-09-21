@@ -348,15 +348,31 @@ class Exopite_Multifilter_Public {
     /**
      * Display selected taxonomies
      */
-    function get_filters( $selected_post_type, $selected_taxonomies, $is_multifilter ) {
+    function get_filters( $selected_post_type, $taxonomies_only = array(), $taxonomies_in = array(), $is_multifilter = true ) {
 
         $ret = '';
+
+        // Remove empty elements only if both key and value are empty.
+        foreach( $taxonomies_in as $key => $value ) {
+            if( ( is_null( $key ) || $key == '' ) && ( is_null( $value ) || $value == '' ) )
+                unset( $taxonomies_in[$key] );
+        }
+
+        // If $taxonomies_in is empty, then display all terms from $taxonomies
+        $override = ( ! empty( $taxonomies_in ) );
 
         $taxonomies = get_object_taxonomies( $selected_post_type, 'object' );
 
         foreach( $taxonomies as $taxonomy ){
 
-            if ( ! $this->in_array_r( $taxonomy->name, $selected_taxonomies ) ) continue;
+            if ( $override ) {
+                if ( ! $this->in_array_r( $taxonomy->name, $taxonomies_in ) ) continue;
+            } else {
+                if ( ! $this->in_array_r( $taxonomy->name, $taxonomies_only ) ) continue;
+            }
+
+            // If empty, then ignore.
+            $allowed_taxonomies = ( ! empty( $taxonomies_in[$taxonomy->name] ) ) ? $taxonomies_in[$taxonomy->name] : false;
 
             $terms = get_terms( array(
                 'taxonomy' => $taxonomy->name,
@@ -366,6 +382,11 @@ class Exopite_Multifilter_Public {
             if ( ! empty( $terms ) && ! is_wp_error( $terms ) ) {
                 $ret .= '<div class="exopite-multifilter-filter-taxonomy exopite-multifilter-filter-taxonomy-' . $taxonomy->name . '" data-post-type="' . $selected_post_type . '" data-multiselect="' . $is_multifilter . '" data-taxonomy="' . $taxonomy->name . '">';
                 foreach ( $terms as $term ) {
+
+                    // If we have $allowed_taxonomies then allow only those, but if empty, allow all.
+                    if ( $allowed_taxonomies && ! in_array( $term->slug, $allowed_taxonomies ) ) continue;
+                    // if ( ! in_array( $term->slug, $allowed_taxonomies[$taxonomy->name] ) ) continue;
+
                     $ret .= '<span class="exopite-multifilter-filter-item exopite-multifilter-filter-item-' . $term->slug . '" data-term="' . $term->slug . '">' . $term->name . '</span>';
                 }
                 $ret .= '</div>';
@@ -617,29 +638,61 @@ class Exopite_Multifilter_Public {
 
         }
 
-        /*
-         * OR -> match all taxonomy queries (subtractive query),
-         * AND -> posts which match at least one taxonomy query (additive query).
-         *        $args['query']['tax_query']['relation'] = 'AND';
-         */
-        if ( ! empty( $args['taxonomies_terms'] ) ) {
+
+        // it is NEVER empty
+        if ( ! empty( $args['include_taxonomies'] ) ) {
+
+            /**
+             * Releation for include_taxonomies AND taxonomy_terms__in
+             */
+            $args['query']['tax_query']['relation'] = 'AND';
 
             /**
              * Fixed by Fires04
              * PHP v7: string "true" || "false" in evaluation $args['query']['tax_query']['relation'] = ( $args['in_all_taxnomies'] ) ? 'AND' : 'OR'; is evaluated to TRUE everytime
              */
-            if($args['in_all_taxnomies'] == "true"){
-                 $args['query']['tax_query']['relation'] = 'AND';
-            }else{
-                 $args['query']['tax_query']['relation'] = 'OR';
+            /**
+             * Releation for include_taxonomies.
+             * This is for the filter function.
+             *
+             * OR -> match all taxonomies queries (subtractive query),
+             * AND -> posts which match at least one taxonomy query (additive query).
+             *        $args['query']['tax_query']['relation'] = 'AND';
+             */
+            if( $args['in_all_taxnomies'] == "true" ){
+                $args['query']['tax_query'][0]['relation'] = 'AND';
+            } else {
+                $args['query']['tax_query'][0]['relation'] = 'OR';
             }
 
-            foreach ( $args['taxonomies_terms'] as $taxonomy => $terms ) {
+            foreach ( $args['include_taxonomies'] as $taxonomy => $terms ) {
 
                 // Set taxonomies and terms
                 if ( is_array( $terms ) && ! empty( $terms ) ) {
                     foreach ( $terms as $term ) {
-                        $args['query']['tax_query'][] = array(
+                        $args['query']['tax_query'][0][] = array(
+                            'taxonomy' => $taxonomy,
+                            'terms' => $term,
+                            'include_children' => true,
+                            'field' => 'slug',
+                        );
+                    }
+                }
+
+            }
+
+            /**
+             * Releation for taxonomy_terms__in.
+             * This is for limit query for a selected terms in taxonomy.
+             */
+            $args['query']['tax_query'][1]['relation'] = 'OR';
+
+            foreach ( $args['taxonomy_terms__in'] as $taxonomy => $terms ) {
+
+                // Set taxonomies and terms
+                if ( is_array( $terms ) && ! empty( $terms ) ) {
+                    foreach ( $terms as $term ) {
+                        $args['query']['tax_query'][1][] = array(
                             'taxonomy' => $taxonomy,
                             'terms' => $term,
                             'include_children' => true,
@@ -677,9 +730,9 @@ class Exopite_Multifilter_Public {
         }
         // END Deal with archives
 
-        if ( empty( $args['post_in'] ) ) {
+        // START Deal with sticky posts
+        if ( $args['calculate_sticky'] == 'true' && empty( $args['post_in'] ) ) {
 
-            // START Deal with sticky posts
             // The idea here is, include sticky posts, so they does not exceeds the post per page amount
             $include_sticky = true;
             $args['query']['ignore_sticky_posts'] = 1;
@@ -709,13 +762,13 @@ class Exopite_Multifilter_Public {
                 $args['query']['post__in'] = $posts_ids;
 
             }
-            // END Deal with sticky posts
 
         } else {
 
             $args['query']['post__in'] = $args['post_in'];
 
         }
+        // END Deal with sticky posts
 
         // only images
         if ( $args['gallery_mode'] ) $args['query']['meta_query'] = array( array( 'key' => '_thumbnail_id' ) );
@@ -726,6 +779,10 @@ class Exopite_Multifilter_Public {
             $orderby = explode( '|', $args['orderby'] );
             $args['query']['orderby'] = array_filter( $orderby );
         }
+
+        // echo '<pre>';
+        // var_export( $args['query'] );
+        // echo '</pre>';
 
         $the_query = new WP_Query( $args['query'] );
 
@@ -963,10 +1020,16 @@ class Exopite_Multifilter_Public {
                 'multi_selectable'          => true,
                 'thumbnail-size-single-row' => 'full',
                 'thumbnail-size-multi-row'  => 'large',
-                'taxonomies_terms'          => 'category',          // term1, term2, ...
+                // Select taxonomies
+                'include_taxonomies'        => '',                  // taxonomies1, taxonomies2, ... (eg.: 'category', 'post_tag')
+                'taxonomies_terms'          => '',                  // taxonomies1, taxonomies2, ... (eg.: 'category', 'post_tag')
+                // Select posts only in this taxonomies and terms, only one taxonomy and must select terms in taxonomy!
+                // Only selected items and filters will displayed. Can not filter by multiple taxnonmies.
+                'taxonomy_terms__in'        => '',                  // taxonomies1(term1,term2...)
                 'update_paged'              => false,               // Do not update page in browser URL bar
                 'display_page_number'       => false,               // Show page number between loads in infinite and readmore
                 'paged'                     => 1,                   // Set start page number if not already paged
+                'calculate_sticky'          => false,               // include sticky posts in pagination
                 'effect'                    => 'apollo',
                 'search'                    => '',                  // search
                 'store_session'             => false,               // store session
@@ -992,7 +1055,7 @@ class Exopite_Multifilter_Public {
                 'date_to'                   => '',                  // iso date: 2002-12-31
                 'order'                     => 'DESC',
                 'orderby'                   => '',
-                /*
+                /**
                  * Slick carousel settings
                  * http://kenwheeler.github.io/slick/
                  */
@@ -1017,7 +1080,14 @@ class Exopite_Multifilter_Public {
             $atts
         );
 
+        // Compatibility
+        if ( empty( $args['taxonomy_terms__in'] ) && empty( $args['include_taxonomies'] ) && ! empty( $args['taxonomies_terms'] ) ) {
+            $args['include_taxonomies'] = $args['taxonomies_terms'];
+        }
 
+        if ( empty( $args['taxonomy_terms__in'] ) && empty( $args['include_taxonomies'] ) ) {
+            $args['include_taxonomies'] = 'category';
+        }
 
         // Add page id and paged.
         $args['page_id'] = get_the_ID();
@@ -1026,7 +1096,7 @@ class Exopite_Multifilter_Public {
         if ( $args['archive_mode'] && ( is_home() || is_archive() ) ) {
             global $wp_query;
 
-            $args['taxonomies_terms'] = '';
+            $args['include_taxonomies'] = '';
             $args['random'] = false;
             $args['search'] = false;
             $args['display_filter'] = false;
@@ -1071,7 +1141,7 @@ class Exopite_Multifilter_Public {
         }
         // END Deal with archives
 
-        /*
+        /**
          * Enqueue scripts and styles only if shortcode is present
          * https://wordpress.stackexchange.com/questions/165754/enqueue-scripts-styles-when-shortcode-is-present/191512#191512
          *
@@ -1119,29 +1189,49 @@ class Exopite_Multifilter_Public {
             }
         }
 
-        /*
-         * Process terms for taxonomies (if exist)
-         * taxonomies_terms="exopite-portfolio-category(suspendisse|tempus), exopite-portfolio-tag"
+        /**
+         * Process taxonomies
+         * taxonomies="exopite-portfolio-category, exopite-portfolio-tag"
          */
-        // create an array from taxonomies_terms devided by comma.
-        $args['taxonomies_terms'] = explode( ',', preg_replace( '/\s+/', '', $args['taxonomies_terms'] ) );
+        // Remove all "terms" - for compatibility.
+        $taxonomies = preg_replace( "/\(([^()]*+|(?R))*\)/", "", $args['include_taxonomies'] );
 
-        foreach ( $args['taxonomies_terms'] as $taxonomy ) {
+        // create an array from taxonomies_terms devided by comma.
+        $args['include_taxonomies'] = explode( ',', preg_replace( '/\s+/', '', $taxonomies ) );
+
+        $temp = array();
+        foreach ( $args['include_taxonomies'] as $taxonomy ) {
+
+            $temp[$taxonomy] = '';
+
+        }
+        $args['include_taxonomies'] = $temp;
+
+        /**
+         * Process terms for taxonomies (if exist)
+         * taxonomy_terms__in="exopite-portfolio-category(suspendisse|tempus)"
+         */
+        $args['taxonomy_terms__in'] = array( preg_replace( '/\s+/', '', $args['taxonomy_terms__in'] ) );
+
+        $temp = array();
+        foreach ( $args['taxonomy_terms__in'] as $taxonomy ) {
             if ( strpos( $taxonomy, '(') !== false ) {
-                $args['display_filter'] = false;
+                // $args['display_filter'] = false;
                 preg_match('/\((.*?)\)/s', $taxonomy, $matches, PREG_OFFSET_CAPTURE);
                 $terms = explode( '|', $matches[1][0] );
                 $taxonomy_name = substr( $taxonomy, 0, strpos( $taxonomy, '(' ) );
-                $args['taxonomies'][$taxonomy_name] = $terms;
+                $temp[$taxonomy_name] = $terms;
             } else {
-                $args['taxonomies'][$taxonomy] = '';
+                $temp[$taxonomy] = '';
             }
 
         }
+        $args['taxonomy_terms__in'] = $temp;
 
-        $args['taxonomies_terms'] = $args['taxonomies'];
+        // $args['include_taxonomies'] = $this->get_taxonomies( $args['include_taxonomies'] );
+        // $args['taxonomy_terms__in'] = $this->get_taxonomies( $args['taxonomy_terms__in'] );
 
-        /*
+        /**
          * - WRAPPER
          */
         $regex_css_identifiers_name = '/^[_A-Za-z][A-Za-z0-9_-]*$/';
@@ -1205,7 +1295,7 @@ class Exopite_Multifilter_Public {
 
         $ret .= '" ';
 
-
+        // CAROUSEL
         if ( $args['style'] == 'carousel' ) {
 
             wp_enqueue_script( 'slick' );
@@ -1231,6 +1321,7 @@ class Exopite_Multifilter_Public {
             $ret .= 'data-carousel=\'' . htmlentities( json_encode( $carousel_args ), ENT_QUOTES, 'UTF-8' ) . '\'';
 
         }
+        // END CAROUSEL
 
         /**
          * Insert args array to data-ajax for javascript as JSON.
@@ -1250,7 +1341,7 @@ class Exopite_Multifilter_Public {
             if ( $args['search'] == '' ) $ret .= '<form role="search" method="get" class="exopite-multifilter-search" action="' . esc_url( home_url( '/' ) ) . '"><div class="form-group"><input type="text" class="form-group" placeholder="' . esc_attr__( 'Search…', 'exopite-multifilter' ) . '" name="s" id="" value="' . esc_attr( get_search_query() ) . '" /><span class="form-group-btn"><button class="btn btn-default" type="submit" id="" value="Search"><i class="fa fa-search" aria-hidden="true"></i></button></span></div><!-- /input-group --></form>';
 
             $ret .= '</div>';
-            $ret .= $this->get_filters( $args['post_type'], $args['taxonomies_terms'], true );
+            $ret .= $this->get_filters( $args['post_type'], $args['include_taxonomies'], $args['taxonomy_terms__in'], true );
             $ret .= '</div>';
         }
 
@@ -1259,6 +1350,29 @@ class Exopite_Multifilter_Public {
         $ret .= '</div>';
 
         return $ret;
+    }
+
+    function get_taxonomies( $taxonomies ) {
+
+        $taxonomies = explode( ',', preg_replace( '/\s+/', '', $taxonomies ) );
+
+        $ret = array();
+
+        foreach ( $taxonomies as $taxonomy ) {
+            if ( strpos( $taxonomy, '(') !== false ) {
+                // $args['display_filter'] = false;
+                preg_match('/\((.*?)\)/s', $taxonomy, $matches, PREG_OFFSET_CAPTURE);
+                $terms = explode( '|', $matches[1][0] );
+                $taxonomy_name = substr( $taxonomy, 0, strpos( $taxonomy, '(' ) );
+                $ret[$taxonomy_name] = $terms;
+            } else {
+                $ret[$taxonomy] = '';
+            }
+
+        }
+
+        return $ret;
+
     }
 
     /**
