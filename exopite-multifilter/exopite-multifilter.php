@@ -16,7 +16,7 @@
  * Plugin Name:       Exopite multi-selectable AJAX sorter for any post types
  * Plugin URI:        https://joe.szalai.org/exopite/multifilter
  * Description:       Multi-selectable AJAX sorter for any post types. Working with taxonomies and terms as filters (e.g.: for post: categories and tags).
- * Version:           20180718
+ * Version:           20180921
  * Author:            Joe Szalai
  * Author URI:        https://joe.szalai.org
  * License:           GPL-2.0+
@@ -24,8 +24,8 @@
  * Text Domain:       exopite-multifilter
  * Domain Path:       /languages
  * Requires at least: 4.7.0
- * Tested up to:      4.9.7
- * Stable tag:        4.9.7
+ * Tested up to:      4.9.8
+ * Stable tag:        4.9.8
  */
 /**
  * ToDo:
@@ -144,6 +144,31 @@ if ( is_admin() ) {
         __FILE__, //Full path to the main plugin file.
         EXOPITE_MULTIFILTER_PLUGIN_NAME //Plugin slug. Usually it's the same as the name of the directory.
     );
+
+
+	/**
+	 * add plugin upgrade notification
+	 * https://andidittrich.de/2015/05/howto-upgrade-notice-for-wordpress-plugins.html
+	 */
+	add_action( 'in_plugin_update_message-' . EXOPITE_MULTIFILTER_PLUGIN_NAME . '/' . EXOPITE_MULTIFILTER_PLUGIN_NAME .'.php', 'exopite_multifilter_show_upgrade_notification', 10, 2 );
+	function exopite_multifilter_show_upgrade_notification( $current_plugin_metadata, $new_plugin_metadata ) {
+
+		/**
+		 * Check "upgrade_notice" in readme.txt.
+		 *
+		 * Eg.:
+		 * == Upgrade Notice ==
+		 * = 20180624 = <- new version
+		 * Notice		<- message
+		 *
+		 */
+		if ( isset( $new_plugin_metadata->upgrade_notice ) && strlen( trim( $new_plugin_metadata->upgrade_notice ) ) > 0 ) {
+
+			// Display "upgrade_notice".
+			echo sprintf( '<span style="background-color:#d54e21;padding:10px;color:#f9f9f9;margin-top:10px;display:block;"><strong>%1$s: </strong>%2$s</span>', esc_attr( 'Important Upgrade Notice', 'exopite-multifilter' ), esc_html( rtrim( $new_plugin_metadata->upgrade_notice ) ) );
+
+		}
+	}
 
 }
 // End Update
