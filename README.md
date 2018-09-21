@@ -2,19 +2,26 @@
 ## WordPress Plugin
 
 - Author: Joe Szalai
-- Version: 20180718
+- Version: 20180921
 - Plugin URL: https://github.com/JoeSz/exopite-multifilter
 - Demo URL: https://joe.szalai.org/exopite/multifilter/
-- Author URL: https://joe.szalai.org
+- Author URL: https://www.joeszalai.org
 - License: GNU General Public License v3 or later
 - License URI: http://www.gnu.org/licenses/gpl-3.0.html
+
+IMPORTANT
+-----------
+From version 20180921
+* taxonomies_terms to include_taxonomies, select posts in taxonomies, terms are not allowed<br />
+filter will be displayed default.
+* Update URL changed, need to update manually!
 
 DESCRIPTION
 -----------
 
 Exopite multifilter, mutlisortable, multi selectable, multi filterable sortable Wordpress Plugin
 
-AJAX sorter/filter for any page or post types by multiple taxonomies and/or terms. <br />
+AJAX sorter/filter for any page or post types by multiple taxonomies or terms. <br />
 (like post by categories/tags or any custom post type taxonomies like "portfolio-categories"). <br />
 Plugin working with a basic Bootstrap 4 Flex grid. Only enqueued, if style with 'bootstrap' or 'bootstrap-4' slug not already enqueued.
 
@@ -36,6 +43,9 @@ https://github.com/carldanley/WP-JS-Hooks
 * Multiple hover effects. <br />
 https://tympanus.net/Development/HoverEffectIdeas/index.html <br />
 https://tympanus.net/Development/HoverEffectIdeas/index2.html
+
+#### Note
+With Lazy load the masonry-desandro type not working completly nice.
 
 ### Live preview <br />
 <p align="center">
@@ -74,18 +84,20 @@ Available options
 | `multi_selectable`                 | ['true' or 'false'] single or multiselect: true or false                     | true
 | `thumbnail-size-single-row`        | ['thumbnail-size-slug'] thumbnail size for single post per row               | full
 | `thumbnail-size-multi-row`         | ['thumbnail-size-slug'] thumbnail size for multipe post per row              | large
-| `taxonomies_terms`                 | ['category, category(slug&#124;slug)' or 'tag' etc...] display seleted terms and taxonomies | category
+| `include_taxonomies`               | ['category, post_tag' or 'post_tag' etc...] display seleted taxonomies       | category
+| `taxonomy_terms__in`               | ['category(term1, terms2, ...)] display seleted terms in taxonomy            |
+| `in_all_taxnomies`                 | ['true' or 'false'] If true, match all taxonomy queries (subtractive query), otherwise posts which match at least one taxonomy query (additive query) | true
 | `update_paged`                     | ['true' or 'false'] Update page in browser URL bar on readmore and infinite loading based on viewport | false
 | `display_page_number`              | ['true' or 'false'] Show page number between loads in infinite and readmore  | false
 | `paged`                            | ['number'], Set start page number if not already paged                       | 1
 | `effect`                           | ['apollo', 'duke', 'goliath', 'julia', 'lexi', 'ming', 'steve' or none]            | apollo
 | `search`                           | ['search'] search in previously definied post type. If set, filter will be disabled. |
-| `load_from_url`                           | ['true of false'] if set, plugin load filters, pagination or search from URL. Will override localstorage. Set `container_id` in shortcode is required to enable this option. Format need to be a JSON object, like: //www.site.com/?[...&]multifilter={"[container_id]":{"[taxonomies_terms_name]":{"[taxonomy1]":["subtaxonomy[,...]"],"[taxonomy2]":["subtaxonomy[,...]"]},"paged":[page_number],"search":"[search_for]"}}, the [container_id] is required | false
+| `load_from_url`                           | ['true of false'] if set, plugin load filters, pagination or search from URL. Will override localstorage. Set `container_id` in shortcode is required to enable this option. Format need to be a JSON object, like: //www.exaple.net/?[...&]multifilter={"[container_id]":{"[taxonomy_terms__in]":{"[taxonomy1]":["term1[,...]"]},"paged":[page_number],"search":"[search_for]"}}, the [container_id] is required | false
 | `store_session`                    | ['true' or 'false'] Store current session (page number, selected filters and search). Useful if visitor is hit back or click on back button | false
-| `in_all_taxnomies`                 | ['true' or 'false'] If true, match all taxonomy queries (subtractive query), otherwise posts which match at least one taxonomy query (additive query) | true
 | `random`                           | ['true' or 'false'] randomize query (pagination, filters and search are off) | false
 | `order`                            | ['asc' or 'desc'] Designates the ascending or descending order of the 'orderby' parameter. | desc
 | `orderby`                          | ['string' or 'string1&#124;string2&#124;...'] Sort retrieved posts by parameter. WordPress default is 'date (post_date)'. |
+| `display_metas`                    | ['author', 'date', 'taxonomy', 'last-modified' or 'commentcount'] display meta on post item |
 | `display_metas_taxonomies`         | only if display_metas has 'taxonomy', taxonomy name to display (eg. for posts: category, post_tag), string or comma separated list |
 | `container_id`                     | ['string'], Set wrapper/container id                                        |
 | `container_classes`                | ['string or a comma searated list'], Set wrapper/container class[es]        |
@@ -154,6 +166,10 @@ PLANNED
 
 CHANGELOG
 ---------
+
+= 20180921 - 2018-09-21 =
+* Added: taxonomy_terms__in, select posts only in selected terms in taxonomy
+* Changed: IMPORTANT: taxonomies_terms to include_taxonomies, select posts in taxonomies, terms are not allowed
 
 = 20180718 - 2018-07-18 =
 * Fixed: PHP v7: string "true" || "false" is evaluated to TRUE everytime, thanks for Fires04 (GitHub)
