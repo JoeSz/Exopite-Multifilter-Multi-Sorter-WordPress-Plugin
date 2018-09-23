@@ -62,8 +62,8 @@ With Lazy load the masonry-desandro type not working completly nice.
 * 'multi_selectable'            => ['true' or 'false'] single or multiselect: true or false
 * 'thumbnail-size-single-row'   => ['thumbnail-size-slug'] thumbnail size for single post per row
 * 'thumbnail-size-multi-row'    => ['thumbnail-size-slug'] thumbnail size for multipe post per row
-* 'include_taxonomies'          => ['category, post_tag' or 'post_tag' etc...] display seleted taxonomies.
-* 'taxonomy_terms__in'          => ['category(term1, terms2, ...)] display seleted terms in taxonomy.
+* 'include_taxonomies'          => ['category, post_tag' or 'post_tag' etc...] display selected taxonomies.
+* 'taxonomy_terms__in'          => ['category(term1, terms2, ...)] display selected terms in taxonomy.
 * 'in_all_taxnomies'            => ['true' or 'false'] If true, match all taxonomy queries (subtractive query), otherwise posts which match at least one taxonomy query (additive query) | true
 * 'update_paged'                => ['true' or 'false'] Update page in browser URL bar on readmore and infinite loading based on viewport
 * 'display_page_number'         => ['true' or 'false'] Show page number between loads in infinite and readmore
