@@ -27,14 +27,14 @@ AJAX sorter/filter for any page or post types by multiple taxonomies or terms. <
 (like post by categories/tags or any custom post type taxonomies like "portfolio-categories"). <br />
 Plugin working with a basic Bootstrap 4 Flex grid. Only enqueued, if style with 'bootstrap' or 'bootstrap-4' slug not already enqueued.
 
-* Working with any Themes and any post types.
-* Multiple styles as "normal", same height, masonry or carousel (slider).
-* Single or multiple filter based on taxonomies and terms. Multi selectable.
-* Search in pre-selected taxonomies and terms.
-* Wordking via shortcode, can be used multiple times on a posts or pages (or any custom post types).
-* AJAX pagination.
-* AJAX infinite loading.
-* AJAX read more loading.
+* Working with **any Themes** and any **post types**.
+* Multiple styles as **normal**, **same height**, **masonry**, **timeline**, **gallery** or **carousel (slider)**.
+* Single or **multiple filter** based on taxonomies and terms. **Multi selectable**.
+* **Search** in pre-selected taxonomies and terms.
+* Wordking via **shortcode**, can be used **multiple times** on a posts or pages (or any custom post types).
+* AJAX **pagination**.
+* AJAX **infinite loading**.
+* AJAX **read more** loading.
 * Update browser URL with infintie or read more loading based on page and scroll position.
 * Store session (page number, selected filters and search). <br />
 Useful if visitor is hit back or click on back button (if any) on the sinlge page/post.
@@ -42,7 +42,7 @@ Useful if visitor is hit back or click on back button (if any) on the sinlge pag
 * JavaScript Hooks. <br />
 https://github.com/carldanley/WP-JS-Hooks
 * Translatable via po/mo files. Pot included.
-* Multiple hover effects. <br />
+* Multiple **hover effects**. <br />
 https://tympanus.net/Development/HoverEffectIdeas/index.html <br />
 https://tympanus.net/Development/HoverEffectIdeas/index2.html
 

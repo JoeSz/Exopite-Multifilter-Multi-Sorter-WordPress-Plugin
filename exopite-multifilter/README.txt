@@ -26,7 +26,7 @@ AJAX sorter/filter for any page or post types by multiple taxonomies or terms. <
 Plugin working with a basic Bootstrap 4 Flex grid. Only enqueued, if style with 'bootstrap' or 'bootstrap-4' slug not already enqueued.
 
 * Working with any Themes and any post types.
-* Multiple styles as "normal", same height, masonry or carousel (slider).
+* Multiple styles as normal, same height, masonry, timeline, gallery or carousel (slider).
 * Single or multiple filter based on taxonomies and terms. Multi selectable.
 * Search in pre-selected taxonomies and terms.
 * Working via shortcode, can be used multiple times on a posts or pages (or any custom post types).
