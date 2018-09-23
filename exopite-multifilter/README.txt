@@ -44,6 +44,17 @@ https://github.com/carldanley/WP-JS-Hooks
 https://tympanus.net/Development/HoverEffectIdeas/index.html <br />
 https://tympanus.net/Development/HoverEffectIdeas/index2.html
 
+== Usage ==
+The plugin working via `[exopite-multifilter]` shortcodes, does not display any admin options. <br />
+You can use multiple shortcodes on the same page/post. On posts with 'pretty' permalink, pagination not working well.
+
+Examples:
+* To display posts with a selected categories, eg.:
+'[exopite-multifilter thumbnail-size-single-row="your-big-size" thumbnail-size-multi-row="your-small-size" posts_per_page="6" posts_per_row="3" effect="goliath" pagination="readmore" taxonomy_terms__in="category(cat1-slug, cat1-slug)"]'
+* Custom post type, eg.:
+'[exopite-multifilter post_type="exopite-portfolio" thumbnail-size-single-row="blog-list-full" thumbnail-size-multi-row="blog-list-multiple" taxonomies_terms="exopite-portfolio-category, exopite-portfolio-tag"]'
+* '[exopite-multifilter thumbnail-size-single-row="blog-list-full" thumbnail-size-multi-row="blog-list-multiple"]'
+
 == Note ==
 With Lazy load the masonry-desandro type not working completly nice.
 
