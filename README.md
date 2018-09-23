@@ -54,9 +54,17 @@ With Lazy load the masonry-desandro type not working completly nice.
     <a href="https://www.joeszalai.org/exopite/multifilter/" rel="Theme URL and Live Demo"><img src="https://www.joeszalai.org/wp-content/uploads/2017/07/plugin_live_demo.png" alt="Theme URL and Live Demo"></a>
 </p>
 
-Read more                  |  Display without filer and gap |  With title and excerpt
+Mutlifilter with read more  |  Display without filer and gap |  Equal height with title and excerpt
 :-------------------------:|:---------------------------:|:-------------------------:
-![](assets/screenshot-1.jpg)      |  ![](assets/screenshot-2.jpg)      |  ![](assets/screenshot-3.jpg)
+![](assets/mutlifilter.jpg)      |  ![](assets/screenshot-2.jpg)      |  ![](assets/equal-height.jpg)
+
+Masonry  | Timeline | Slider
+:-------------------------:|:---------------------------:|:-------------------------:
+![](assets/masonry.jpg)      |  ![](assets/timeline.jpg)      |  ![](assets/slider.jpg)
+
+Zig Zag  |  |
+:-------------------------:|:---------------------------:|:-------------------------:
+![](assets/zig-zag.jpg)      |        |
 
 USAGE
 -----
