@@ -8,7 +8,7 @@
  * registers the activation and deactivation functions, and defines a function
  * that starts the plugin.
  *
- * @link              http://joe.szalai.org
+ * @link              http://www.joeszalai.org
  * @since             1.0.0
  * @package           Exopite_Multifilter
  *
@@ -18,7 +18,7 @@
  * Description:       Multi-selectable AJAX sorter for any post types. Working with taxonomies and terms as filters (e.g.: for post: categories and tags).
  * Version:           20180923
  * Author:            Joe Szalai
- * Author URI:        https://joe.szalai.org
+ * Author URI:        https://www.joeszalai.org
  * License:           GPL-2.0+
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
  * Text Domain:       exopite-multifilter
@@ -140,7 +140,7 @@ if ( is_admin() ) {
     }
 
     $MyUpdateChecker = Puc_v4_Factory::buildUpdateChecker(
-        'https://update.szalai.org/?action=get_metadata&slug=' . EXOPITE_MULTIFILTER_PLUGIN_NAME, //Metadata URL.
+        'https://update.joeszalai.org/?action=get_metadata&slug=' . EXOPITE_MULTIFILTER_PLUGIN_NAME, //Metadata URL.
         __FILE__, //Full path to the main plugin file.
         EXOPITE_MULTIFILTER_PLUGIN_NAME //Plugin slug. Usually it's the same as the name of the directory.
     );
