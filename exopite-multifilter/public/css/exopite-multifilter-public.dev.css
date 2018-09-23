@@ -573,7 +573,10 @@
 	}
 	.timeline-container .timeline-item:nth-child(odd) .entry-date {
 		left: 55%;
-	}
+    }
+    .timeline-container .timeline-item:nth-child(even) .btn-readmore {
+        float: right;
+    }
 	.timeline-container .timeline-item:nth-child(even) .entry-date {
 		left: 0;
 		text-align: right;
