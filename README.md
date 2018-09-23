@@ -58,13 +58,13 @@ Mutlifilter with read more  |  Display without filer and gap |  Equal height wit
 :-------------------------:|:---------------------------:|:-------------------------:
 ![](assets/mutlifilter.jpg)      |  ![](assets/screenshot-2.jpg)      |  ![](assets/equal-height.jpg)
 
-Masonry  | Timeline | Slider
+Masonry  | Zig Zag | Slider
 :-------------------------:|:---------------------------:|:-------------------------:
-![](assets/masonry.jpg)      |  ![](assets/timeline.jpg)      |  ![](assets/slider.jpg)
+![](assets/masonry.jpg)      |  ![](assets/zig-zag.jpg)      |  ![](assets/slider.jpg)
 
-Zig Zag  |  |
+Timeline  | Regular Blog | Multi-slider
 :-------------------------:|:---------------------------:|:-------------------------:
-![](assets/zig-zag.jpg)      |        |
+![](assets/timeline.jpg)      |    ![](assets/regular-post.jpg)    |![](assets/siders-2.jpg)
 
 USAGE
 -----
