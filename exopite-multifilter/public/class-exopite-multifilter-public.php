@@ -363,10 +363,6 @@ class Exopite_Multifilter_Public {
 
         $taxonomies = get_object_taxonomies( $selected_post_type, 'object' );
 
-        echo '<pre>';
-        var_export( $selected_post_type );
-        echo '</pre>';
-
         foreach( $taxonomies as $taxonomy ){
 
             if ( $override ) {
