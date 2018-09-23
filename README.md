@@ -64,7 +64,7 @@ Masonry  | Zig Zag | Equal height with title and excerpt
 
 Timeline  | Regular Blog | Multi-slider
 :-------------------------:|:---------------------------:|:-------------------------:
-![](assets/timeline.jpg)      |    ![](assets/regular-post.jpg)    |![](assets/siders-2.jpg)
+![](assets/timeline-2.jpg)      |    ![](assets/regular-post.jpg)    |![](assets/siders-2.jpg)
 
 USAGE
 -----
