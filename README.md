@@ -2,7 +2,7 @@
 ## WordPress Plugin
 
 - Author: Joe Szalai
-- Version: 20180921
+- Version: 20180923
 - GitHub URL: https://github.com/JoeSz/exopite-multifilter/
 - Plugin URL: https://www.joeszalai.org/exopite/multifilter/
 - Demo URL: https://www.joeszalai.org/exopite/multifilter/exopite-multifilter-demos/
@@ -103,7 +103,7 @@ Available options
 | `display_metas_taxonomies`         | only if display_metas has 'taxonomy', taxonomy name to display (eg. for posts: category, post_tag), string or comma separated list |
 | `container_id`                     | ['string'], Set wrapper/container id                                        |
 | `container_classes`                | ['string or a comma searated list'], Set wrapper/container class[es]        |
-| `style`                            | ['masonry', 'equal-height', carousel or empty], columns has equal height (flex)      |
+| `style`                            | ['masonry', 'equal-height', carousel, timeline or empty] style      |
 | `masonry_type`                     | ['waterfall-kudago', 'masonry-desandro'], type of masonry                   | waterfall-kudago
 | `col_min_width`                    | ['number'] in px, only for waterfall-kudago                                 | 340
 | `gallery_mode`                     | ['true', 'false'] Galley mode. On thumbnail click, open images insted of post type single. Post without a thumbnail will be ignored. | false
@@ -168,6 +168,9 @@ PLANNED
 
 CHANGELOG
 ---------
+
+= 20180923 - 2018-09-23 =
+* Added: timeline style.
 
 = 20180921 - 2018-09-21 =
 * Added: taxonomy_terms__in, select posts only in selected terms in taxonomy

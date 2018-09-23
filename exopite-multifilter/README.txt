@@ -7,7 +7,7 @@ Tested up to: 4.9.8
 Stable tag: 4.9.8
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
-Version: 20180718
+Version: 20180923
 
 AJAX sorter/filter any post types by multiple taxonomies and/or terms (like post by categories and/or tags).
 
@@ -82,7 +82,7 @@ https://tympanus.net/Development/HoverEffectIdeas/index2.html
 * 'display_metas_taxonomies'    => only if display_metas has 'taxonomy', taxonomy name to display (eg. for posts: category, post_tag), string or comma separated list
 * 'container_id'                => ['string'], Set wrapper/container id
 * 'container_classes'           => ['string or a comma searated list'], Set wrapper/container class[es]
-* 'style'                       => ['equal-height', or empty], columns has equal height (flex)
+* 'style'                       => ['masonry', 'equal-height', carousel, timeline or empty], style
 * 'masonry_type'                => ['waterfall-kudago', 'masonry-desandro'], type of masonry
 * 'col_min_width'               => ['number'] in px, only for waterfall-kudago
 * 'gallery_mode'                => ['true', 'false'] Galley mode. On thumbnail click, open images insted of post type single. Post without a thumbnail will be ignored.
@@ -127,7 +127,14 @@ OR
 2. Multiple taxomonies as filter, read more loading, thumbnail with title and ming effect.
 2. Multiple taxomonies as filter selected, thumbnail with title and ming effect.
 
+== Upgrade Notice ==
+= 20180921 =
+Taxonomies_terms changed  to include_taxonomies, (select posts in taxonomies) terms are not allowed, filter displayed by default!
+
 == Changelog ==
+
+= 20180923 - 2018-09-23 =
+* Added: timeline style.
 
 = 20180921 - 2018-09-21 =
 * Added: taxonomy_terms__in, select posts only in selected terms in taxonomy
