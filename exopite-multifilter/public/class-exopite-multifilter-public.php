@@ -1248,7 +1248,6 @@ class Exopite_Multifilter_Public {
         // ToDo: sanitize data
 
         if ( $args['style'] == 'timeline' ) {
-            $args['display_filter']      = false;
             $args['pagination']          = 'readmore'; // infninte
             $args['search']              = '';
             $args['display_page_number'] = false;
