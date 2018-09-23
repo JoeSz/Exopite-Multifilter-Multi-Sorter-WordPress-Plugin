@@ -363,6 +363,10 @@ class Exopite_Multifilter_Public {
 
         $taxonomies = get_object_taxonomies( $selected_post_type, 'object' );
 
+        echo '<pre>';
+        var_export( $selected_post_type );
+        echo '</pre>';
+
         foreach( $taxonomies as $taxonomy ){
 
             if ( $override ) {
@@ -789,8 +793,25 @@ class Exopite_Multifilter_Public {
         // The Loop
         if ( $the_query->have_posts() ) {
 
-            $class_row = ( $args['no-gap'] ) ? ' no-gap-container' : '';
-            $class_row .= ( $args['style'] == 'carousel' ) ? ' slick-carousel' : '';
+            /**
+             * Display container.
+             */
+
+            $class_row = array();
+
+            if ( $args['no-gap'] == 'true' ) {
+                $class_row[] = 'no-gap-container';
+            }
+
+            switch ( $args['style'] ) {
+                case 'carousel':
+                    $class_row[] = 'slick-carousel';
+                    break;
+                case 'timeline':
+                    $class_row[] = 'timeline-container';
+                    break;
+            }
+
             $ret .= '<div ';
 
             // MASONRY -> DEBUG
@@ -804,7 +825,7 @@ class Exopite_Multifilter_Public {
             // }
             // END MASONRY
 
-            $ret .= 'class="row exopite-multifilter-items' . $class_row;
+            $ret .= 'class="row exopite-multifilter-items' . ' ' . implode( ' ', $class_row );
             $ret .= '" data-page="' . get_the_permalink() . '"';
             if ( $args['style'] == 'carousel' ) {
                 $ret .= '" data-speed="' . get_the_permalink() . '"';
@@ -859,23 +880,6 @@ class Exopite_Multifilter_Public {
                 $bootstrap_column_sm = ceil( ( $bootstrap_column_lg / 4 ) * 2 );
                 $bootstrap_column_xs = ceil( $bootstrap_column_lg / 4 );
 
-                if ( $args['posts_per_row'] > 1 ) {
-
-                    $classes = 'multi-column';
-                    $classes .= ' col-' . ( 12 / $bootstrap_column_xs );
-                    $classes .= ' col-sm-' . ( 12 / $bootstrap_column_sm ) . ' col-md-' . (12 / $bootstrap_column_md ) . ' col-lg-' . ( 12 / $bootstrap_column_lg ) . ' multi-column';
-
-                    $thumbnail_size = $args['thumbnail-size-multi-row'];
-
-                } else {
-
-                    $classes = 'col-12 single-column';
-                    $thumbnail_size = $args['thumbnail-size-single-row'];
-
-                }
-
-                $classes .= ( $args['no-gap'] ) ? ' no-gap' : '';
-
                 if ( $args['blog_layout'] == 'left' || ( $args['blog_layout'] == 'zigzag' && ( $index % 2 == 0 ) ) ) {
                     $image_class = 'left';
                 } elseif ( $args['blog_layout'] == 'right' || ( $args['blog_layout'] == 'zigzag' && ( $index % 2 == 1 ) ) ) {
@@ -884,8 +888,51 @@ class Exopite_Multifilter_Public {
                     $image_class = $args['blog_layout'];
                 }
 
+                /**
+                 * Items classes.
+                 */
+                $classes = array();
+
+                if ( $args['posts_per_row'] > 1 ) {
+
+                    $classes[] = 'multi-column';
+                    $classes[] = 'col-' . ( 12 / $bootstrap_column_xs );
+                    $classes[] = 'col-sm-' . ( 12 / $bootstrap_column_sm );
+                    $classes[] = 'col-md-' . (12 / $bootstrap_column_md );
+                    $classes[] = 'col-lg-' . ( 12 / $bootstrap_column_lg );
+
+                    $thumbnail_size = $args['thumbnail-size-multi-row'];
+
+                } else {
+
+                    if ( $args['style'] == 'timeline' ) {
+                        $classes[] = 'single-column';
+                        $classes[] = 'timeline-item';
+                    } else {
+
+                        $classes[] = 'single-column';
+                        $classes[] = 'col-12';
+                        $thumbnail_size = $args['thumbnail-size-single-row'];
+
+                    }
+
+                }
+
+                if ( $args['no-gap'] ) {
+                    $classes[] = 'no-gap';
+                }
+
                 $link = get_the_permalink();
                 $target = '';
+
+                /*
+                * Add ajax-added class to new elements, (css => visibility: hidden;)
+                * removed after items processed by masonry-desandro,
+                * for some reason this keep masonry-desandro align elements more accurate.
+                */
+                if ( isset( $args['ajax'] ) && $args['ajax'] && $args['style'] == 'masonry' ) {
+                    $classes[] = 'ajax-added';
+                }
 
                 if ( $args['target_override'] ) {
 
@@ -911,44 +958,89 @@ class Exopite_Multifilter_Public {
                 }
 
                 if ( $args['blog_layout'] != 'none' ) {
-                    $classes .= ( $image_class == 'left' || $image_class == 'right' ) ? ' image-aside' : '';
-                    $classes .= ( $args['blog_layout'] != 'none' ) ? ' has-post-thumbnail' : '';
+
+                    if ( ( $image_class == 'left' || $image_class == 'right' ) ) {
+                        $classes[] = 'image-aside';
+                    }
+                    if ( $args['blog_layout'] != 'none' ) {
+                        $classes[] = 'has-post-thumbnail';
+                    }
+
                     $article_thumbnail = $this->get_thumbnail( get_the_id(), $image_class, $thumbnail_size, $args, $link, $target );
                 }
 
                 if ( ( $args['display_title'] || ( $args['except_lenght'] > 0 ) ) && ! $post_password_required ) {
 
+                    $no_link = ! empty( $target );
+                    $meta = '';
                     $article_content = '<div class="entry-content-container">';
                     if ( count( $args['display_metas'] ) > 0 ) {
-                        $no_link = ! empty( $target );
-                        $article_content .= '<div class="entry-metas">' . $this->display_metas( $args, get_the_ID(), $no_link ) . '</div>';
+                        $meta = '<div class="entry-metas">' . $this->display_metas( $args, get_the_ID(), $no_link ) . '</div>';
+                    }
+                    if ( $args['style'] != 'timeline' ) {
+                        $article_content .= $meta;
                     }
                     if ( $args['display_title'] ) {
                         $article_content .= '<header class="entry-header">';
                         $article_content .= '<h2 class="entry-title"><a href="' . $link . '"' . $target . '>' . get_the_title() . '</a></h2>';
-
                         $article_content .= '</header>';
                     }
                     if ( $args['except_lenght'] > 0 || $args['except_lenght'] === 'full' ) {
                         $article_content .= '<div class="entry-content">';
                         $article_content .= ( $args['except_lenght'] === 'full' ) ? get_the_content() : get_the_excerpt();
+
+                        if ( $args['style'] == 'timeline' ) {
+
+                            $article_content .= $meta;
+                            $article_content .= '<div class="entry-date">' . date_i18n( $args['date-format'], false, false) . '</div>';
+
+                        }
+
                         $article_content .= '</div>';
                     }
                     $article_content .= '</div>';
                 }
 
-                /*
-                 * Add ajax-added class to new elements, (css => visibility: hidden;)
-                 * removed after items processed by masonry-desandro,
-                 * for some reason this keep masonry-desandro align elements more accurate.
-                 */
-                if ( isset( $args['ajax'] ) && $args['ajax'] && $args['style'] == 'masonry' /*&& $args['masonry_type'] == 'masonry-desandro' */) {
-                    $classes .= ' ajax-added';
+                $icon = 'fa-star';
+                switch ( get_post_format() ) {
+                    case 'aside':
+                        $icon = 'fa-align-justify';
+                        break;
+                    case 'chat':
+                        $icon = 'fa-comment';
+                        break;
+                    case 'gallery':
+                        $icon = 'fa-camera';
+                        break;
+                    case 'link':
+                        $icon = 'fa-link';
+                        break;
+                    case 'image':
+                        $icon = 'fa-camera';
+                        break;
+                    case 'quote':
+                        $icon = 'fa-quote-right';
+                        break;
+                    case 'status':
+                        $icon = 'fa-share-alt';
+                        break;
+                    case 'video':
+                        $icon = 'fa-video-camera';
+                        break;
+
+
                 }
 
-                $article_wrapper_begin = '<article class="' . $classes . '"><div class="article-container';
-                $article_wrapper_begin .= ( $args['style'] === 'equal-height' ) ? ' equal-height' : '';
-                $article_wrapper_begin .= '">';
+                $article_wrapper_begin = '<article class="' . implode( ' ', $classes ) . '">';
+                if ( $args['style'] != 'timeline' ) {
+                    $article_wrapper_begin .= '<div class="article-container';
+                    $article_wrapper_begin .= ( $args['style'] === 'equal-height' ) ? ' equal-height' : '';
+                    $article_wrapper_begin .= '">';
+                } else {
+                    $article_wrapper_begin .= '<div class="timeline-icon"><i class="fa ' . $icon . '" aria-hidden="true"></i></div>';
+                    $article_wrapper_begin .= '<div class="timeline-content';
+                    $article_wrapper_begin .= '">';
+                }
 
                 switch ( $image_class ) {
                     case 'left':
@@ -961,7 +1053,11 @@ class Exopite_Multifilter_Public {
                         break;
                 }
 
-                $article_wrapper_end = '</div></article>';
+                $article_wrapper_end = '';
+                $article_wrapper_end .= '</div>';
+                // $article_wrapper_end .= '<div class="timeline-date">' . date_i18n( 'j. F Y', false, false) . '</div>';
+                // if ( $args['style'] != 'timeline' ) $article_wrapper_end .= '</div>';
+                $article_wrapper_end .= '</article>';
 
                 $ret .= $article_wrapper_begin . $article_body . $article_wrapper_end;
 
@@ -1042,7 +1138,7 @@ class Exopite_Multifilter_Public {
                 'display_metas_taxonomies'  => '',                  // comma searated list
                 'container_id'              => '',
                 'container_classes'         => '',                  // comma searated list
-                'style'                     => '',                  // empty, equal-height, masonry, carousel
+                'style'                     => '',                  // empty, equal-height, masonry, carousel, timeline
                 'masonry_type'              => 'waterfall-kudago',  // waterfall-kudago, masonry-desandro
                 'col_min_width'             => 340,                 // (int) only for waterfall-kudago
                 'gallery_mode'              => false,               // on thumbnail click, open images self insted of the link of the post/page ("single")
@@ -1154,6 +1250,17 @@ class Exopite_Multifilter_Public {
         wp_enqueue_style( 'exopite-effects' );
 
         // ToDo: sanitize data
+
+        if ( $args['style'] == 'timeline' ) {
+            $args['display_filter']      = false;
+            $args['pagination']          = 'readmore'; // infninte
+            $args['search']              = '';
+            $args['display_page_number'] = false;
+            $args['posts_per_row']       = '1';
+            $args['no-gap']              = true;
+            $args['blog_layout']         = 'top';
+            if ( ! isset( $args['date-format'] ) || empty( $args['date-format'] ) ) $args['date-format'] = 'j. F Y';
+        }
 
         if ( $args['style'] == 'carousel' ) {
             $args['ajax_mode']           = false;
