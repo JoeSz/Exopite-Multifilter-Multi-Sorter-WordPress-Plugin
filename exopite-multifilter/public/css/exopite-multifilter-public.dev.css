@@ -631,7 +631,7 @@
 .exopite-multifilter-container .multi-column header::after {
     content: '';
     padding-top: 20px;
-    margin-bottom: 20px;
+    margin-bottom: 25px;
     border-bottom: 1px solid #eee;
     display: block;
     margin-right: calc(50% - 35px);
