@@ -179,6 +179,11 @@ class Exopite_Multifilter_Public {
         $slick_js_path = plugin_dir_path( __FILE__ ) . DIRECTORY_SEPARATOR . 'js' . DIRECTORY_SEPARATOR . 'slick.' . $version . '.js';
         wp_register_script( 'slick', $slick_js_url, array( 'jquery' ), filemtime( $slick_js_path), true );
 
+        // sticky-kit
+        $sticky_kit_js_url  = plugin_dir_url( __FILE__ ) . 'js/jquery.sticky-kit.min.js';
+        $sticky_kit_js_path = plugin_dir_path( __FILE__ ) . DIRECTORY_SEPARATOR . 'js' . DIRECTORY_SEPARATOR . 'jquery.sticky-kit.min.js';
+        wp_register_script( 'sticky-kit', $sticky_kit_js_url, array( 'jquery' ), filemtime( $sticky_kit_js_path), true );
+
         // if plugin main Javascript file is not yes registered, then register it
         if ( ! wp_script_is( $this->plugin_name, 'registered' ) ) {
 
@@ -266,37 +271,46 @@ class Exopite_Multifilter_Public {
         }
 
         $video_url = ( ! empty( $args['video'] ) ) ? get_post_meta( $post_id, esc_attr( $args['video'] ), true ) : '';
+        $oembed = ( ! empty( $args['oembed'] ) ) ? get_post_meta( $post_id, esc_attr( $args['oembed'] ), true ) : '';
 
-        if ( empty( $args['video'] ) || empty( $video_url ) ) $ret .= '<a href="' . $link_url . '"' . $target . '>';
+        if ( ! empty( $oembed ) ) {
 
-        $ret .= '<figure class="effect-multifilter' . $effect . ' entry-thumbnail">'; //for animation
+            /**
+             * If shortcode and post meta has oembed
+             */
+            $ret .= '<div class="oembed-container">' . wp_oembed_get( esc_url( $oembed ) ) . '</div>';
 
-        // $ret .= ( $post_password_required ) ? '' : '<img src="' . $url . '" alt="thumbnail">';
+        } elseif ( ! empty( $video_url ) ) {
 
-        // If post required password do not display thumbnail
-        if ( $post_password_required ) {
-
-            $ret .= '';
-
-        } else {
-
-            /*
+            /**
              * If shortcode has video
              * - get url from meta, id: $args['video']
              * - add thumbnail as poster
              * - if video url missing, display post thumbnail
              */
-            if ( ! empty( $args['video'] ) && ! empty( $video_url ) ) {
+            $ret .= '<video class="multifilter-video" ' . $args['video-args'] . ' poster="' . $url . '" src="' . esc_url( $video_url ) . '"></video>';
 
-                $ret .= '<video class="multifilter-video" ' . $args['video-args'] . ' poster="' . $url . '" src="' . $video_url . '"></video>';
+        } else {
+
+            $ret .= '<a href="' . $link_url . '"' . $target . '>';
+
+            $ret .= '<figure class="effect-multifilter' . $effect . ' entry-thumbnail">'; //for animation
+
+            // $ret .= ( $post_password_required ) ? '' : '<img src="' . $url . '" alt="thumbnail">';
+
+            // If post required password do not display thumbnail
+            if ( $post_password_required ) {
+
+                $ret .= '';
 
             } else {
+
                 /*
-                 * If no video
-                 * - display thumbnail
-                 * - display overlay effect on demand
-                 * - display metas on demand
-                 */
+                * If no video or oembed
+                * - display thumbnail
+                * - display overlay effect on demand
+                * - display metas on demand
+                */
 
                 $ret .= '<img src="' . $url . '" alt="thumbnail">';
 
@@ -319,13 +333,15 @@ class Exopite_Multifilter_Public {
                 $ret .= '</div>';
                 $ret .= '</figcaption>';
 
+                $ret .= '</figure>';
+                $ret .= '</a>';
+
             }
 
         }
 
 
-        $ret .= '</figure>';
-        if ( empty( $args['video'] ) || empty( $video_url ) )  $ret .= '</a>';
+
 
         $ret .= '</div>';
 
@@ -958,6 +974,9 @@ class Exopite_Multifilter_Public {
                     if ( ( $image_class == 'left' || $image_class == 'right' ) ) {
                         $classes[] = 'image-aside';
                     }
+                    if ( $args['blog_layout'] == 'zigzag' ) {
+                        $classes[] = 'image-zigzag';
+                    }
                     if ( $args['blog_layout'] != 'none' ) {
                         $classes[] = 'has-post-thumbnail';
                     }
@@ -988,7 +1007,14 @@ class Exopite_Multifilter_Public {
                         if ( $args['style'] == 'timeline' ) {
 
                             $article_content .= $meta;
-                            $article_content .= '<div class="entry-date">' . date_i18n( $args['date-format'], false, false) . '</div>';
+                            $sub_date = '';
+                            if ( isset( $args['timeline-sub-date'] ) && ! empty( $args['timeline-sub-date'] ) ) {
+                                $sub_date = get_post_meta( get_the_ID(), esc_attr( $args['timeline-sub-date'] ), true );
+                                if ( ! empty( $sub_date) ) {
+                                    $sub_date = '<div class="entry-date__sub">' . $sub_date . '</div>';
+                                }
+                            }
+                            $article_content .= '<div class="entry-date">' . date_i18n( $args['timeline-date-format'], false, false) . $sub_date . '</div>';
 
                         }
 
@@ -997,34 +1023,36 @@ class Exopite_Multifilter_Public {
                     $article_content .= '</div>';
                 }
 
-                $icon = 'fa-star';
-                switch ( get_post_format() ) {
-                    case 'aside':
-                        $icon = 'fa-align-justify';
-                        break;
-                    case 'chat':
-                        $icon = 'fa-comment';
-                        break;
-                    case 'gallery':
-                        $icon = 'fa-camera';
-                        break;
-                    case 'link':
-                        $icon = 'fa-link';
-                        break;
-                    case 'image':
-                        $icon = 'fa-camera';
-                        break;
-                    case 'quote':
-                        $icon = 'fa-quote-right';
-                        break;
-                    case 'status':
-                        $icon = 'fa-share-alt';
-                        break;
-                    case 'video':
-                        $icon = 'fa-video-camera';
-                        break;
+                if ( $args['style'] == 'timeline' ) {
+                    switch ( get_post_format() ) {
+                        case 'aside':
+                            $icon = 'fa-align-justify';
+                            break;
+                        case 'chat':
+                            $icon = 'fa-comment';
+                            break;
+                        case 'gallery':
+                            $icon = 'fa-camera';
+                            break;
+                        case 'link':
+                            $icon = 'fa-link';
+                            break;
+                        case 'image':
+                            $icon = 'fa-camera';
+                            break;
+                        case 'quote':
+                            $icon = 'fa-quote-right';
+                            break;
+                        case 'status':
+                            $icon = 'fa-share-alt';
+                            break;
+                        case 'video':
+                            $icon = 'fa-video-camera';
+                            break;
+                        default:
+                            $icon = 'fa-star';
 
-
+                    }
                 }
 
                 $article_wrapper_begin = '<article class="' . implode( ' ', $classes ) . '">';
@@ -1166,11 +1194,17 @@ class Exopite_Multifilter_Public {
                 'use_transform'             => true,
                 'video'                     => '',
                 'video-args'                => 'controls muted',
+                'oembed'                    => '',
                 'meta_key'                  => '',
                 'meta_value'                => '',
+                'timeline-sub-date'         => '',
+                'timeline-date-format'      => 'j. F Y',
+                'timeline-sticky'           => true,
             ),
             $atts
         );
+
+        $args = $this->sanitize( $args );
 
         // Compatibility
         if ( empty( $args['taxonomy_terms__in'] ) && empty( $args['include_taxonomies'] ) && ! empty( $args['taxonomies_terms'] ) ) {
@@ -1245,16 +1279,14 @@ class Exopite_Multifilter_Public {
         wp_enqueue_style( $this->plugin_name );
         wp_enqueue_style( 'exopite-effects' );
 
-        // ToDo: sanitize data
-
         if ( $args['style'] == 'timeline' ) {
+            // $args['display_filter']      = false;
             $args['pagination']          = 'readmore'; // infninte
             $args['search']              = '';
             $args['display_page_number'] = false;
             $args['posts_per_row']       = '1';
             $args['no-gap']              = true;
             $args['blog_layout']         = 'top';
-            if ( ! isset( $args['date-format'] ) || empty( $args['date-format'] ) ) $args['date-format'] = 'j. F Y';
         }
 
         if ( $args['style'] == 'carousel' ) {
@@ -1398,6 +1430,13 @@ class Exopite_Multifilter_Public {
         $ret .= '" ';
 
         // CAROUSEL
+        if ( $args['style'] == 'timeline' &&
+             ( $args['timeline-sticky'] === true || $args['timeline-sticky'] === 'true' )
+           ) {
+            wp_enqueue_script( 'sticky-kit' );
+        }
+
+        // CAROUSEL
         if ( $args['style'] == 'carousel' ) {
 
             wp_enqueue_script( 'slick' );
@@ -1486,6 +1525,7 @@ class Exopite_Multifilter_Public {
 
         $AJAX = str_replace( '\"', '"', $_POST["json"] );
         $AJAX = json_decode( $AJAX, true );
+        $AJAX = $this->sanitize( $AJAX );
 
         if ( wp_verify_nonce( $AJAX['ajax_nonce'], 'exopite-multifilter-nonce' ) ) {
 
@@ -1500,5 +1540,34 @@ class Exopite_Multifilter_Public {
 
 
     }
+
+    public function sanitize( $array ) {
+        foreach ( $array as $key => $value ) {
+            if ( is_array( $value ) ) {
+                $array[ $key ] = $this->sanitize( $value );
+            } elseif ( ! is_numeric( $value ) && ! is_bool( $value ) ) {
+
+                switch ( $key ) {
+                    case 'timeline-date-format':
+                        $array[ $key ] = wp_kses( $value, array( 'b' => array() ) );
+                        break;
+                    case 'timeline-sub-date':
+                        $array[ $key ] = wp_kses_post( $value );
+                        break;
+                    default:
+                        $array[ $key ] = esc_attr( $value );
+                }
+            }
+        }
+        return $array;
+    }
+
+    public function write_log( $type, $log_line ) {
+
+        $fn = EXOPITE_MULTIFILTER_PATH . $type . '.log';
+        $log_in_file = file_put_contents( $fn, date('Y-m-d H:i:s') . ' - ' . $log_line . PHP_EOL, FILE_APPEND );
+
+    }
+
 
 }
