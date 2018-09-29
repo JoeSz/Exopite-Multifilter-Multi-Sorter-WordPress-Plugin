@@ -2,7 +2,7 @@
 ## WordPress Plugin
 
 - Author: Joe Szalai
-- Version: 20180923
+- Version: 20180929
 - GitHub URL: https://github.com/JoeSz/exopite-multifilter/
 - Plugin URL: https://www.joeszalai.org/exopite/multifilter/
 - Demo URL: https://www.joeszalai.org/exopite/multifilter/exopite-multifilter-demos/
@@ -142,6 +142,9 @@ Available options
 | `use_transform`                    | ['true', 'false'] carousel use css transition (only style="carousel"). | true
 | `meta_key`                         | ['meta-key'] custom field key. |
 | `meta_value`                       | ['meta-value'] custom field value. |
+| `timeline-sub-date`                | [string/html] content under the timline date. |
+| `timeline-date-format`             | ['date-string'] date format, <b> tag allowed, uses date_i18n. | 'j. F Y'
+| `timeline-sticky`                  | ['true' or 'false'] make date sticky on scroll. | true
 
 
 INSTALLATION
@@ -179,6 +182,9 @@ PLANNED
 
 CHANGELOG
 ---------
+
+= 20180929 - 2018-09-29 =
+* Added: oembed as thumbnail from post meta.
 
 = 20180923 - 2018-09-23 =
 * Added: timeline style.

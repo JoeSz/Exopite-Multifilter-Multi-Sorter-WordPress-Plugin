@@ -7,7 +7,7 @@ Tested up to: 4.9.8
 Stable tag: 4.9.8
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
-Version: 20180923
+Version: 20180929
 
 AJAX sorter/filter any post types by multiple taxonomies and/or terms (like post by categories and/or tags).
 
@@ -121,6 +121,9 @@ https://tympanus.net/Development/HoverEffectIdeas/index2.html
 * 'use_transform'               => [true] carousel use css transition (only style="carousel")
 * 'meta_key'                    => ['meta-key'] custom field key.
 * 'meta_value'                  => ['meta-value'] custom field value.
+* 'timeline-sub-date'           => [string/html] content under the timline date.
+* 'timeline-date-format'        => ['date-string' eg.: 'j. F Y'] date format, <b> tag allowed, uses date_i18n.
+* 'timeline-sticky'             => ['true' or 'false'] make date sticky on scroll.
 == Installation ==
 
 1. Upload `exopite-multifilter` files to the `/wp-content/plugins/exopite-multifilter` directory
@@ -143,6 +146,9 @@ OR
 Taxonomies_terms changed  to include_taxonomies, (select posts in taxonomies) terms are not allowed, filter displayed by default!
 
 == Changelog ==
+
+= 20180993 - 2018-09-29 =
+* Added: oembed as thumbnail from post meta.
 
 = 20180923 - 2018-09-23 =
 * Added: timeline style.
