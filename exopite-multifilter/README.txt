@@ -149,6 +149,7 @@ Taxonomies_terms changed  to include_taxonomies, (select posts in taxonomies) te
 
 = 20180993 - 2018-09-29 =
 * Added: oembed as thumbnail from post meta.
+* Added: sticky date and subtitle for timeline.
 
 = 20180923 - 2018-09-23 =
 * Added: timeline style.

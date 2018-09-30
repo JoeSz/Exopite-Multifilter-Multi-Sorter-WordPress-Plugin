@@ -185,6 +185,7 @@ CHANGELOG
 
 = 20180929 - 2018-09-29 =
 * Added: oembed as thumbnail from post meta.
+* Added: sticky date and subtitle for timeline.
 
 = 20180923 - 2018-09-23 =
 * Added: timeline style.
