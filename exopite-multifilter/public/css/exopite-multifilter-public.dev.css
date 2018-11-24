@@ -420,7 +420,7 @@
     /*overflow-x: hidden;*/
 }
 .exopite-multifilter-items .slick-dots li button::before {
-    font-size: 43px;
+    font-size: 13px;
 }
 .slick-carousel article {
     display: none;
