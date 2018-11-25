@@ -323,7 +323,7 @@ class Exopite_Multifilter_Public {
                     $ret .= '</div>';
                 }
 
-                if ( ( ! ( $args['display_title'] && $args['except_lenght'] == 0 ) ) && ! $post_password_required && count( $args['display_metas'] ) > 0 ) {
+                if ( ( ! ( $args['display_title'] && $args['except_lenght'] == 0 ) ) && ! $post_password_required && is_array( $args['display_metas'] ) && count( $args['display_metas'] ) > 0 ) {
                     $ret .= '<div class="figure-caption-meta">';
                     // $ret .= $this->display_metas( $args, $post_id );
                     $ret .= strip_tags( $this->display_metas( $args, $post_id ), '<li><ul><i>' );
