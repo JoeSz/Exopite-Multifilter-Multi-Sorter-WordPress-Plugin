@@ -308,7 +308,7 @@ class Exopite_Multifilter_Public {
             // If post required password do not display thumbnail
             if ( $post_password_required ) {
 
-                $ret .= apply_filters( 'exopite-multifilter-password-required-thumbnail-image-url', '' );
+                $ret .= apply_filters( 'exopite-multifilter-password-required-thumbnail-image-url', '', $post_id );
 
             } else {
 
@@ -875,6 +875,8 @@ class Exopite_Multifilter_Public {
             while ( $the_query->have_posts() ) {
                 $the_query->the_post();
 
+                $post_id = get_the_ID();
+
                 $post_password_required = post_password_required();
 
                 $article_thumbnail = '';
@@ -988,9 +990,12 @@ class Exopite_Multifilter_Public {
                         $classes[] = 'has-post-thumbnail';
                     }
 
-                    $article_thumbnail = $this->get_thumbnail( get_the_id(), $image_class, $thumbnail_size, $args, $link, $target );
-                    $article_thumbnail = apply_filters( 'exopite-multifilter-thumbnail', $article_thumbnail );
+                    $article_thumbnail = $this->get_thumbnail( $post_id, $image_class, $thumbnail_size, $args, $link, $target );
                 }
+
+                $article_thumbnail = apply_filters( 'exopite-multifilter-article-thumbnail', $article_thumbnail, $post_id );
+                $link = apply_filters( 'exopite-multifilter-article-link', $link, $post_id );
+                $target = apply_filters( 'exopite-multifilter-article-link-target', $target, $post_id );
 
                 if ( ( $args['display_title'] || ( $args['except_lenght'] > 0 ) ) && ! $post_password_required ) {
 
@@ -998,7 +1003,7 @@ class Exopite_Multifilter_Public {
                     $meta = '';
                     $article_content = '<div class="entry-content-container">';
                     if ( count( $args['display_metas'] ) > 0 ) {
-                        $meta = '<div class="entry-metas">' . $this->display_metas( $args, get_the_ID(), $no_link ) . '</div>';
+                        $meta = '<div class="entry-metas">' . $this->display_metas( $args, $post_id, $no_link ) . '</div>';
                     }
                     if ( $args['style'] != 'timeline' ) {
                         $article_content .= $meta;
@@ -1017,7 +1022,7 @@ class Exopite_Multifilter_Public {
                             $article_content .= $meta;
                             $sub_date = '';
                             if ( isset( $args['timeline-sub-date'] ) && ! empty( $args['timeline-sub-date'] ) ) {
-                                $sub_date = get_post_meta( get_the_ID(), esc_attr( $args['timeline-sub-date'] ), true );
+                                $sub_date = get_post_meta( $post_id, esc_attr( $args['timeline-sub-date'] ), true );
                                 if ( ! empty( $sub_date) ) {
                                     $sub_date = '<div class="entry-date__sub">' . $sub_date . '</div>';
                                 }
@@ -1090,6 +1095,9 @@ class Exopite_Multifilter_Public {
                 // $article_wrapper_end .= '<div class="timeline-date">' . date_i18n( 'j. F Y', false, false) . '</div>';
                 // if ( $args['style'] != 'timeline' ) $article_wrapper_end .= '</div>';
                 $article_wrapper_end .= '</article>';
+
+                $article_wrapper_begin = apply_filters( 'exopite-multifilter-article-wrapper-begin', $article_wrapper_begin, $post_id );
+                $article_wrapper_end = apply_filters( 'exopite-multifilter-article-wrapper-end', $article_wrapper_end, $post_id );
 
                 $ret .= $article_wrapper_begin . $article_body . $article_wrapper_end;
 
