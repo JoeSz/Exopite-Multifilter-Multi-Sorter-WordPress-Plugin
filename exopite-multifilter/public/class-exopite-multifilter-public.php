@@ -237,7 +237,7 @@ class Exopite_Multifilter_Public {
         $post_password_required = post_password_required();
 
         $thumbnail_url = wp_get_attachment_image_src( get_post_thumbnail_id( $post_id ), $thumbnail_size );
-        $url = $thumbnail_url['0'];
+        $image_url = $thumbnail_url['0'];
 
         $class = '';
 
@@ -250,15 +250,15 @@ class Exopite_Multifilter_Public {
 
         $ret = '';
 
-        if ( empty( $url ) ) {
+        if ( empty( $image_url ) ) {
 
             $image_sizes = $this->_get_all_image_sizes();
             $image_sizes_w = ( $image_sizes[$thumbnail_size]['width'] < 100 ) ? 200 : $image_sizes[$thumbnail_size]['width'];
             $image_sizes_h = ( $image_sizes[$thumbnail_size]['height'] < 100 ) ? 200 : $image_sizes[$thumbnail_size]['height'];
 
-            $url = apply_filters( 'exopite-multifilter-placeholder-image', 'https://dummyimage.com/' . $image_sizes_w . 'x' . $image_sizes_h . '/cccccc/fff.gif' );
+            $image_url = apply_filters( 'exopite-multifilter-placeholder-image', 'https://dummyimage.com/' . $image_sizes_w . 'x' . $image_sizes_h . '/cccccc/fff.gif' );
 
-            // $url = apply_filters( 'exopite-multifilter-placeholder-image', 'http://lorempixel.com/' . $image_sizes[$thumbnail_size]['width'] . '/' . $image_sizes[$thumbnail_size]['height'] . '/technics/' );
+            // $image_url = apply_filters( 'exopite-multifilter-placeholder-image', 'http://lorempixel.com/' . $image_sizes[$thumbnail_size]['width'] . '/' . $image_sizes[$thumbnail_size]['height'] . '/technics/' );
         }
 
         $ret .= '<div class="entry-thumbnail-container clearfix' . $class . '">';
@@ -272,6 +272,13 @@ class Exopite_Multifilter_Public {
 
         $video_url = ( ! empty( $args['video'] ) ) ? get_post_meta( $post_id, esc_attr( $args['video'] ), true ) : '';
         $oembed = ( ! empty( $args['oembed'] ) ) ? get_post_meta( $post_id, esc_attr( $args['oembed'] ), true ) : '';
+
+
+        $image_url = apply_filters( 'exopite-multifilter-thumbnail-image-url', $image_url, $post_id );
+        $video_url = apply_filters( 'exopite-multifilter-thumbnail-video_url', $video_url, $post_id );
+        $oembed = apply_filters( 'exopite-multifilter-thumbnail-oembed-url', $oembed, $post_id );
+        $link_url = apply_filters( 'exopite-multifilter-thumbnail-link-url', $link_url, $post_id );
+        $target = apply_filters( 'exopite-multifilter-thumbnail-link-target', $target, $post_id );
 
         if ( ! empty( $oembed ) ) {
 
@@ -288,7 +295,7 @@ class Exopite_Multifilter_Public {
              * - add thumbnail as poster
              * - if video url missing, display post thumbnail
              */
-            $ret .= '<video class="multifilter-video" ' . $args['video-args'] . ' poster="' . $url . '" src="' . esc_url( $video_url ) . '"></video>';
+            $ret .= '<video class="multifilter-video" ' . $args['video-args'] . ' poster="' . $image_url . '" src="' . esc_url( $video_url ) . '"></video>';
 
         } else {
 
@@ -301,7 +308,7 @@ class Exopite_Multifilter_Public {
             // If post required password do not display thumbnail
             if ( $post_password_required ) {
 
-                $ret .= '';
+                $ret .= apply_filters( 'exopite-multifilter-password-required-thumbnail-image-url', '' );
 
             } else {
 
@@ -312,7 +319,7 @@ class Exopite_Multifilter_Public {
                 * - display metas on demand
                 */
 
-                $ret .= '<img src="' . $url . '" alt="thumbnail">';
+                $ret .= '<img src="' . $image_url . '" alt="thumbnail">';
 
                 $ret .= '<figcaption>';
                 $ret .= '<div class="figure-caption animation">';
@@ -982,6 +989,7 @@ class Exopite_Multifilter_Public {
                     }
 
                     $article_thumbnail = $this->get_thumbnail( get_the_id(), $image_class, $thumbnail_size, $args, $link, $target );
+                    $article_thumbnail = apply_filters( 'exopite-multifilter-thumbnail', $article_thumbnail );
                 }
 
                 if ( ( $args['display_title'] || ( $args['except_lenght'] > 0 ) ) && ! $post_password_required ) {
