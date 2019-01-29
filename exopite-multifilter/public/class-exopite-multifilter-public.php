@@ -407,7 +407,7 @@ class Exopite_Multifilter_Public {
 
                 if ( $display_filter_title ) {
 
-                    $ret .= apply_filters( 'exopite-multifilter-filter-taxonomy-name', '<span class="exopite-multifilter-filter-item exopite-multifilter-filter-item-' . $taxonomy->name . '">' . $taxonomy->name . '</span>', $taxonomy->name);
+                    $ret .= apply_filters( 'exopite-multifilter-filter-taxonomy-name', '<span class="exopite-multifilter-filter-item exopite-multifilter-filter-item-' . $taxonomy->name . '">' . $taxonomy->name . '</span>', $taxonomy->name, $selected_post_type );
 
                 }
 
