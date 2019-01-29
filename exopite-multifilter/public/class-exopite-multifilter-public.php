@@ -312,12 +312,12 @@ class Exopite_Multifilter_Public {
 
             } else {
 
-                /*
-                * If no video or oembed
-                * - display thumbnail
-                * - display overlay effect on demand
-                * - display metas on demand
-                */
+                /**
+                 * - display thumbnail
+                 * If no video or oembed
+                 * - display overlay effect on demand
+                 * - display metas on demand
+                 */
 
                 $ret .= '<img src="' . $image_url . '" alt="thumbnail">';
 
@@ -371,7 +371,7 @@ class Exopite_Multifilter_Public {
     /**
      * Display selected taxonomies
      */
-    function get_filters( $selected_post_type, $taxonomies_only = array(), $taxonomies_in = array(), $is_multifilter = true ) {
+    function get_filters( $selected_post_type, $taxonomies_only = array(), $taxonomies_in = array(), $display_filter_title = true, $is_multifilter = true ) {
 
         $ret = '';
 
@@ -404,6 +404,13 @@ class Exopite_Multifilter_Public {
 
             if ( ! empty( $terms ) && ! is_wp_error( $terms ) ) {
                 $ret .= '<div class="exopite-multifilter-filter-taxonomy exopite-multifilter-filter-taxonomy-' . $taxonomy->name . '" data-post-type="' . $selected_post_type . '" data-multiselect="' . $is_multifilter . '" data-taxonomy="' . $taxonomy->name . '">';
+
+                if ( $display_filter_title ) {
+
+                    $ret .= apply_filters( 'exopite-multifilter-filter-taxonomy-name', '<span class="exopite-multifilter-filter-item exopite-multifilter-filter-item-' . $taxonomy->name . '">' . $taxonomy->name . '</span>', $taxonomy->name);
+
+                }
+
                 foreach ( $terms as $term ) {
 
                     // If we have $allowed_taxonomies then allow only those, but if empty, allow all.
@@ -1148,6 +1155,7 @@ class Exopite_Multifilter_Public {
                 'posts_per_row'             => 2,                   // 1, 2, 3, 4, 6
                 'display_title'             => false,
                 'display_filter'            => true,
+                'display_filter_title'      => true,
                 'blog_layout'               => 'top',
                 'no-gap'                    => false,
                 'except_lenght'             => 0,
@@ -1498,7 +1506,7 @@ class Exopite_Multifilter_Public {
             if ( $args['search'] == '' ) $ret .= '<form role="search" method="get" class="exopite-multifilter-search" action="' . esc_url( home_url( '/' ) ) . '"><div class="form-group"><input type="text" class="form-group" placeholder="' . esc_attr__( 'Search…', 'exopite-multifilter' ) . '" name="s" id="" value="' . esc_attr( get_search_query() ) . '" /><span class="form-group-btn"><button class="btn btn-default" type="submit" id="" value="Search"><i class="fa fa-search" aria-hidden="true"></i></button></span></div><!-- /input-group --></form>';
 
             $ret .= '</div>';
-            $ret .= $this->get_filters( $args['post_type'], $args['include_taxonomies'], $args['taxonomy_terms__in'], true );
+            $ret .= $this->get_filters( $args['post_type'], $args['include_taxonomies'], $args['taxonomy_terms__in'], $args['display_filter_title'], true );
             $ret .= '</div>';
         }
 
