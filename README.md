@@ -149,17 +149,17 @@ Available options
 
 HOOKS (FILTERS)
 ---------------
-exopite-multifilter-thumbnail-image-url
-exopite-multifilter-thumbnail-oembed-url
-exopite-multifilter-thumbnail-link-url
-exopite-multifilter-thumbnail-video_url
-exopite-multifilter-thumbnail-link-target
-exopite-multifilter-filter-taxonomy-name
-exopite-multifilter-article-thumbnail
-exopite-multifilter-article-link
-exopite-multifilter-article-link-target
-exopite-multifilter-article-wrapper-begin
-exopite-multifilter-article-wrapper-end
+* exopite-multifilter-thumbnail-image-url
+* exopite-multifilter-thumbnail-oembed-url
+* exopite-multifilter-thumbnail-link-url
+* exopite-multifilter-thumbnail-video_url
+* exopite-multifilter-thumbnail-link-target
+* exopite-multifilter-filter-taxonomy-name
+* exopite-multifilter-article-thumbnail
+* exopite-multifilter-article-link
+* exopite-multifilter-article-link-target
+* exopite-multifilter-article-wrapper-begin
+* exopite-multifilter-article-wrapper-end
 
 INSTALLATION
 ------------
