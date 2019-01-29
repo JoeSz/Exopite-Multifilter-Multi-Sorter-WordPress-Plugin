@@ -9,26 +9,28 @@
  * @package    Exopite_Multifilter
  * @subpackage Exopite_Multifilter/public
  */
-/*
- * ToDo:
- * -
- $q = new WP_Query( array(
-    'meta_query' => array(
-        'relation' => 'AND',
-        'state_clause' => array(
-            'key' => 'state',
-            'value' => 'Wisconsin',
-        ),
-        'city_clause' => array(
-            'key' => 'city',
-            'compare' => 'EXISTS',
-        ),
-    ),
-    'orderby' => array(
-        'city_clause' => 'ASC',
-        'state_clause' => 'DESC',
-    ),
-) );
+/**
+ * ToDos:
+ * - Get_articles and exopite_multifilter_shortcode function grow too big,
+ *   should break down to multiple function.
+ *
+ * $q = new WP_Query( array(
+ *    'meta_query' => array(
+ *        'relation' => 'AND',
+ *        'state_clause' => array(
+ *            'key' => 'state',
+ *            'value' => 'Wisconsin',
+ *        ),
+ *        'city_clause' => array(
+ *            'key' => 'city',
+ *            'compare' => 'EXISTS',
+ *        ),
+ *    ),
+ *    'orderby' => array(
+ *        'city_clause' => 'ASC',
+ *        'state_clause' => 'DESC',
+ *    ),
+ *) );
  */
 /**
  * The public-facing functionality of the plugin.
