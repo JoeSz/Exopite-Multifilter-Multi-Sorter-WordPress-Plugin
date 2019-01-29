@@ -7,7 +7,7 @@ Tested up to: 4.9.8
 Stable tag: 4.9.8
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
-Version: 20180929
+Version: 20190129
 
 AJAX sorter/filter any post types by multiple taxonomies and/or terms (like post by categories and/or tags).
 
@@ -17,7 +17,7 @@ IMPORTANT<br />
 From version 20180921<br />
 * taxonomies_terms changed to include_taxonomies, select posts in taxonomies, terms are not allowed<br />
 filter will be displayed default.
-* Update URL changed, need to update manually!
+* Update URL changed, need to update manually once!
 
 Exopite multifilter, mutlisortable, multi selectable, multi filterable sortable Wordpress Plugin
 
@@ -65,6 +65,7 @@ With Lazy load the masonry-desandro type not working completly nice.
 * 'posts_per_row'               => ['1' - '4'] how many posts per row per shortcode
 * 'display_title'               => ['true' or 'false'] display post title
 * 'display_filter'              => ['true' or 'false'] display filter
+* 'display_filter_title'        => ['true' or 'false'] display filter title
 * 'blog_layout'                 => ['top', 'left', 'right', 'zigzag' or 'none']
 * 'no-gap'                      => ['true' or 'false'] hide gap between post
 * 'except_lenght'               => ['number'] the lenght of the exceprt by words, '0' means no exceprt
@@ -124,6 +125,21 @@ https://tympanus.net/Development/HoverEffectIdeas/index2.html
 * 'timeline-sub-date'           => [string/html] content under the timline date.
 * 'timeline-date-format'        => ['date-string' eg.: 'j. F Y'] date format, <b> tag allowed, uses date_i18n.
 * 'timeline-sticky'             => ['true' or 'false'] make date sticky on scroll.
+
+== Hooks (filters) ==
+
+exopite-multifilter-thumbnail-image-url
+exopite-multifilter-thumbnail-oembed-url
+exopite-multifilter-thumbnail-link-url
+exopite-multifilter-thumbnail-video_url
+exopite-multifilter-thumbnail-link-target
+exopite-multifilter-filter-taxonomy-name
+exopite-multifilter-article-thumbnail
+exopite-multifilter-article-link
+exopite-multifilter-article-link-target
+exopite-multifilter-article-wrapper-begin
+exopite-multifilter-article-wrapper-end
+
 == Installation ==
 
 1. Upload `exopite-multifilter` files to the `/wp-content/plugins/exopite-multifilter` directory
@@ -146,6 +162,21 @@ OR
 Taxonomies_terms changed  to include_taxonomies, (select posts in taxonomies) terms are not allowed, filter displayed by default!
 
 == Changelog ==
+
+= 20190129 - 2019-01-29 =
+* Added: display filter title.
+* Added hooks (filters):
+	exopite-multifilter-thumbnail-image-url
+	exopite-multifilter-thumbnail-oembed-url
+	exopite-multifilter-thumbnail-link-url
+	exopite-multifilter-thumbnail-video_url
+	exopite-multifilter-thumbnail-link-target
+	exopite-multifilter-filter-taxonomy-name
+	exopite-multifilter-article-thumbnail
+	exopite-multifilter-article-link
+	exopite-multifilter-article-link-target
+	exopite-multifilter-article-wrapper-begin
+	exopite-multifilter-article-wrapper-end
 
 = 20180993 - 2018-09-29 =
 * Added: oembed as thumbnail from post meta.

@@ -2,7 +2,7 @@
 ## WordPress Plugin
 
 - Author: Joe Szalai
-- Version: 20180929
+- Version: 20190129
 - GitHub URL: https://github.com/JoeSz/exopite-multifilter/
 - Plugin URL: https://www.joeszalai.org/exopite/multifilter/
 - Demo URL: https://www.joeszalai.org/exopite/multifilter/exopite-multifilter-demos/
@@ -13,10 +13,10 @@
 IMPORTANT
 -----------
 
-From version 20180921
+From version 20190129
 * taxonomies_terms changed to include_taxonomies, select posts in taxonomies, terms are not allowed<br />
 filter will be displayed default.
-* Update URL changed, need to update manually!
+* Update URL changed, need to update manually once!
 
 DESCRIPTION
 -----------
@@ -89,6 +89,7 @@ Available options
 | `display_title`                    | ['true' or 'false'] display post title                                       | false
 | `display_pagination`               | ['true' or 'false'] display pagination                                       | true
 | `display_filter`                   | ['true' or 'false'] display filter                                           | true
+| `display_filter_title`             | ['true' or 'false'] display filter title                                     | true
 | `blog_layout`                      | ['top', 'left', 'right', 'zigzag' or 'none']                                 | top
 | `no-gap`                           | ['true' or 'false'] hide gap between post                                    | false
 | `except_lenght`                    | ['number'] the lenght of the exceprt by words, '0' means no exceprt          | 0
@@ -146,6 +147,19 @@ Available options
 | `timeline-date-format`             | ['date-string'] date format, <b> tag allowed, uses date_i18n. | 'j. F Y'
 | `timeline-sticky`                  | ['true' or 'false'] make date sticky on scroll. | true
 
+HOOKS (FILTERS)
+---------------
+exopite-multifilter-thumbnail-image-url
+exopite-multifilter-thumbnail-oembed-url
+exopite-multifilter-thumbnail-link-url
+exopite-multifilter-thumbnail-video_url
+exopite-multifilter-thumbnail-link-target
+exopite-multifilter-filter-taxonomy-name
+exopite-multifilter-article-thumbnail
+exopite-multifilter-article-link
+exopite-multifilter-article-link-target
+exopite-multifilter-article-wrapper-begin
+exopite-multifilter-article-wrapper-end
 
 INSTALLATION
 ------------
@@ -182,6 +196,21 @@ PLANNED
 
 CHANGELOG
 ---------
+
+= 20190129 - 2019-01-29 =
+* Added: display filter title.
+* Added hooks (filters):
+    exopite-multifilter-thumbnail-image-url
+    exopite-multifilter-thumbnail-oembed-url
+    exopite-multifilter-thumbnail-link-url
+    exopite-multifilter-thumbnail-video_url
+    exopite-multifilter-thumbnail-link-target
+    exopite-multifilter-filter-taxonomy-name
+    exopite-multifilter-article-thumbnail
+    exopite-multifilter-article-link
+    exopite-multifilter-article-link-target
+    exopite-multifilter-article-wrapper-begin
+    exopite-multifilter-article-wrapper-end
 
 = 20180929 - 2018-09-29 =
 * Added: oembed as thumbnail from post meta.
