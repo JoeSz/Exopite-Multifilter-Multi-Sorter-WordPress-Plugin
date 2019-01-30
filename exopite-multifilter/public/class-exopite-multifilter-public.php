@@ -407,7 +407,7 @@ class Exopite_Multifilter_Public {
             if ( ! empty( $terms ) && ! is_wp_error( $terms ) ) {
                 $ret .= '<div class="exopite-multifilter-filter-taxonomy exopite-multifilter-filter-taxonomy-' . $taxonomy->name . '" data-post-type="' . $selected_post_type . '" data-multiselect="' . $is_multifilter . '" data-taxonomy="' . $taxonomy->name . '">';
 
-                if ( $display_filter_title ) {
+                if ( $display_filter_title && $display_filter_title !== 'false' ) {
 
                     $ret .= apply_filters( 'exopite-multifilter-filter-taxonomy-name', '<span class="exopite-multifilter-filter-item exopite-multifilter-filter-item-' . $taxonomy->name . '">' . $taxonomy->name . '</span>', $taxonomy->name, $selected_post_type );
 
