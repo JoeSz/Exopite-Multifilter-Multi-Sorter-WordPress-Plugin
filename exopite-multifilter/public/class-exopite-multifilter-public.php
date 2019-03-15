@@ -182,9 +182,9 @@ class Exopite_Multifilter_Public {
         wp_register_script( 'slick', $slick_js_url, array( 'jquery' ), filemtime( $slick_js_path), true );
 
         // sticky-kit
-        $sticky_kit_js_url  = plugin_dir_url( __FILE__ ) . 'js/jquery.sticky-kit.min.js';
-        $sticky_kit_js_path = plugin_dir_path( __FILE__ ) . DIRECTORY_SEPARATOR . 'js' . DIRECTORY_SEPARATOR . 'jquery.sticky-kit.min.js';
-        wp_register_script( 'sticky-kit', $sticky_kit_js_url, array( 'jquery' ), filemtime( $sticky_kit_js_path), true );
+        // $sticky_kit_js_url  = plugin_dir_url( __FILE__ ) . 'js/jquery.sticky-kit.min.js';
+        // $sticky_kit_js_path = plugin_dir_path( __FILE__ ) . DIRECTORY_SEPARATOR . 'js' . DIRECTORY_SEPARATOR . 'jquery.sticky-kit.min.js';
+        // wp_register_script( 'sticky-kit', $sticky_kit_js_url, array( 'jquery' ), filemtime( $sticky_kit_js_path), true );
 
         // if plugin main Javascript file is not yes registered, then register it
         if ( ! wp_script_is( $this->plugin_name, 'registered' ) ) {
@@ -1456,11 +1456,11 @@ class Exopite_Multifilter_Public {
         $ret .= '" ';
 
         // CAROUSEL
-        if ( $args['style'] == 'timeline' &&
-             ( $args['timeline-sticky'] === true || $args['timeline-sticky'] === 'true' )
-           ) {
-            wp_enqueue_script( 'sticky-kit' );
-        }
+        // if ( $args['style'] == 'timeline' &&
+        //      ( $args['timeline-sticky'] === true || $args['timeline-sticky'] === 'true' )
+        //    ) {
+        //     wp_enqueue_script( 'sticky-kit' );
+        // }
 
         // CAROUSEL
         if ( $args['style'] == 'carousel' ) {
