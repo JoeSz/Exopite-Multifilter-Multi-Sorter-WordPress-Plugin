@@ -14,6 +14,7 @@
  * - Get_articles and exopite_multifilter_shortcode function grow too big,
  *   should break down to multiple function.
  *
+ *
  * $q = new WP_Query( array(
  *    'meta_query' => array(
  *        'relation' => 'AND',
@@ -627,13 +628,40 @@ class Exopite_Multifilter_Public {
 
     }
 
+    function get_post_status( $args ) {
+
+        $post_status = array();
+        $post_statuses_raw = explode( ',', preg_replace( '/\s+/', '', $args['post_status'] ) );
+        $valid_post_statuses = array(
+            'publish',
+            'pending',
+            'draft',
+            'auto-draft',
+            'future',
+            'private',
+            'inherit',
+            'trash',
+            'any',
+        );
+        foreach ( $post_statuses_raw as $post_status_raw ) {
+            if ( in_array( $post_status_raw, $valid_post_statuses ) ) {
+                $post_status[] = $post_status_raw;
+            }
+        }
+
+        return $post_status;
+
+    }
+
     function get_articles( $args ) {
+
+
 
         // WP_Query: http://www.billerickson.net/code/wp_query-arguments/
         // Set post type
         $args['query'] = array(
-            'post_status'   => 'publish',
-            's'             => $args['search'],
+            'post_status'   => $this->get_post_status( $args ),
+            's'             => esc_attr( $args['search'] ),
         );
 
         if ( ! empty( $args['post_not_in'] ) ) {
@@ -1011,7 +1039,8 @@ class Exopite_Multifilter_Public {
                     $no_link = ! empty( $target );
                     $meta = '';
                     $article_content = '<div class="entry-content-container">';
-                    if ( count( $args['display_metas'] ) > 0 ) {
+
+                    if ( is_array( $args['display_metas'] ) && count( $args['display_metas'] ) > 0 ) {
                         $meta = '<div class="entry-metas">' . $this->display_metas( $args, $post_id, $no_link ) . '</div>';
                     }
                     if ( $args['style'] != 'timeline' ) {
@@ -1153,6 +1182,7 @@ class Exopite_Multifilter_Public {
         $args = shortcode_atts(
             array(
                 'post_type'                 => 'post',
+                'post_status'               => 'publish',
                 'posts_per_page'            => 4,
                 'posts_per_row'             => 2,                   // 1, 2, 3, 4, 6
                 'display_title'             => false,
