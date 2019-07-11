@@ -3,11 +3,11 @@ Contributors: Joe Szalai
 Donate link: https://www.joeszalai.org
 Tags: multisort, sort, filter, miltiple filter, custom post type filter, AJAX infinite load, AJAX load more, AJAX pagination, AJAX search
 Requires at least: 4.7.0
-Tested up to: 5.0.3
-Stable tag: 5.0.3
+Tested up to: 5.2.2
+Stable tag: 4.8.0
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
-Version: 20190129
+Version: 20190711
 
 AJAX sorter/filter any post types by multiple taxonomies and/or terms (like post by categories and/or tags).
 
@@ -61,6 +61,7 @@ With Lazy load the masonry-desandro type not working completly nice.
 == Available options ==
 
 * 'post_type'                   => ['post-type-slug'] as post type slug
+* 'post_status'                 => ['post status'] comma separated list
 * 'posts_per_page'              => ['number'] how many post per page per shortcode
 * 'posts_per_row'               => ['1' - '4'] how many posts per row per shortcode
 * 'display_title'               => ['true' or 'false'] display post title
@@ -162,6 +163,9 @@ OR
 Taxonomies_terms changed  to include_taxonomies, (select posts in taxonomies) terms are not allowed, filter displayed by default!
 
 == Changelog ==
+
+= 20190711 - 2019-07-11 =
+* Added: Post status
 
 = 20190129 - 2019-01-29 =
 * Added: display filter title.

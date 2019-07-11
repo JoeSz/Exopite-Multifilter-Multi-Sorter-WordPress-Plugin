@@ -16,7 +16,7 @@
  * Plugin Name:       Exopite multi-selectable AJAX sorter for any post types
  * Plugin URI:        https://joe.szalai.org/exopite/multifilter
  * Description:       Multi-selectable AJAX sorter for any post types. Working with taxonomies and terms as filters (e.g.: for post: categories and tags).
- * Version:           20190129
+ * Version:           20190711
  * Author:            Joe Szalai
  * Author URI:        https://www.joeszalai.org
  * License:           GPL-2.0+
@@ -24,8 +24,8 @@
  * Text Domain:       exopite-multifilter
  * Domain Path:       /languages
  * Requires at least: 4.7.0
- * Tested up to:      4.9.8
- * Stable tag:        4.9.8
+ * Tested up to:      5.2.2
+ * Stable tag:        4.8.0
  */
 /**
  * ToDo:

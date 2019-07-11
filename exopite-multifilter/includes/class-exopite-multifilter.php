@@ -72,7 +72,7 @@ class Exopite_Multifilter {
 	public function __construct() {
 
 		$this->plugin_name = 'exopite-multifilter';
-		$this->version = '1.0.0';
+		$this->version = '20190711';
 
 		$this->load_dependencies();
 		$this->set_locale();

@@ -2,7 +2,7 @@
 ## WordPress Plugin
 
 - Author: Joe Szalai
-- Version: 20190129
+- Version: 20190711
 - GitHub URL: https://github.com/JoeSz/exopite-multifilter/
 - Plugin URL: https://www.joeszalai.org/exopite/multifilter/
 - Demo URL: https://www.joeszalai.org/exopite/multifilter/exopite-multifilter-demos/
@@ -13,7 +13,7 @@
 IMPORTANT
 -----------
 
-From version 20190129
+From version 20190711
 * taxonomies_terms changed to include_taxonomies, select posts in taxonomies, terms are not allowed<br />
 filter will be displayed default.
 * Update URL changed, need to update manually once!
@@ -84,6 +84,7 @@ Available options
 | Options                            | Values                                                                       | Defaults
 | ---------------------------------- | ---------------------------------------------------------------------------- | --------
 | `post_type`                        | ['post-type-slug'] as post type slug                                         | post
+| `post_status`                      | ['post-status'] comma separated list                                         | publish
 | `posts_per_page`                   | ['number'] how many post per page per shortcode                              | 4
 | `posts_per_row`                    | ['1' - '4'] how many posts per row per shortcode                             | 2
 | `display_title`                    | ['true' or 'false'] display post title                                       | false
@@ -196,6 +197,9 @@ PLANNED
 
 CHANGELOG
 ---------
+
+= 20190711 - 2019-07-11 =
+* Added: Post status
 
 = 20190129 - 2019-01-29 =
 * Added: display filter title.
