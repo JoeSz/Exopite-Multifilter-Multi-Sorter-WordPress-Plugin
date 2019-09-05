@@ -1178,6 +1178,10 @@ class Exopite_Multifilter_Public {
      */
     function exopite_multifilter_shortcode( $atts ) {
 
+        if ( is_admin() ) {
+            return;
+        }
+
         // Get atts and defaults.
         $args = shortcode_atts(
             array(
