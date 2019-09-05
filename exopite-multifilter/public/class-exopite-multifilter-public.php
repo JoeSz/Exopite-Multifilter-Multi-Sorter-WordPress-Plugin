@@ -101,7 +101,7 @@ class Exopite_Multifilter_Public {
         $version = ( $this->development ) ? 'dev' : 'min';
 
         // If Exopite Code plugin not inastalled and activated get Bootstrap 4 grid only
-        if ( ! defined( EXOPITE_CORE_URL ) ) {
+        if ( ! defined( 'EXOPITE_CORE_URL' ) ) {
             if ( ! wp_style_is( 'bootstrap' ) && ! wp_style_is( 'bootstrap-41' ) ) {
 
                 /*
@@ -152,7 +152,7 @@ class Exopite_Multifilter_Public {
         $version = ( $this->development ) ? 'dev' : 'min';
 
 		// If Exopite Code plugin not inastalled and activated get core JavaScript functions
-        if ( ! defined( EXOPITE_CORE_URL ) || ! wp_script_is( 'exopite-core-js' ) ) {
+        if ( ! defined( 'EXOPITE_CORE_URL' ) || ! wp_script_is( 'exopite-core-js' ) ) {
 
             // https://www.doitwithwp.com/enqueue-scripts-styles-automatic-versioning/
             $core_js_url  = plugin_dir_url( __FILE__ ) . 'js/exopite-core.' . $version . '.js';
