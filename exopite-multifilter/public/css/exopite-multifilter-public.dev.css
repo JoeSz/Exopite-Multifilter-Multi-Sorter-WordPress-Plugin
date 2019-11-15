@@ -671,9 +671,10 @@
     /* width: 100%;
     float: left; */
     width: 100%;
-    float: left;
+    /* float: left; */
     height: 100%;
     position: absolute;
+    object-fit: cover;
 }
 .exopite-multifilter-container .single-column.image-zigzag:nth-child(2n+1) .btn-readmore {
     float: right;
