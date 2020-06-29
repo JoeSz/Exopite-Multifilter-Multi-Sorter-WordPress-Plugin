@@ -976,6 +976,10 @@ class Exopite_Multifilter_Public {
 
                 }
 
+                if ( empty( $thumbnail_size ) ) {
+                    $thumbnail_size = 'medium';
+                }
+
                 if ( $args['no-gap'] ) {
                     $classes[] = 'no-gap';
                 }
