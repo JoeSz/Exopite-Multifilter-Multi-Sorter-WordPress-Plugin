@@ -240,7 +240,7 @@ class Exopite_Multifilter_Public {
         $post_password_required = post_password_required();
 
         $thumbnail_url = wp_get_attachment_image_src( get_post_thumbnail_id( $post_id ), $thumbnail_size );
-        $image_url = $thumbnail_url['0'];
+        $image_url = ( isset( $thumbnail_url['0'] ) ) ? $thumbnail_url['0'] : '';
 
         $class = '';
 
