@@ -3,11 +3,11 @@ Contributors: Joe Szalai
 Donate link: https://www.joeszalai.org
 Tags: multisort, sort, filter, miltiple filter, custom post type filter, AJAX infinite load, AJAX load more, AJAX pagination, AJAX search
 Requires at least: 4.7.0
-Tested up to: 5.2.2
+Tested up to: 5.5.1
 Stable tag: 4.8.0
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
-Version: 20190711
+Version: 20201020
 
 AJAX sorter/filter any post types by multiple taxonomies and/or terms (like post by categories and/or tags).
 
@@ -163,6 +163,9 @@ OR
 Taxonomies_terms changed  to include_taxonomies, (select posts in taxonomies) terms are not allowed, filter displayed by default!
 
 == Changelog ==
+
+= 20201020 - 2020-10-20 =
+* Fixed: Uncaught ReferenceError: changeBrowserUrl is not defined
 
 = 20190711 - 2019-07-11 =
 * Added: Post status

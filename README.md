@@ -2,7 +2,7 @@
 ## WordPress Plugin
 
 - Author: Joe Szalai
-- Version: 20190711
+- Version: 20201020
 - GitHub URL: https://github.com/JoeSz/exopite-multifilter/
 - Plugin URL: https://www.joeszalai.org/exopite/multifilter/
 - Demo URL: https://www.joeszalai.org/exopite/multifilter/exopite-multifilter-demos/
@@ -197,6 +197,9 @@ PLANNED
 
 CHANGELOG
 ---------
+
+= 20201020 - 2020-10-20 =
+* Fixed: Uncaught ReferenceError: changeBrowserUrl is not defined
 
 = 20190711 - 2019-07-11 =
 * Added: Post status
