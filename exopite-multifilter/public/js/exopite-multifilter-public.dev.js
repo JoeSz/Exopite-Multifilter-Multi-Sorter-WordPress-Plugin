@@ -263,7 +263,7 @@
 
                             // Update url in browser URL field
                             if (dataJSON.update_paged && pagedUrl != window.location) {
-                                changeBrowserUrl(pagedUrl);
+                                Exopite.changeBrowserUrl(pagedUrl);
                             }
 
                             // Insert pagination if not infinite
@@ -347,7 +347,7 @@
                             var link = $(el).data('page');
                             if (isElementInViewport(el)) {
                                 if (window.location.href == link) return;
-                                changeBrowserUrl(link);
+                                Exopite.changeBrowserUrl(link);
                             }
                         });
                     }
