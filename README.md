@@ -200,6 +200,7 @@ CHANGELOG
 
 = 20201020 - 2020-10-20 =
 * Fixed: Uncaught ReferenceError: changeBrowserUrl is not defined
+* Fixed: Uncaught ReferenceError: isElementInViewport is not defined
 
 = 20190711 - 2019-07-11 =
 * Added: Post status
