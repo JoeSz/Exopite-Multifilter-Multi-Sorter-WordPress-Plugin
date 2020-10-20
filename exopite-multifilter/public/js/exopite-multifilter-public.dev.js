@@ -345,7 +345,7 @@
                     if (dataJSON.update_paged) {
                         $('[data-page]').each(function (idx, el) {
                             var link = $(el).data('page');
-                            if (isElementInViewport(el)) {
+                            if (Exopite.isElementInViewport(el)) {
                                 if (window.location.href == link) return;
                                 Exopite.changeBrowserUrl(link);
                             }
