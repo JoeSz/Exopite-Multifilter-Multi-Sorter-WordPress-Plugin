@@ -966,6 +966,7 @@ class Exopite_Multifilter_Public {
                     if ( $args['style'] == 'timeline' ) {
                         $classes[] = 'single-column';
                         $classes[] = 'timeline-item';
+                        $thumbnail_size = $args['thumbnail-size-multi-row'];
                     } else {
 
                         $classes[] = 'single-column';
