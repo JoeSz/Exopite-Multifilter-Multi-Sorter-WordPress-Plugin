@@ -74,7 +74,7 @@ You can use multiple shortcodes on the same page/post. On posts with 'pretty' pe
 
 Examples:
 * To display posts with a selected categories, eg.:
-`[exopite-multifilter thumbnail-size-single-row="your-big-size" thumbnail-size-multi-row="your-small-size" posts_per_page="6" posts_per_row="3" effect="goliath" pagination="readmore" taxonomy_terms__in="category(cat1-slug, cat1-slug)"]`
+`[exopite-multifilter thumbnail-size-single-row="your-big-size" thumbnail-size-multi-row="your-small-size" posts_per_page="6" posts_per_row="3" effect="goliath" pagination="readmore" taxonomy_terms__in="category(cat1-slug|cat1-slug)"]`
 * Custom post type, eg.:
 `[exopite-multifilter post_type="exopite-portfolio" thumbnail-size-single-row="blog-list-full" thumbnail-size-multi-row="blog-list-multiple" taxonomies_terms="exopite-portfolio-category, exopite-portfolio-tag"]`
 * `[exopite-multifilter thumbnail-size-single-row="blog-list-full" thumbnail-size-multi-row="blog-list-multiple"]`
@@ -100,7 +100,7 @@ Available options
 | `thumbnail-size-single-row`        | ['thumbnail-size-slug'] thumbnail size for single post per row               | full
 | `thumbnail-size-multi-row`         | ['thumbnail-size-slug'] thumbnail size for multipe post per row              | large
 | `include_taxonomies`               | ['category, post_tag' or 'post_tag' etc...] display selected taxonomies       | category
-| `taxonomy_terms__in`               | ['category(term1, terms2, ...)] display selected terms in taxonomy            |
+| `taxonomy_terms__in`               | ['category(term1|terms2|...)] display selected terms in taxonomy            |
 | `in_all_taxnomies`                 | ['true' or 'false'] If true, match all taxonomy queries (subtractive query), otherwise posts which match at least one taxonomy query (additive query) | true
 | `update_paged`                     | ['true' or 'false'] Update page in browser URL bar on readmore and infinite loading based on viewport | false
 | `display_page_number`              | ['true' or 'false'] Show page number between loads in infinite and readmore  | false
