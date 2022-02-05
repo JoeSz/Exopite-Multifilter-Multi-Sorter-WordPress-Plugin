@@ -220,7 +220,7 @@ class Exopite_Multifilter_Public {
     function _get_all_image_sizes() {
         global $_wp_additional_image_sizes;
 
-        $default_image_sizes = array( 'thumbnail', 'medium', 'medium_large', 'large' );
+        $default_image_sizes = array( 'thumbnail', 'medium', 'medium_large', 'large', 'full' );
 
         foreach ( $default_image_sizes as $size ) {
             $image_sizes[ $size ][ 'width' ] = intval( get_option( "{$size}_size_w" ) );
@@ -252,7 +252,7 @@ class Exopite_Multifilter_Public {
         $effect .= ( $post_password_required ) ? ' image-protected' : '';
 
         $ret = '';
-
+/*
         if ( empty( $image_url ) ) {
 
             $image_sizes = $this->_get_all_image_sizes();
@@ -263,7 +263,7 @@ class Exopite_Multifilter_Public {
 
             // $image_url = apply_filters( 'exopite-multifilter-placeholder-image', 'http://lorempixel.com/' . $image_sizes[$thumbnail_size]['width'] . '/' . $image_sizes[$thumbnail_size]['height'] . '/technics/' );
         }
-
+*/
         $ret .= '<div class="entry-thumbnail-container clearfix' . $class . '">';
 
         if ( $args['gallery_mode'] ) {
@@ -304,7 +304,13 @@ class Exopite_Multifilter_Public {
 
             $ret .= '<a href="' . $link_url . '"' . $target . '>';
 
-            $ret .= '<figure class="effect-multifilter' . $effect . ' entry-thumbnail">'; //for animation
+            $classes = 'effect-multifilter' . $effect . ' entry-thumbnail';
+
+            if ( empty( $image_url ) ) {
+                $classes .= " dummy-image";
+            }
+
+            $ret .= '<figure class="' . $classes . '">'; //for animation
 
             // $ret .= ( $post_password_required ) ? '' : '<img src="' . $url . '" alt="thumbnail">';
 
@@ -322,7 +328,22 @@ class Exopite_Multifilter_Public {
                  * - display metas on demand
                  */
 
-                $ret .= '<img src="' . $image_url . '" alt="thumbnail">';
+                if ( empty( $image_url ) ) {
+
+                    $image_sizes = $this->_get_all_image_sizes();
+                    $image_sizes_w = ( $image_sizes[$thumbnail_size]['width'] < 100 ) ? 200 : $image_sizes[$thumbnail_size]['width'];
+                    $image_sizes_h = ( $image_sizes[$thumbnail_size]['height'] < 100 ) ? 200 : $image_sizes[$thumbnail_size]['height'];
+
+                    //$image_url = apply_filters( 'exopite-multifilter-placeholder-image', 'https://dummyimage.com/' . $image_sizes_w . 'x' . $image_sizes_h . '/cccccc/fff.gif' );
+
+                    $image_url = apply_filters( 'exopite-multifilter-placeholder-image', 'data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw== ' );
+
+                    $ret .= '<img src="' . $image_url . '" alt="thumbnail" style="width:' . $image_sizes_w . 'px;height:auto;">';
+
+                    // $image_url = apply_filters( 'exopite-multifilter-placeholder-image', 'http://lorempixel.com/' . $image_sizes[$thumbnail_size]['width'] . '/' . $image_sizes[$thumbnail_size]['height'] . '/technics/' );
+                } else {
+                    $ret .= '<img src="' . $image_url . '" alt="thumbnail">';
+                }
 
                 $ret .= '<figcaption>';
                 $ret .= '<div class="figure-caption animation">';
