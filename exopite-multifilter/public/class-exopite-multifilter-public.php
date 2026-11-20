@@ -182,6 +182,11 @@ class Exopite_Multifilter_Public {
         $slick_js_path = plugin_dir_path( __FILE__ ) . DIRECTORY_SEPARATOR . 'js' . DIRECTORY_SEPARATOR . 'slick.' . $version . '.js';
         wp_register_script( 'slick', $slick_js_url, array( 'jquery' ), filemtime( $slick_js_path), true );
 
+        // Starts the carousels (was inside the bundled slick.js before slick 2.0.1).
+        $slick_init_js_url  = plugin_dir_url( __FILE__ ) . 'js/exopite-multifilter-slick.' . $version . '.js';
+        $slick_init_js_path = plugin_dir_path( __FILE__ ) . 'js' . DIRECTORY_SEPARATOR . 'exopite-multifilter-slick.' . $version . '.js';
+        wp_register_script( 'exopite-multifilter-slick', $slick_init_js_url, array( 'jquery', 'slick' ), filemtime( $slick_init_js_path ), true );
+
         // sticky-kit
         // $sticky_kit_js_url  = plugin_dir_url( __FILE__ ) . 'js/jquery.sticky-kit.min.js';
         // $sticky_kit_js_path = plugin_dir_path( __FILE__ ) . DIRECTORY_SEPARATOR . 'js' . DIRECTORY_SEPARATOR . 'jquery.sticky-kit.min.js';
@@ -1526,6 +1531,7 @@ class Exopite_Multifilter_Public {
         if ( $args['style'] == 'carousel' ) {
 
             wp_enqueue_script( 'slick' );
+            wp_enqueue_script( 'exopite-multifilter-slick' );
             wp_enqueue_style( 'slick' );
             wp_enqueue_style( 'slick-theme' );
 

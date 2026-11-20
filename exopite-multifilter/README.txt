@@ -7,7 +7,7 @@ Tested up to: 5.5.1
 Stable tag: 4.8.0
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
-Version: 20201020
+Version: 20261120
 
 AJAX sorter/filter any post types by multiple taxonomies and/or terms (like post by categories and/or tags).
 
@@ -163,6 +163,10 @@ OR
 Taxonomies_terms changed  to include_taxonomies, (select posts in taxonomies) terms are not allowed, filter displayed by default!
 
 == Changelog ==
+
+= 20261120 - 2026-11-20 =
+* Update: slick carousel 1.8.1 to 2.0.1 (jQuery 4 compatible, RTL and centerMode fixes, woff2 font)
+* Change: the carousel start code was inside the bundled slick.js, now in js/exopite-multifilter-slick.(dev|min).js, so slick stays unchanged; slidesToShow / slidesToScroll / slidesPerRow below 1 fall back to 1 (instead of the infinite loop guard patched into slick)
 
 = 20201020 - 2020-10-20 =
 * Fixed: Uncaught ReferenceError: changeBrowserUrl is not defined
